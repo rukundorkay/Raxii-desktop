@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:raxii_desktop/app/routes/app_pages.dart';
 
 class LoginController extends GetxController {
   final phoneNumber = ''.obs;
@@ -16,11 +17,7 @@ class LoginController extends GetxController {
   Future<void> login() async {
     try {
       isLoading.value = true;
-      // TODO: Implement login logic here
-      await Future.delayed(const Duration(seconds: 2)); // Simulated API call
-      
-      // Example navigation after successful login
-      // Get.offAllNamed('/home');
+      Get.offAllNamed(Routes.CHECKIN);
     } catch (e) {
       Get.snackbar(
         'Error',
@@ -31,4 +28,4 @@ class LoginController extends GetxController {
       isLoading.value = false;
     }
   }
-} 
+}

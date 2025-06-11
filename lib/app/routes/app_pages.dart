@@ -1,7 +1,8 @@
 import 'package:get/get.dart';
-import '../modules/login/views/login_view.dart';
-import '../modules/login/controllers/login_controller.dart';
-
+import 'package:raxii_desktop/app/modules/checkin/bindings/checkin_binding.dart';
+import 'package:raxii_desktop/app/modules/checkin/views/checkin_view.dart';
+import 'package:raxii_desktop/app/modules/login/bindings/login_binding.dart';
+import 'package:raxii_desktop/app/modules/login/views/login_view.dart';
 part 'app_routes.dart';
 
 class AppPages {
@@ -11,9 +12,12 @@ class AppPages {
     GetPage(
       name: Routes.LOGIN,
       page: () => const LoginView(),
-      binding: BindingsBuilder(() {
-        Get.lazyPut<LoginController>(() => LoginController());
-      }),
+      binding: LoginBinding(),
+    ),
+    GetPage(
+      name: Routes.CHECKIN,
+      page: () => const CheckinView(),
+      binding: CheckinBinding(),
     ),
   ];
-} 
+}
