@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
 
-class CheckinController extends GetxController {
+class HomeController extends GetxController {
   // Observable variables
-  final RxBool isBarcodeSearch = true.obs;
+  final RxBool isBarcodeSearch = false.obs;
   final RxString searchQuery = ''.obs;
   final RxInt selectedTabIndex = 0.obs;
 

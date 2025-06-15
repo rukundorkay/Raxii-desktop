@@ -17,7 +17,7 @@ class LoginController extends GetxController {
   Future<void> login() async {
     try {
       isLoading.value = true;
-      Get.offAllNamed(Routes.CHECKIN);
+      Get.offAllNamed(Routes.HOME);
     } catch (e) {
       Get.snackbar(
         'Error',

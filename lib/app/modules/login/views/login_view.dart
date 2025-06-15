@@ -4,6 +4,7 @@ import '../controllers/login_controller.dart';
 import 'package:raxii_desktop/app/modules/login/widgets/background_painter.dart';
 import 'package:raxii_desktop/app/theme/app_colors.dart';
 import 'package:raxii_desktop/app/shared/app_path.dart';
+import 'package:raxii_desktop/app/shared/size.dart';
 
 class LoginView extends GetView<LoginController> {
   const LoginView({Key? key}) : super(key: key);
@@ -39,7 +40,7 @@ class LoginView extends GetView<LoginController> {
               child: Center(
                 child: SingleChildScrollView(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 60),
+                    padding: EdgeInsets.symmetric(horizontal: AppSpaceSize.medium),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,7 +53,7 @@ class LoginView extends GetView<LoginController> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        const SizedBox(height: 8),
+                        SizedBox(height: AppSpaceSize.tiny),
                         Text(
                           'Please sign in to continue',
                           style: TextStyle(
@@ -60,7 +61,7 @@ class LoginView extends GetView<LoginController> {
                             fontSize: 16,
                           ),
                         ),
-                        const SizedBox(height: 48),
+                        SizedBox(height: AppSpaceSize.huge),
                         TextField(
                           style: TextStyle(color: AppColors.secondary),
                           onChanged: controller.setPhoneNumber,
@@ -71,13 +72,13 @@ class LoginView extends GetView<LoginController> {
                             filled: true,
                             fillColor: AppColors.softGray,
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12),
+                              borderRadius: BorderRadius.circular(AppSpaceSize.tiny),
                               borderSide: BorderSide.none,
                             ),
                           ),
                           keyboardType: TextInputType.phone,
                         ),
-                        const SizedBox(height: 20),
+                        SizedBox(height: AppSpaceSize.defaultS),
                         TextField(
                           obscureText: true,
                           style: TextStyle(color: AppColors.secondary),
@@ -89,12 +90,12 @@ class LoginView extends GetView<LoginController> {
                             filled: true,
                             fillColor: AppColors.softGray,
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12),
+                              borderRadius: BorderRadius.circular(AppSpaceSize.tiny),
                               borderSide: BorderSide.none,
                             ),
                           ),
                         ),
-                        const SizedBox(height: 30),
+                        SizedBox(height: AppSpaceSize.medium),
                         SizedBox(
                           width: double.infinity,
                           child: ElevatedButton(
@@ -102,10 +103,10 @@ class LoginView extends GetView<LoginController> {
                                 ? null
                                 : controller.login,
                             style: ElevatedButton.styleFrom(
-                              padding: const EdgeInsets.symmetric(vertical: 16),
+                              padding: EdgeInsets.symmetric(vertical: AppSpaceSize.defaultS),
                               backgroundColor: AppColors.primary,
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
+                                borderRadius: BorderRadius.circular(AppSpaceSize.tiny),
                               ),
                             ),
                             child: controller.isLoading.value

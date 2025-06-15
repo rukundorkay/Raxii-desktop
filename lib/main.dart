@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:raxii_desktop/app/shared/dependency.dart';
 import 'app/routes/app_pages.dart';
+import 'app/theme/app_theme.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  
   runApp(
     GetMaterialApp(
-      title: "Raxii Desktop",
+      title: "Raxii",
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
-      initialBinding: InitialBinding(),
+      theme: AppTheme.lightTheme,
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
     ),
   );
 }
