@@ -40,7 +40,8 @@ class LoginView extends GetView<LoginController> {
               child: Center(
                 child: SingleChildScrollView(
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: AppSpaceSize.medium),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: AppSpaceSize.medium),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -72,7 +73,8 @@ class LoginView extends GetView<LoginController> {
                             filled: true,
                             fillColor: AppColors.softGray,
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(AppSpaceSize.tiny),
+                              borderRadius:
+                                  BorderRadius.circular(AppSpaceSize.tiny),
                               borderSide: BorderSide.none,
                             ),
                           ),
@@ -90,36 +92,46 @@ class LoginView extends GetView<LoginController> {
                             filled: true,
                             fillColor: AppColors.softGray,
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(AppSpaceSize.tiny),
+                              borderRadius:
+                                  BorderRadius.circular(AppSpaceSize.tiny),
                               borderSide: BorderSide.none,
                             ),
                           ),
                         ),
                         SizedBox(height: AppSpaceSize.medium),
-                        SizedBox(
-                          width: double.infinity,
-                          child: ElevatedButton(
-                            onPressed: controller.isLoading.value
-                                ? null
-                                : controller.login,
-                            style: ElevatedButton.styleFrom(
-                              padding: EdgeInsets.symmetric(vertical: AppSpaceSize.defaultS),
-                              backgroundColor: AppColors.primary,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(AppSpaceSize.tiny),
+                        Obx(
+                          () => SizedBox(
+                            width: double.infinity,
+                            child: ElevatedButton(
+                              onPressed: controller.isLoading.value
+                                  ? null
+                                  : controller.login,
+                              style: ElevatedButton.styleFrom(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: AppSpaceSize.defaultS),
+                                backgroundColor: AppColors.primary,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(AppSpaceSize.tiny),
+                                ),
                               ),
-                            ),
-                            child: controller.isLoading.value
-                                ? CircularProgressIndicator(
-                                    color: AppColors.black)
-                                : Text(
-                                    'Login',
-                                    style: TextStyle(
-                                      color: AppColors.black,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
+                              child: controller.isLoading.value
+                                  ? SizedBox(
+                                      height: 20,
+                                      width: 20,
+                                      child: CircularProgressIndicator(
+                                        color: AppColors.black,
+                                      ),
+                                    )
+                                  : Text(
+                                      'Login',
+                                      style: TextStyle(
+                                        color: AppColors.black,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
-                                  ),
+                            ),
                           ),
                         ),
                       ],

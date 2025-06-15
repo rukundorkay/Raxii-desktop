@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:raxii_desktop/app/core/services/auth_service.dart';
 import 'package:raxii_desktop/app/routes/app_pages.dart';
 
 class LoginController extends GetxController {
@@ -15,14 +16,39 @@ class LoginController extends GetxController {
   }
 
   Future<void> login() async {
-    try {
-      isLoading.value = true;
-      Get.offAllNamed(Routes.HOME);
-    } catch (e) {
+    if (phoneNumber.value.isEmpty || password.value.isEmpty) {
       Get.snackbar(
         'Error',
-        'Login failed. Please try again.',
+        'Please enter both phone number and password',
         snackPosition: SnackPosition.BOTTOM,
+      );
+      return;
+    }
+
+    try {
+      isLoading.value = true;
+      final res = await AuthService.to.login(
+        phone: phoneNumber.value,
+        password: password.value,
+      );
+      
+      if (res.isRight) {
+        Get.offAllNamed(Routes.HOME);
+      } else {
+        Get.snackbar(
+          'Login Failed',
+          res.left,
+          snackPosition: SnackPosition.BOTTOM,
+          duration: const Duration(seconds: 5),
+        );
+      }
+    } catch (e) {
+      print("Login error: $e");
+      Get.snackbar(
+        'Error',
+        'Network error occurred. Please check your internet connection and try again.',
+        snackPosition: SnackPosition.BOTTOM,
+        duration: const Duration(seconds: 5),
       );
     } finally {
       isLoading.value = false;
