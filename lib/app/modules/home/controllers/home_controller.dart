@@ -5,6 +5,7 @@ class HomeController extends GetxController {
   final RxBool isBarcodeSearch = false.obs;
   final RxString searchQuery = ''.obs;
   final RxInt selectedTabIndex = 0.obs;
+  final isSearching = false.obs;
 
   // Toggle search type between barcode and phone number
   void toggleSearchType() {
@@ -14,7 +15,16 @@ class HomeController extends GetxController {
 
   // Handle search
   void handleSearch(String query) {
-    searchQuery.value = query;
+    if (isBarcodeSearch.value) {
+    } else if (!isBarcodeSearch.value) {
+      if (query.length == 10) {
+        isSearching.value = true;
+      } else {
+        isSearching.value = false;
+      }
+      // searchQuery.value = query;
+    }
+
     // TODO: Implement actual search logic
   }
 
@@ -22,4 +32,4 @@ class HomeController extends GetxController {
   void changeTab(int index) {
     selectedTabIndex.value = index;
   }
-} 
+}

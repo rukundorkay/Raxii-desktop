@@ -113,12 +113,20 @@ class CheckinView extends GetView<HomeController> {
                   color: AppColors.white,
                   borderRadius:
                       BorderRadius.all(Radius.circular(AppSpaceSize.tiny))),
-              child: const Column(
+              child: Column(
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("No results Founds"),
+                      (!controller.isSearching.value)
+                          ? const Text("No results Found")
+                          : SizedBox(
+                              height: 30,
+                              width: 30,
+                              child: CircularProgressIndicator(
+                                color: AppColors.primary,
+                              ),
+                            ),
                     ],
                   )
                 ],
