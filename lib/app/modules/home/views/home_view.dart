@@ -18,104 +18,108 @@ class HomeView extends GetView<HomeController> {
         toolbarHeight: 80,
         backgroundColor: AppColors.white,
         centerTitle: false,
-        title: SizedBox(
-          width: 100,
-          child: Image.asset(
-            AppPath.logo,
-            color: AppColors.primary,
-            fit: BoxFit.contain,
-          ),
-        ),
         actions: [
-          Row(
-            children: [
-              SizedBox(
-                width: 300,
-                child: Builder(
-                  builder: (BuildContext context) => TabBar(
-                    dividerHeight: 0,
-                    controller: TabController(
-                      length: 2,
-                      vsync: Scaffold.of(context),
-                      initialIndex: 0,
-                    ),
-                    labelColor: AppColors.primary,
-                    unselectedLabelColor: Colors.grey,
-                    indicatorColor: AppColors.primary,
-                    tabs: [
-                      Tab(
-                        child: Text(
-                          "Check-in",
-                          style: TextStyle(
-                            fontSize: AppFontSize.defaultS,
-                          ),
-                        ),
-                      ),
-                      Tab(
-                        child: Text(
-                          "Subscription",
-                          style: TextStyle(
-                            fontSize: AppFontSize.defaultS,
-                          ),
-                        ),
-                      ),
-                    ],
-                    onTap: controller.changeTab,
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(left: AppSpaceSize.large),
+                  width: 100,
+                  child: Image.asset(
+                    AppPath.logo,
+                    color: AppColors.primary,
+                    fit: BoxFit.contain,
                   ),
                 ),
-              ),
-              Container(
-                  decoration: BoxDecoration(
-                    color: AppColors.softGray,
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(
-                        10,
+                SizedBox(
+                  width: 300,
+                  child: Builder(
+                    builder: (BuildContext context) => TabBar(
+                      dividerHeight: 0,
+                      controller: TabController(
+                        length: 2,
+                        vsync: Scaffold.of(context),
+                        initialIndex: 0,
                       ),
+                      labelColor: AppColors.primary,
+                      unselectedLabelColor: Colors.grey,
+                      indicatorColor: AppColors.primary,
+                      tabs: [
+                        Tab(
+                          child: Text(
+                            "Check-in",
+                            style: TextStyle(
+                              fontSize: AppFontSize.defaultS,
+                            ),
+                          ),
+                        ),
+                        Tab(
+                          child: Text(
+                            "Subscription",
+                            style: TextStyle(
+                              fontSize: AppFontSize.defaultS,
+                            ),
+                          ),
+                        ),
+                      ],
+                      onTap: controller.changeTab,
                     ),
                   ),
-                  padding: EdgeInsets.symmetric(
-                    horizontal: AppSpaceSize.large,
-                    vertical: AppSpaceSize.defaultS,
-                  ),
-                  margin: EdgeInsets.symmetric(
-                    horizontal: AppSpaceSize.large,
-                  ),
-                  child: Row(
-                    children: [
-                      const Icon(Icons.person),
-                      SizedBox(
-                        width: AppSpaceSize.tiny,
-                      ),
-                      const Text(
-                        "Rukundo Janvier",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
+                ),
+                Container(
+                    decoration: BoxDecoration(
+                      color: AppColors.softGray,
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(
+                          10,
                         ),
                       ),
-                    ],
-                  )
-                  //  Row(
-                  //   children: [
-                  //     Icon(
-                  //       Icons.logout,
-                  //       size: AppSpaceSize.defaultS,
-                  //       color: AppColors.alertRed,
-                  //     ),
-                  //     SizedBox(width: AppSpaceSize.tiny),
-                  //     InkWell(
-                  //       onTap: () => Get.offAllNamed(Routes.LOGIN),
-                  //       child: Text(
-                  //         "Logout",
-                  //         style: TextStyle(
-                  //           color: AppColors.alertRed,
-                  //           fontSize: AppFontSize.defaultS,
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
-                  ),
-            ],
+                    ),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: AppSpaceSize.large,
+                      vertical: AppSpaceSize.defaultS,
+                    ),
+                    margin: EdgeInsets.symmetric(
+                      horizontal: AppSpaceSize.large,
+                    ),
+                    child: Row(
+                      children: [
+                        const Icon(Icons.person),
+                        SizedBox(
+                          width: AppSpaceSize.tiny,
+                        ),
+                        const Text(
+                          "Rukundo Janvier",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    )
+                    //  Row(
+                    //   children: [
+                    //     Icon(
+                    //       Icons.logout,
+                    //       size: AppSpaceSize.defaultS,
+                    //       color: AppColors.alertRed,
+                    //     ),
+                    //     SizedBox(width: AppSpaceSize.tiny),
+                    //     InkWell(
+                    //       onTap: () => Get.offAllNamed(Routes.LOGIN),
+                    //       child: Text(
+                    //         "Logout",
+                    //         style: TextStyle(
+                    //           color: AppColors.alertRed,
+                    //           fontSize: AppFontSize.defaultS,
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
+                    ),
+              ],
+            ),
           ),
         ],
       ),
