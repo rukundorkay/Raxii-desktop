@@ -65,30 +65,56 @@ class HomeView extends GetView<HomeController> {
                 ),
               ),
               Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: AppSpaceSize.large,
-                ),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.logout,
-                      size: AppSpaceSize.defaultS,
-                      color: AppColors.alertRed,
-                    ),
-                    SizedBox(width: AppSpaceSize.tiny),
-                    InkWell(
-                      onTap: () => Get.offAllNamed(Routes.LOGIN),
-                      child: Text(
-                        "Logout",
-                        style: TextStyle(
-                          color: AppColors.alertRed,
-                          fontSize: AppFontSize.defaultS,
-                        ),
+                  decoration: BoxDecoration(
+                    color: AppColors.softGray,
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(
+                        10,
                       ),
                     ),
-                  ],
-                ),
-              ),
+                  ),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: AppSpaceSize.large,
+                    vertical: AppSpaceSize.defaultS,
+                  ),
+                  margin: EdgeInsets.symmetric(
+                    horizontal: AppSpaceSize.large,
+                  ),
+                  child: Row(
+                    children: [
+                      const Icon(Icons.person),
+                      SizedBox(
+                        width: AppSpaceSize.tiny,
+                      ),
+                      const Text(
+                        "Rukundo Janvier",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  )
+                  //  Row(
+                  //   children: [
+                  //     Icon(
+                  //       Icons.logout,
+                  //       size: AppSpaceSize.defaultS,
+                  //       color: AppColors.alertRed,
+                  //     ),
+                  //     SizedBox(width: AppSpaceSize.tiny),
+                  //     InkWell(
+                  //       onTap: () => Get.offAllNamed(Routes.LOGIN),
+                  //       child: Text(
+                  //         "Logout",
+                  //         style: TextStyle(
+                  //           color: AppColors.alertRed,
+                  //           fontSize: AppFontSize.defaultS,
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
+                  ),
             ],
           ),
         ],
