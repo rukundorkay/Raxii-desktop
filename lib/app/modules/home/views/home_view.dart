@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:raxii_desktop/app/core/services/auth_service.dart';
 import 'package:raxii_desktop/app/modules/home/views/chekin_view.dart';
 import 'package:raxii_desktop/app/routes/app_pages.dart';
 import 'package:raxii_desktop/app/shared/app_path.dart';
@@ -68,56 +69,74 @@ class HomeView extends GetView<HomeController> {
                   ),
                 ),
                 Container(
-                    decoration: BoxDecoration(
-                      color: AppColors.softGray,
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(
-                          10,
-                        ),
+                  decoration: BoxDecoration(
+                    color: AppColors.softGray,
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(
+                        10,
                       ),
                     ),
-                    padding: EdgeInsets.symmetric(
-                      horizontal: AppSpaceSize.large,
-                      vertical: AppSpaceSize.defaultS,
+                  ),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: AppSpaceSize.large,
+                    vertical: AppSpaceSize.defaultS,
+                  ),
+                  margin: EdgeInsets.symmetric(
+                    horizontal: AppSpaceSize.large,
+                  ),
+                  child: PopupMenuButton<int>(
+                    color: AppColors.softGray,
+                    offset: const Offset(0, 40),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    margin: EdgeInsets.symmetric(
-                      horizontal: AppSpaceSize.large,
-                    ),
+                    itemBuilder: (context) => const [
+                      PopupMenuItem(
+                        value: 0,
+                        child: Row(
+                          children: const [
+                            Icon(Icons.settings, size: 20),
+                            SizedBox(width: 8),
+                            Text('Settings'),
+                          ],
+                        ),
+                      ),
+                      PopupMenuItem(
+                        value: 1,
+                        child: Row(
+                          children: [
+                            Icon(Icons.logout,
+                                size: 20, color: AppColors.alertRed),
+                            SizedBox(width: 8),
+                            Text('Logout',
+                                style: TextStyle(color: AppColors.alertRed)),
+                          ],
+                        ),
+                      ),
+                    ],
+                    onSelected: (value) {
+                      if (value == 0) {
+                        // TODO: Implement settings navigation
+                      } else if (value == 1) {
+                        AuthService.to.logout();
+                      }
+                    },
                     child: Row(
                       children: [
                         const Icon(Icons.person),
                         SizedBox(
                           width: AppSpaceSize.tiny,
                         ),
-                        const Text(
-                          "Rukundo Janvier",
-                          style: TextStyle(
+                        Text(
+                          "${AuthService.to.user.value!.firstName} ${AuthService.to.user.value!.lastName}",
+                          style: const TextStyle(
                             fontWeight: FontWeight.w500,
                           ),
                         ),
                       ],
-                    )
-                    //  Row(
-                    //   children: [
-                    //     Icon(
-                    //       Icons.logout,
-                    //       size: AppSpaceSize.defaultS,
-                    //       color: AppColors.alertRed,
-                    //     ),
-                    //     SizedBox(width: AppSpaceSize.tiny),
-                    //     InkWell(
-                    //       onTap: () => Get.offAllNamed(Routes.LOGIN),
-                    //       child: Text(
-                    //         "Logout",
-                    //         style: TextStyle(
-                    //           color: AppColors.alertRed,
-                    //           fontSize: AppFontSize.defaultS,
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   ],
-                    // ),
                     ),
+                  ),
+                ),
               ],
             ),
           ),

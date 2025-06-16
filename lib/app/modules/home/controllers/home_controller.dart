@@ -25,11 +25,11 @@ class HomeController extends GetxController {
       // searchQuery.value = query;
     }
 
-    // TODO: Implement actual search logic
   }
 
   // Handle tab change
   void changeTab(int index) {
     selectedTabIndex.value = index;
   }
+  
 }

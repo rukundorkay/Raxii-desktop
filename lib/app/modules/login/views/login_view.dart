@@ -5,6 +5,7 @@ import 'package:raxii_desktop/app/modules/login/widgets/background_painter.dart'
 import 'package:raxii_desktop/app/theme/app_colors.dart';
 import 'package:raxii_desktop/app/shared/app_path.dart';
 import 'package:raxii_desktop/app/shared/size.dart';
+import '../widgets/app_form_field.dart';
 
 class LoginView extends GetView<LoginController> {
   const LoginView({Key? key}) : super(key: key);
@@ -63,49 +64,21 @@ class LoginView extends GetView<LoginController> {
                           ),
                         ),
                         SizedBox(height: AppSpaceSize.huge),
-                        const Text("Phone Number"),
-                        SizedBox(
-                          height: AppSpaceSize.tiny,
-                        ),
-                        TextFormField(
+                        // Phone Number Field
+                        AppFromField(
+                          label: "Phone Number",
+                          hintText: "Enter Phone Number",
                           textInputAction: TextInputAction.next,
-                          style: TextStyle(color: AppColors.secondary),
-                          onChanged: controller.setPhoneNumber,
-                          decoration: InputDecoration(
-                            hintText: 'Enter Phone Number',
-                            hintStyle: TextStyle(
-                                color: AppColors.steelGray.withOpacity(0.7)),
-                            filled: true,
-                            fillColor: AppColors.softGray,
-                            border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.circular(AppSpaceSize.tiny),
-                              borderSide: BorderSide.none,
-                            ),
-                          ),
                           keyboardType: TextInputType.phone,
+                          onChanged: controller.setPhoneNumber,
                         ),
                         SizedBox(height: AppSpaceSize.huge),
-                        const Text("Password"),
-                        SizedBox(
-                          height: AppSpaceSize.tiny,
-                        ),
-                        TextFormField(
+                        // Password Field
+                        AppFromField(
+                          label: "Password",
+                          hintText: "Enter Password",
                           obscureText: true,
-                          style: TextStyle(color: AppColors.secondary),
                           onChanged: controller.setPassword,
-                          decoration: InputDecoration(
-                            hintText: 'Enter Password',
-                            hintStyle: TextStyle(
-                                color: AppColors.steelGray.withOpacity(0.7)),
-                            filled: true,
-                            fillColor: AppColors.softGray,
-                            border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.circular(AppSpaceSize.tiny),
-                              borderSide: BorderSide.none,
-                            ),
-                          ),
                         ),
                         SizedBox(height: AppSpaceSize.enormous * 2),
                         Obx(
