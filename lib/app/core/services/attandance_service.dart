@@ -16,7 +16,6 @@ class AttendanceService extends GetxService {
   Future<Either<String, Attendance>> checkIn({
     required String identifier,
     required String service,
-    bool canClearQrCodeData = false,
     int? lockerRoom,
   }) async {
     isCheckinsLoading.value = true;

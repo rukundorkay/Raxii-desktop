@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:raxii_desktop/app/core/services/attandance_service.dart';
 import 'package:raxii_desktop/app/modules/home/controllers/home_controller.dart';
 import 'package:raxii_desktop/app/shared/size.dart';
 import 'package:raxii_desktop/app/theme/app_colors.dart';
@@ -115,24 +116,107 @@ class CheckinView extends GetView<HomeController> {
                       BorderRadius.all(Radius.circular(AppSpaceSize.tiny))),
               child: Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      (!controller.isSearching.value)
-                          ? const Text("No results Found")
-                          : SizedBox(
-                              height: 30,
-                              width: 30,
-                              child: CircularProgressIndicator(
-                                color: AppColors.primary,
-                              ),
+                  if (!AttendanceService.to.isCheckinsLoading.value) ...[
+                    if (AttendanceService.to.currentAttendance.value !=
+                        null) ...[
+                      Text(
+                        "Member Profile",
+                        style: TextStyle(
+                          fontSize: AppSpaceSize.medium,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      SizedBox(height: AppSpaceSize.large),
+                      Container(
+                        child: Column(
+                          children: [
+                            _ProfileRow(
+                              icon: Icons.person,
+                              label: "Names",
+                              value: AttendanceService
+                                  .to.currentAttendance.value!.memberNames,
                             ),
-                    ],
-                  )
+                            SizedBox(height: AppSpaceSize.defaultS),
+                            _ProfileRow(
+                              icon: Icons.room_service,
+                              label: "Service",
+                              value: AttendanceService
+                                  .to.currentAttendance.value!.serviceName,
+                            ),
+                            SizedBox(height: AppSpaceSize.defaultS),
+                            _ProfileRow(
+                              icon: Icons.phone,
+                              label: "Phone Number",
+                              value: AttendanceService.to.currentAttendance
+                                  .value!.memberPhoneNumber,
+                            ),
+                            SizedBox(height: AppSpaceSize.defaultS),
+                            _ProfileRow(
+                              icon: Icons.mail,
+                              label: "Registration Code",
+                              value: AttendanceService.to.currentAttendance
+                                  .value!.memberRegistrationCode,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ] else ...[
+                      const Text("No results Found")
+                    ]
+                  ] else ...[
+                    SizedBox(
+                      height: 30,
+                      width: 30,
+                      child: CircularProgressIndicator(
+                        color: AppColors.primary,
+                      ),
+                    )
+                  ]
                 ],
               ),
             )
           ],
         ));
+  }
+}
+
+class _ProfileRow extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final String value;
+
+  const _ProfileRow({
+    required this.icon,
+    required this.label,
+    required this.value,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      // crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Icon(icon),
+        SizedBox(width: AppSpaceSize.tiny),
+        Text(
+          label,
+          style: TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: AppFontSize.medium,
+          ),
+        ),
+        SizedBox(width: AppSpaceSize.medium),
+        Flexible(
+          child: Text(
+            style: TextStyle(
+              fontSize: AppFontSize.medium,
+            ),
+            value,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+      ],
+    );
   }
 }

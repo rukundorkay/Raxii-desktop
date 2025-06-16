@@ -1,11 +1,11 @@
 import 'package:get/get.dart';
+import 'package:raxii_desktop/app/core/services/attandance_service.dart';
 
 class HomeController extends GetxController {
   // Observable variables
   final RxBool isBarcodeSearch = false.obs;
   final RxString searchQuery = ''.obs;
   final RxInt selectedTabIndex = 0.obs;
-  final isSearching = false.obs;
 
   // Toggle search type between barcode and phone number
   void toggleSearchType() {
@@ -18,18 +18,16 @@ class HomeController extends GetxController {
     if (isBarcodeSearch.value) {
     } else if (!isBarcodeSearch.value) {
       if (query.length == 10) {
-        isSearching.value = true;
-      } else {
-        isSearching.value = false;
+        AttendanceService.to.checkIn(
+          identifier: query,
+          service: 'e48f5a68-8555-487f-8a60-20ebee236e80',
+        );
       }
-      // searchQuery.value = query;
     }
-
   }
 
   // Handle tab change
   void changeTab(int index) {
     selectedTabIndex.value = index;
   }
-  
 }

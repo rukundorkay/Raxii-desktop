@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
+import 'package:raxii_desktop/app/core/services/attandance_service.dart';
 import 'package:raxii_desktop/app/core/services/auth_service.dart';
+import 'package:raxii_desktop/app/data/providers/attendance_providers%20.dart';
 import 'package:raxii_desktop/app/data/providers/auth_providers.dart';
 
 class InitialBinding implements Bindings {
@@ -7,5 +9,7 @@ class InitialBinding implements Bindings {
   void dependencies() {
     Get.lazyPut(() => AuthService(), fenix: true);
     Get.lazyPut(() => AuthProvider(), fenix: true);
+    Get.lazyPut(() => AttendanceService(), fenix: true);
+    Get.lazyPut(() => AttendanceProvider(), fenix: true);
   }
 }

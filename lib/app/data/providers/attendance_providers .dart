@@ -51,6 +51,7 @@ class AttendanceProvider extends GetConnect {
         'Authorization': 'Bearer $accessToken',
       },
     );
+    print(response.body);
 
     if (response.statusCode == 201) {
       return Right(Attendance.fromJson(response.body));
