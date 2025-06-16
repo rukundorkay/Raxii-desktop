@@ -9,6 +9,7 @@ class HomeController extends GetxController {
   final RxInt selectedTabIndex = 0.obs;
   final lockerRoomupdating = false.obs;
   final lockerRoom = TextEditingController();
+  final selectedMenuSettings = SettingsMenu.account.obs;
   void toggleSearchType() {
     isBarcodeSearch.value = !isBarcodeSearch.value;
     searchQuery.value = '';
@@ -49,3 +50,5 @@ class HomeController extends GetxController {
     selectedTabIndex.value = index;
   }
 }
+
+enum SettingsMenu { account, service, printer }
