@@ -1,16 +1,17 @@
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:raxii_desktop/app/core/services/attandance_service.dart';
 
 class HomeController extends GetxController {
-  // Observable variables
   final RxBool isBarcodeSearch = false.obs;
   final RxString searchQuery = ''.obs;
+  final searchController = TextEditingController();
   final RxInt selectedTabIndex = 0.obs;
-
-  // Toggle search type between barcode and phone number
+  final lockerRoomupdating = false.obs;
+  final lockerRoom = TextEditingController();
   void toggleSearchType() {
     isBarcodeSearch.value = !isBarcodeSearch.value;
-    searchQuery.value = ''; // Clear search when switching types
+    searchQuery.value = '';
   }
 
   // Handle search
@@ -25,6 +26,21 @@ class HomeController extends GetxController {
       } else {
         AttendanceService.to.currentAttendance.value = null;
       }
+    }
+  }
+
+  //update Locker Room
+  void updateLockerRoom(String checkinId, String lockerRoomValue) async {
+    lockerRoomupdating.value = true;
+    final res = await AttendanceService.to.updateLockerRoom(
+      checkinId: checkinId,
+      lockerRoom: lockerRoomValue,
+    );
+    lockerRoomupdating.value = false;
+    if (res.isRight) {
+      AttendanceService.to.currentAttendance.value = null;
+      lockerRoom.clear();
+      searchController.clear();
     }
   }
 

@@ -9,10 +9,11 @@ import 'package:raxii_desktop/app/shared/extension/string.dart';
 class AttendanceProvider extends GetConnect {
   static AttendanceProvider get to => Get.find();
 
-  Future<Either<String, String>> updateLockerRoom(
-      {required String lockerRoom,
-      required String checkinId,
-      required String accessToken}) async {
+  Future<Either<String, String>> updateLockerRoom({
+    required String lockerRoom,
+    required String checkinId,
+    required String accessToken,
+  }) async {
     final response = await patch(
       "/attendances/$checkinId/update-locker-room",
       {"lockerRoom": lockerRoom},
@@ -51,7 +52,6 @@ class AttendanceProvider extends GetConnect {
         'Authorization': 'Bearer $accessToken',
       },
     );
-    print(response.body);
 
     if (response.statusCode == 201) {
       return Right(Attendance.fromJson(response.body));
