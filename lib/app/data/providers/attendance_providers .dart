@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:raxii_desktop/app/core/constants/api_constants.dart';
 import 'package:raxii_desktop/app/data/models/attendance.dart';
 import 'package:raxii_desktop/app/data/models/subscription_plan.dart';
+import 'package:raxii_desktop/app/shared/enum.dart';
 import 'package:raxii_desktop/app/shared/extension/string.dart';
 
 class AttendanceProvider extends GetConnect {
@@ -88,5 +89,3 @@ class AttendanceProvider extends GetConnect {
     super.onInit();
   }
 }
-
-enum CheckinMethod { QR_CODE, BUSINESS_USER_CHECKS_IN }
