@@ -63,11 +63,16 @@ class LoginView extends GetView<LoginController> {
                           ),
                         ),
                         SizedBox(height: AppSpaceSize.huge),
-                        TextField(
+                        const Text("Phone Number"),
+                        SizedBox(
+                          height: AppSpaceSize.tiny,
+                        ),
+                        TextFormField(
+                          textInputAction: TextInputAction.next,
                           style: TextStyle(color: AppColors.secondary),
                           onChanged: controller.setPhoneNumber,
                           decoration: InputDecoration(
-                            hintText: 'Phone Number',
+                            hintText: 'Enter Phone Number',
                             hintStyle: TextStyle(
                                 color: AppColors.steelGray.withOpacity(0.7)),
                             filled: true,
@@ -80,13 +85,17 @@ class LoginView extends GetView<LoginController> {
                           ),
                           keyboardType: TextInputType.phone,
                         ),
-                        SizedBox(height: AppSpaceSize.defaultS),
-                        TextField(
+                        SizedBox(height: AppSpaceSize.huge),
+                        const Text("Password"),
+                        SizedBox(
+                          height: AppSpaceSize.tiny,
+                        ),
+                        TextFormField(
                           obscureText: true,
                           style: TextStyle(color: AppColors.secondary),
                           onChanged: controller.setPassword,
                           decoration: InputDecoration(
-                            hintText: 'Password',
+                            hintText: 'Enter Password',
                             hintStyle: TextStyle(
                                 color: AppColors.steelGray.withOpacity(0.7)),
                             filled: true,
@@ -98,7 +107,7 @@ class LoginView extends GetView<LoginController> {
                             ),
                           ),
                         ),
-                        SizedBox(height: AppSpaceSize.medium),
+                        SizedBox(height: AppSpaceSize.enormous * 2),
                         Obx(
                           () => SizedBox(
                             width: double.infinity,
