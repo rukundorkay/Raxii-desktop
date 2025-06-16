@@ -22,6 +22,8 @@ class HomeController extends GetxController {
           identifier: query,
           service: 'e48f5a68-8555-487f-8a60-20ebee236e80',
         );
+      } else {
+        AttendanceService.to.currentAttendance.value = null;
       }
     }
   }

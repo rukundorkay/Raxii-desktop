@@ -138,7 +138,7 @@ class CheckinView extends GetView<HomeController> {
                             ),
                             SizedBox(height: AppSpaceSize.defaultS),
                             _ProfileRow(
-                              icon: Icons.room_service,
+                              icon: Icons.settings,
                               label: "Service",
                               value: AttendanceService
                                   .to.currentAttendance.value!.serviceName,
@@ -152,7 +152,7 @@ class CheckinView extends GetView<HomeController> {
                             ),
                             SizedBox(height: AppSpaceSize.defaultS),
                             _ProfileRow(
-                              icon: Icons.mail,
+                              icon: Icons.grid_3x3,
                               label: "Registration Code",
                               value: AttendanceService.to.currentAttendance
                                   .value!.memberRegistrationCode,
