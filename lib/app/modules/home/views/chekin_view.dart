@@ -127,38 +127,36 @@ class CheckinView extends GetView<HomeController> {
                         ),
                       ),
                       SizedBox(height: AppSpaceSize.large),
-                      Container(
-                        child: Column(
-                          children: [
-                            _ProfileRow(
-                              icon: Icons.person,
-                              label: "Names",
-                              value: AttendanceService
-                                  .to.currentAttendance.value!.memberNames,
-                            ),
-                            SizedBox(height: AppSpaceSize.defaultS),
-                            _ProfileRow(
-                              icon: Icons.settings,
-                              label: "Service",
-                              value: AttendanceService
-                                  .to.currentAttendance.value!.serviceName,
-                            ),
-                            SizedBox(height: AppSpaceSize.defaultS),
-                            _ProfileRow(
-                              icon: Icons.phone,
-                              label: "Phone Number",
-                              value: AttendanceService.to.currentAttendance
-                                  .value!.memberPhoneNumber,
-                            ),
-                            SizedBox(height: AppSpaceSize.defaultS),
-                            _ProfileRow(
-                              icon: Icons.grid_3x3,
-                              label: "Registration Code",
-                              value: AttendanceService.to.currentAttendance
-                                  .value!.memberRegistrationCode,
-                            ),
-                          ],
-                        ),
+                      Column(
+                        children: [
+                          _ProfileRow(
+                            icon: Icons.person,
+                            label: "Names",
+                            value: AttendanceService
+                                .to.currentAttendance.value!.memberNames,
+                          ),
+                          SizedBox(height: AppSpaceSize.defaultS),
+                          _ProfileRow(
+                            icon: Icons.settings,
+                            label: "Service",
+                            value: AttendanceService
+                                .to.currentAttendance.value!.serviceName,
+                          ),
+                          SizedBox(height: AppSpaceSize.defaultS),
+                          _ProfileRow(
+                            icon: Icons.phone,
+                            label: "Phone Number",
+                            value: AttendanceService.to.currentAttendance
+                                .value!.memberPhoneNumber,
+                          ),
+                          SizedBox(height: AppSpaceSize.defaultS),
+                          _ProfileRow(
+                            icon: Icons.grid_3x3,
+                            label: "Registration Code",
+                            value: AttendanceService.to.currentAttendance
+                                .value!.memberRegistrationCode,
+                          ),
+                        ],
                       ),
                     ] else ...[
                       const Text("No results Found")
