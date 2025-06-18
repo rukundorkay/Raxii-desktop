@@ -1,5 +1,5 @@
-
 import 'package:raxii_desktop/app/data/models/business_facility.dart';
+
 class Service {
   final String id;
   final DateTime? createdAt;
@@ -36,5 +36,18 @@ class Service {
           ? BusinessFacility.fromJson(json['businessFacility'])
           : null,
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'createdAt': createdAt?.toIso8601String(),
+      'updatedAt': updatedAt?.toIso8601String(),
+      'deletedAt': deletedAt,
+      'name': name,
+      'description': description,
+      'status': status,
+      'businessFacility': businessFacility?.toJson(),
+    };
   }
 }

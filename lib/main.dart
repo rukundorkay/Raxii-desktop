@@ -4,9 +4,11 @@ import 'package:raxii_desktop/app/shared/dependency.dart';
 import 'app/routes/app_pages.dart';
 import 'app/theme/app_theme.dart';
 import 'package:flutter/services.dart';
+import 'package:get_storage/get_storage.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await GetStorage.init();
   
   // Allow HTTP connections
   SystemChrome.setPreferredOrientations([
