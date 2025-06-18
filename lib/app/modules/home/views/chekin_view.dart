@@ -130,7 +130,11 @@ class CheckinView extends GetView<HomeController> {
                   bottom: AppSpaceSize.enormous,
                 ),
                 decoration: BoxDecoration(
-                    color: AppColors.white,
+                    color: AttendanceService.to.currentErrorMessage.value !=
+                                null &&
+                            AttendanceService.to.currentAttendance.value == null
+                        ? AppColors.alertRed.withOpacity(0.4)
+                        : AppColors.white,
                     borderRadius:
                         BorderRadius.all(Radius.circular(AppSpaceSize.tiny))),
                 child: Column(
@@ -276,8 +280,16 @@ class CheckinView extends GetView<HomeController> {
                             ),
                           ],
                         ),
+                      ] else if (AttendanceService
+                              .to.currentErrorMessage.value !=
+                          null) ...[
+                        Text(AttendanceService.to.currentErrorMessage.value!,
+                            style: TextStyle(
+                              color: AppColors.white,
+                              fontWeight: FontWeight.w500,
+                            ))
                       ] else ...[
-                        const Text("No results Found")
+                        const Text("No results found")
                       ]
                     ] else ...[
                       SizedBox(

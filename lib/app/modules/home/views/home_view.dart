@@ -136,7 +136,7 @@ class HomeView extends GetView<HomeController> {
                                     fontWeight: FontWeight.w500,
                                   ),
                                 )
-                              : SizedBox(),
+                              : const SizedBox(),
                         ),
                       ],
                     ),
