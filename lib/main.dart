@@ -9,7 +9,7 @@ import 'package:get_storage/get_storage.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
-  
+
   // Allow HTTP connections
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,

@@ -65,7 +65,7 @@ class LoginView extends GetView<LoginController> {
                         ),
                         SizedBox(height: AppSpaceSize.huge),
                         // Phone Number Field
-                        AppFromField(
+                        AppTextField(
                           label: "Phone Number",
                           hintText: "Enter Phone Number",
                           textInputAction: TextInputAction.next,
@@ -74,7 +74,7 @@ class LoginView extends GetView<LoginController> {
                         ),
                         SizedBox(height: AppSpaceSize.huge),
                         // Password Field
-                        AppFromField(
+                        AppTextField(
                           label: "Password",
                           hintText: "Enter Password",
                           obscureText: true,

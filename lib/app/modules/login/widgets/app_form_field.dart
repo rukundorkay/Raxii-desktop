@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:raxii_desktop/app/theme/app_colors.dart';
 import 'package:raxii_desktop/app/shared/size.dart';
 
-class AppFromField extends StatelessWidget {
+class AppTextField extends StatelessWidget {
   final String label;
   final String hintText;
   final bool obscureText;
@@ -12,21 +12,25 @@ class AppFromField extends StatelessWidget {
   final TextEditingController? controller;
   final Widget? suffixIcon;
   final Widget? prefixIcon;
+  final Widget? suffix;
   final String? initialValue;
+  final bool readOnly;
 
-  const AppFromField({
-    Key? key,
-    required this.label,
-    required this.hintText,
-    this.obscureText = false,
-    this.onChanged,
-    this.keyboardType = TextInputType.text,
-    this.textInputAction = TextInputAction.done,
-    this.controller,
-    this.suffixIcon,
-    this.prefixIcon,
-    this.initialValue,
-  }) : super(key: key);
+  const AppTextField(
+      {Key? key,
+      this.readOnly = false,
+      required this.label,
+      required this.hintText,
+      this.obscureText = false,
+      this.onChanged,
+      this.keyboardType = TextInputType.text,
+      this.textInputAction = TextInputAction.done,
+      this.controller,
+      this.suffixIcon,
+      this.prefixIcon,
+      this.initialValue,
+      this.suffix})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +47,7 @@ class AppFromField extends StatelessWidget {
         ),
         SizedBox(height: AppSpaceSize.tiny),
         TextFormField(
+          readOnly: readOnly,
           controller: controller,
           initialValue: controller == null ? initialValue : null,
           obscureText: obscureText,
@@ -62,6 +67,7 @@ class AppFromField extends StatelessWidget {
               borderSide: BorderSide.none,
             ),
             suffixIcon: suffixIcon,
+            suffix: suffix,
             prefixIcon: prefixIcon,
           ),
         ),

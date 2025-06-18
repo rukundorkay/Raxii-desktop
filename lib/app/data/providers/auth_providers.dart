@@ -38,6 +38,30 @@ class AuthProvider extends GetConnect {
     }
   }
 
+  Future<Either<String, String>> sendOtp({
+    required String phone,
+    required String accessToken,
+  }) async {
+    final response = await post(
+      "/auth/send-register-otp",
+      {
+        "phoneNumber": phone,
+      },
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $accessToken',
+      },
+    );
+
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      return Right(response.body["message"]);
+    } else {
+      return Left(response.body["message"]);
+    }
+  }
+
   @override
   onInit() {
     baseUrl = BASE_URL;
