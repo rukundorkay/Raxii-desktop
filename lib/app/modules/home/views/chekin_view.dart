@@ -34,10 +34,10 @@ class CheckinView extends GetView<HomeController> {
                         BorderRadius.all(Radius.circular(AppSpaceSize.tiny))),
                 child: Column(
                   children: [
-                    const Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
+                        const Text(
                           "Member Checkin",
                           style: TextStyle(
                             fontSize: 32,
@@ -45,6 +45,22 @@ class CheckinView extends GetView<HomeController> {
                             color: AppColors.deepForestGreen,
                           ),
                         ),
+                        SizedBox(
+                          width: AppSpaceSize.enormous,
+                        ),
+                        Container(
+                          padding: EdgeInsets.all(AppSpaceSize.small),
+                          decoration: BoxDecoration(
+                              color: AppColors.softGray,
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(10))),
+                          child: Text(
+                            "today's checkin ${AttendanceService.to.todaysCheckin.value} ",
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        )
                       ],
                     ),
                     SizedBox(height: AppSpaceSize.defaultS),

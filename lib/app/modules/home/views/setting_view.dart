@@ -45,11 +45,11 @@ void showSettingsDialog(BuildContext context, HomeController controller) {
                       ),
                       buildMenuItem(
                         icon: Icons.settings,
-                        title: 'Service',
+                        title: 'Station',
                         isSelected: controller.selectedMenuSettings.value ==
-                            SettingsMenu.service,
+                            SettingsMenu.station,
                         onTap: () =>
-                            controller.changeSetting(SettingsMenu.service),
+                            controller.changeSetting(SettingsMenu.station),
                       ),
                       buildMenuItem(
                         icon: Icons.print,
@@ -72,7 +72,7 @@ void showSettingsDialog(BuildContext context, HomeController controller) {
                     SettingsMenu.account) ...[
                   const AccountSetting(),
                 ] else if (controller.selectedMenuSettings.value ==
-                    SettingsMenu.service) ...[
+                    SettingsMenu.station) ...[
                   const ServiceSetting(),
                 ]
               ],

@@ -129,12 +129,14 @@ class HomeView extends GetView<HomeController> {
                           width: AppSpaceSize.tiny,
                         ),
                         Obx(
-                          () => Text(
-                            "${AuthService.to.user.value!.firstName} (${FacilityService.to.selectedService.value != null ? FacilityService.to.selectedService.value!.name : ''})",
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
+                          () => AuthService.to.user.value != null
+                              ? Text(
+                                  "${AuthService.to.user.value!.firstName} (${FacilityService.to.selectedService.value != null ? FacilityService.to.selectedService.value!.name : ''})",
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                )
+                              : SizedBox(),
                         ),
                       ],
                     ),

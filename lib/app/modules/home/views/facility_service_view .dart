@@ -17,7 +17,7 @@ class ServiceSetting extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Service',
+            'Station',
             style: TextStyle(
               fontSize: AppFontSize.large,
               fontWeight: FontWeight.w500,

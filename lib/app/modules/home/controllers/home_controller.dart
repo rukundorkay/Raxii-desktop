@@ -57,4 +57,4 @@ class HomeController extends GetxController {
   }
 }
 
-enum SettingsMenu { account, service, printer }
+enum SettingsMenu { account, station, printer }

@@ -83,6 +83,23 @@ class AttendanceProvider extends GetConnect {
     }
   }
 
+  Future<Either<String, int>> attendanceAnalytics(
+      {required String accessToken}) async {
+    final response = await get(
+      "/attendances/checkins",
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $accessToken',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      return Right(response.body["totalCheckIns"]);
+    } else {
+      return Left(response.body["message"]);
+    }
+  }
+
   @override
   onInit() {
     baseUrl = BASE_URL;
