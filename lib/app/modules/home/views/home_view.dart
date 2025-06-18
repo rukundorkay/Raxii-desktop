@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:raxii_desktop/app/core/services/auth_service.dart';
+import 'package:raxii_desktop/app/core/services/facility_service.dart';
 import 'package:raxii_desktop/app/modules/home/views/chekin_view.dart';
+import 'package:raxii_desktop/app/modules/home/views/setting_view.dart';
 import 'package:raxii_desktop/app/shared/app_path.dart';
 import 'package:raxii_desktop/app/theme/app_colors.dart';
 import 'package:raxii_desktop/app/shared/size.dart';
@@ -9,170 +11,6 @@ import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({Key? key}) : super(key: key);
-
-  void _showSettingsDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Dialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height / 1.3,
-            padding: const EdgeInsets.all(20),
-            child: Row(
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Settings',
-                        style: TextStyle(
-                          fontSize: AppFontSize.large,
-                          fontWeight: FontWeight.w500,
-                          color: AppColors.primary,
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      _buildMenuItem(
-                        Icons.person,
-                        'Account',
-                        controller.selectedMenuSettings.value ==
-                            SettingsMenu.account,
-                      ),
-                      _buildMenuItem(
-                        Icons.settings,
-                        'Service',
-                        controller.selectedMenuSettings.value ==
-                            SettingsMenu.service,
-                      ),
-                      _buildMenuItem(
-                        Icons.print,
-                        'Printers',
-                        controller.selectedMenuSettings.value ==
-                            SettingsMenu.printer,
-                      ),
-                    ],
-                  ),
-                ),
-                // Vertical divider
-                Container(
-                  width: 1,
-                  color: Colors.grey[300],
-                  margin: const EdgeInsets.symmetric(horizontal: 20),
-                ),
-                // Right column - User details
-                Expanded(
-                  flex: 10,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Account',
-                        style: TextStyle(
-                          fontSize: AppFontSize.large,
-                          fontWeight: FontWeight.w500,
-                          color: AppColors.primary,
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              _buildDetail('Name',
-                                  "${AuthService.to.user.value?.firstName} ${AuthService.to.user.value?.lastName}"),
-                              _buildDetail(
-                                  'Role', AuthService.to.user.value!.role.name),
-                              _buildDetail('Phone Number',
-                                  AuthService.to.user.value!.phoneNumber),
-                              _buildDetail(
-                                  'Business',
-                                  AuthService
-                                      .to.user.value!.businessFacility.name),
-                            ],
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  Widget _buildMenuItem(IconData icon, String title, bool isSelected) {
-    return Container(
-      decoration: BoxDecoration(
-        color: isSelected ? AppColors.softGray : null,
-        borderRadius: const BorderRadius.all(
-          Radius.circular(10),
-        ),
-      ),
-      padding: EdgeInsets.symmetric(
-        vertical: AppSpaceSize.tiny,
-        horizontal: AppSpaceSize.defaultS,
-      ),
-      margin: EdgeInsets.symmetric(
-        vertical: AppSpaceSize.tiny,
-      ),
-      child: Row(
-        children: [
-          Icon(icon, color: AppColors.primary),
-          const SizedBox(width: 10),
-          Text(
-            title,
-            style: const TextStyle(fontSize: 16),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildDetail(String label, String value) {
-    return Container(
-      decoration: BoxDecoration(
-          color: AppColors.softGray,
-          borderRadius: const BorderRadius.all(Radius.circular(10))),
-      padding: EdgeInsets.symmetric(
-        vertical: AppSpaceSize.tiny,
-        horizontal: AppSpaceSize.defaultS,
-      ),
-      margin: EdgeInsets.only(bottom: AppSpaceSize.large),
-      width: 400,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            label,
-            style: const TextStyle(
-              fontSize: 14,
-              color: Colors.grey,
-            ),
-          ),
-          const SizedBox(height: 5),
-          Text(
-            value,
-            style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -279,7 +117,7 @@ class HomeView extends GetView<HomeController> {
                     ],
                     onSelected: (value) {
                       if (value == 0) {
-                        _showSettingsDialog(context);
+                        showSettingsDialog(context, controller);
                       } else if (value == 1) {
                         AuthService.to.logout();
                       }
@@ -290,10 +128,12 @@ class HomeView extends GetView<HomeController> {
                         SizedBox(
                           width: AppSpaceSize.tiny,
                         ),
-                        Text(
-                          "${AuthService.to.user.value!.firstName} (GYM)",
-                          style: const TextStyle(
-                            fontWeight: FontWeight.w500,
+                        Obx(
+                          () => Text(
+                            "${AuthService.to.user.value!.firstName} (${FacilityService.to.selectedService.value != null ? FacilityService.to.selectedService.value!.name : ''})",
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
                         ),
                       ],

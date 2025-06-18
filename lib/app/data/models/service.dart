@@ -1,7 +1,5 @@
 
-
 import 'package:raxii_desktop/app/data/models/business_facility.dart';
-
 class Service {
   final String id;
   final DateTime? createdAt;

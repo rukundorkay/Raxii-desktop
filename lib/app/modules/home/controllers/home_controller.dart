@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:raxii_desktop/app/core/services/attandance_service.dart';
+import 'package:raxii_desktop/app/core/services/facility_service.dart';
 
 class HomeController extends GetxController {
   final RxBool isBarcodeSearch = false.obs;
@@ -10,6 +11,11 @@ class HomeController extends GetxController {
   final lockerRoomupdating = false.obs;
   final lockerRoom = TextEditingController();
   final selectedMenuSettings = SettingsMenu.account.obs;
+
+  void changeSetting(SettingsMenu menuSetting) {
+    selectedMenuSettings.value = menuSetting;
+  }
+
   void toggleSearchType() {
     isBarcodeSearch.value = !isBarcodeSearch.value;
     searchQuery.value = '';
@@ -22,7 +28,7 @@ class HomeController extends GetxController {
       if (query.length == 10) {
         AttendanceService.to.checkIn(
           identifier: query,
-          service: 'e48f5a68-8555-487f-8a60-20ebee236e80',
+          service: FacilityService.to.selectedService.value!.id,
         );
       } else {
         AttendanceService.to.currentAttendance.value = null;
