@@ -30,6 +30,7 @@ class HomeController extends GetxController {
     );
     isCreatingMember.value = false;
     if (res.isRight) {
+      currentStep.value += 1;
       toaster(
         // ignore: use_build_context_synchronously
         context: context,
@@ -118,14 +119,16 @@ class HomeController extends GetxController {
 
   void onStepContinue(BuildContext context) {
     if (currentStep.value < 3) {
-      currentStep.value += 1;
       switch (currentStep.value) {
         case 0:
           if (MemberService.to.currentMember.value == null) {
             createMember(context);
+          } else {
+            currentStep.value += 1;
           }
           break;
         default:
+          currentStep.value += 1;
       }
     } else {
       // Submit form

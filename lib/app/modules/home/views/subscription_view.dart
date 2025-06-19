@@ -11,87 +11,253 @@ class SubscriptionView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () => Stepper(
-        margin: EdgeInsets.zero,
-        elevation: 0,
-        type: StepperType.horizontal,
-        currentStep: controller.currentStep.value,
-        onStepContinue: () => controller.onStepContinue(context),
-        onStepCancel: controller.onStepCancel,
-        steps: [
-          Step(
-            title: const Text('Member Information'),
-            content: _buildMemberInfoStep(context),
-            isActive: controller.currentStep.value == 0,
+      () => Container(
+        padding: EdgeInsets.only(top: AppSpaceSize.defaultS),
+        color: AppColors.white,
+        child: Column(
+          children: [
+            // Custom Stepper Header
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: AppSpaceSize.huge),
+              child: Row(
+                children: [
+                  _buildStepIndicator(0, 'Member Information'),
+                  _buildStepConnector(),
+                  _buildStepIndicator(1, 'Subscription'),
+                  _buildStepConnector(),
+                  _buildStepIndicator(2, 'Plans'),
+                  _buildStepConnector(),
+                  _buildStepIndicator(3, 'Summary & Payment'),
+                ],
+              ),
+            ),
+
+            // Step Content
+            Expanded(
+              child: Container(
+                margin: EdgeInsets.symmetric(
+                  horizontal: AppSpaceSize.huge,
+                  vertical: AppSpaceSize.defaultS,
+                ),
+                child: _buildStepContent(context),
+              ),
+            ),
+
+            // Custom Navigation Buttons
+            Container(
+              padding: EdgeInsets.all(AppSpaceSize.huge),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  // Back Button
+                  if (controller.currentStep.value > 0)
+                    ElevatedButton(
+                      onPressed: controller.onStepCancel,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.primary,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: AppSpaceSize.large,
+                          vertical: AppSpaceSize.defaultS,
+                        ),
+                      ),
+                      child: Text(
+                        'Back',
+                        style: TextStyle(color: AppColors.white),
+                      ),
+                    )
+                  else
+                    const SizedBox.shrink(),
+
+                  // Continue/Cancel Button
+                  ElevatedButton(
+                    onPressed: () => controller.onStepContinue(context),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.deepForestGreen,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: AppSpaceSize.large,
+                        vertical: AppSpaceSize.defaultS,
+                      ),
+                    ),
+                    child: controller.isCreatingMember.value
+                        ? SizedBox(
+                            height: 20,
+                            width: 20,
+                            child: CircularProgressIndicator(
+                              color: AppColors.white,
+                            ),
+                          )
+                        : Text(
+                            controller.currentStep.value == 3
+                                ? 'Submit'
+                                : 'Next',
+                            style: TextStyle(color: AppColors.white),
+                          ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildStepIndicator(int stepIndex, String title) {
+    final isActive = controller.currentStep.value == stepIndex;
+    final isCompleted = controller.currentStep.value > stepIndex;
+
+    return Expanded(
+      child: Column(
+        children: [
+          Container(
+            width: 40,
+            height: 40,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: isCompleted
+                  ? AppColors.primary
+                  : isActive
+                      ? AppColors.primary
+                      : AppColors.deepForestGreen,
+            ),
+            child: Center(
+              child: isCompleted
+                  ? Icon(Icons.check, color: AppColors.white, size: 20)
+                  : Text(
+                      '${stepIndex + 1}',
+                      style: TextStyle(
+                        color: AppColors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+            ),
           ),
-          Step(
-            title: const Text('Subscription'),
-            content: _buildSubscriptionStep(),
-            isActive: controller.currentStep.value == 1,
-          ),
-          Step(
-            title: const Text('Plans'),
-            content: _buildPlansStep(),
-            isActive: controller.currentStep.value == 2,
-          ),
-          Step(
-            title: const Text('Summary & Payment'),
-            content: _buildSummaryStep(),
-            isActive: controller.currentStep.value == 3,
+          SizedBox(height: AppSpaceSize.tiny),
+          Text(
+            title,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: AppFontSize.tiny,
+              fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
+              color: isActive ? AppColors.primary : AppColors.deepForestGreen,
+            ),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildMemberInfoStep(BuildContext context) {
+  Widget _buildStepConnector() {
     return Container(
-      margin: EdgeInsets.symmetric(
-        horizontal: AppSpaceSize.huge,
-        vertical: AppSpaceSize.defaultS,
-      ),
-      padding: EdgeInsets.all(AppSpaceSize.defaultS),
-      color: AppColors.white,
-      child: Column(
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Expanded(
-                flex: 7,
-                child: AppTextField(
-                  controller: controller.phoneController,
-                  label: "Phone Number",
-                  hintText: "Search Member Phone number",
-                ),
-              ),
-              SizedBox(width: AppSpaceSize.defaultS),
-              Expanded(
-                flex: 3,
-                child: ElevatedButton(
-                  onPressed: () => controller.searchMember(context),
-                  style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.symmetric(
-                      vertical: AppSpaceSize.defaultS + 6,
-                    ),
+      height: 2,
+      width: 100,
+      color: AppColors.black,
+    );
+  }
+
+  Widget _buildStepContent(BuildContext context) {
+    switch (controller.currentStep.value) {
+      case 0:
+        return _buildMemberInfoStep(context);
+      case 1:
+        return _buildSubscriptionStep();
+      case 2:
+        return _buildPlansStep();
+      case 3:
+        return _buildSummaryStep();
+      default:
+        return _buildMemberInfoStep(context);
+    }
+  }
+
+  Widget _buildMemberInfoStep(BuildContext context) {
+    return SingleChildScrollView(
+      child: Container(
+        margin: EdgeInsets.symmetric(
+          horizontal: AppSpaceSize.huge,
+          vertical: AppSpaceSize.defaultS,
+        ),
+        padding: EdgeInsets.all(AppSpaceSize.defaultS),
+        color: AppColors.white,
+        child: Column(
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Expanded(
+                  flex: 7,
+                  child: AppTextField(
+                    controller: controller.phoneController,
+                    label: "Phone Number",
+                    hintText: "Search Member Phone number",
                   ),
-                  child: controller.isSearchingMemebr.value
-                      ? SizedBox(
-                          height: 20,
-                          width: 20,
-                          child: CircularProgressIndicator(
-                            color: AppColors.white,
-                          ),
-                        )
-                      : const Text("Verify"),
                 ),
-              ),
-            ],
-          ),
-          if (controller.isExistingMember.value)
-            Container(
-              margin: EdgeInsets.only(top: AppSpaceSize.enormous),
-              child: Column(
+                SizedBox(width: AppSpaceSize.defaultS),
+                Expanded(
+                  flex: 3,
+                  child: ElevatedButton(
+                    onPressed: () => controller.searchMember(context),
+                    style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.symmetric(
+                        vertical: AppSpaceSize.defaultS + 6,
+                      ),
+                    ),
+                    child: controller.isSearchingMemebr.value
+                        ? SizedBox(
+                            height: 20,
+                            width: 20,
+                            child: CircularProgressIndicator(
+                              color: AppColors.white,
+                            ),
+                          )
+                        : const Text("Verify"),
+                  ),
+                ),
+              ],
+            ),
+            if (controller.isExistingMember.value)
+              Container(
+                margin: EdgeInsets.only(top: AppSpaceSize.enormous),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: AppSpaceSize.defaultS,
+                    ),
+                    Text(
+                      "Member Information",
+                      style: TextStyle(
+                        fontSize: AppFontSize.medium,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    AppTextField(
+                      readOnly: true,
+                      controller: controller.fnameController,
+                      label: "First Name",
+                      hintText: "Enter your first name",
+                    ),
+                    SizedBox(
+                      height: AppSpaceSize.defaultS,
+                    ),
+                    AppTextField(
+                      readOnly: true,
+                      controller: controller.lnameController,
+                      label: "LastName",
+                      hintText: "Enter your last name",
+                    ),
+                    SizedBox(
+                      height: AppSpaceSize.defaultS,
+                    ),
+                    AppTextField(
+                      controller: controller.cardController,
+                      label: "Card",
+                      hintText: "enter card number",
+                    ),
+                  ],
+                ),
+              )
+            else
+              Column(
                 children: [
                   SizedBox(
                     height: AppSpaceSize.defaultS,
@@ -104,7 +270,6 @@ class SubscriptionView extends GetView<HomeController> {
                     ),
                   ),
                   AppTextField(
-                    readOnly: true,
                     controller: controller.fnameController,
                     label: "First Name",
                     hintText: "Enter your first name",
@@ -113,7 +278,6 @@ class SubscriptionView extends GetView<HomeController> {
                     height: AppSpaceSize.defaultS,
                   ),
                   AppTextField(
-                    readOnly: true,
                     controller: controller.lnameController,
                     label: "LastName",
                     hintText: "Enter your last name",
@@ -126,52 +290,16 @@ class SubscriptionView extends GetView<HomeController> {
                     label: "Card",
                     hintText: "enter card number",
                   ),
+                  AppTextField(
+                    controller: controller.otpController,
+                    label: "otp",
+                    hintText:
+                        "enter otp sent on ${controller.phoneController.text}",
+                  ),
                 ],
               ),
-            )
-          else
-            Column(
-              children: [
-                SizedBox(
-                  height: AppSpaceSize.defaultS,
-                ),
-                Text(
-                  "Member Information",
-                  style: TextStyle(
-                    fontSize: AppFontSize.medium,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                AppTextField(
-                  controller: controller.fnameController,
-                  label: "First Name",
-                  hintText: "Enter your first name",
-                ),
-                SizedBox(
-                  height: AppSpaceSize.defaultS,
-                ),
-                AppTextField(
-                  controller: controller.lnameController,
-                  label: "LastName",
-                  hintText: "Enter your last name",
-                ),
-                SizedBox(
-                  height: AppSpaceSize.defaultS,
-                ),
-                AppTextField(
-                  controller: controller.cardController,
-                  label: "Card",
-                  hintText: "enter card number",
-                ),
-                AppTextField(
-                  controller: controller.otpController,
-                  label: "otp",
-                  hintText:
-                      "enter otp sent on ${controller.phoneController.text}",
-                ),
-              ],
-            ),
-        ],
+          ],
+        ),
       ),
     );
   }
