@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:raxii_desktop/app/modules/home/controllers/home_controller.dart';
 import 'package:raxii_desktop/app/modules/home/views/member_information.dart';
+import 'package:raxii_desktop/app/modules/home/views/plan_selection.dart';
 import 'package:raxii_desktop/app/modules/home/views/subscription_filter.dart';
 import 'package:raxii_desktop/app/modules/login/widgets/app_form_field.dart';
 import 'package:raxii_desktop/app/shared/size.dart';
@@ -80,7 +81,8 @@ class SubscriptionView extends GetView<HomeController> {
                         vertical: AppSpaceSize.defaultS,
                       ),
                     ),
-                    child: controller.isCreatingMember.value
+                    child: controller.isCreatingMember.value ||
+                            controller.isGettingPlans.value
                         ? SizedBox(
                             height: 20,
                             width: 20,
@@ -164,21 +166,12 @@ class SubscriptionView extends GetView<HomeController> {
       case 1:
         return const SubscriptionFilter();
       case 2:
-        return _buildPlansStep();
+        return const PlanSelection();
       case 3:
         return _buildSummaryStep();
       default:
         return const MemberInformation();
     }
-  }
-
-  Widget _buildPlansStep() {
-    // TODO: List plans, allow selection
-    return Column(
-      children: [
-        // ListView of plans
-      ],
-    );
   }
 
   Widget _buildSummaryStep() {

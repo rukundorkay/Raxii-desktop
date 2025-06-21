@@ -148,7 +148,16 @@ class HomeController extends GetxController {
   }
 
   final plans = <Plan>[].obs;
+  final selectedPlans = <Plan>[].obs;
   final isGettingPlans = false.obs;
+  void selectPlan(Plan plan) {
+    if (selectedPlans.contains(plan)) {
+      selectedPlans.remove(plan);
+    } else {
+      selectedPlans.add(plan);
+    }
+  }
+
   void getFilteredPlans() async {
     isGettingPlans.value = true;
     final res = await PlanService.to.getPlans(
