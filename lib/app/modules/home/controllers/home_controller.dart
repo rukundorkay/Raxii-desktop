@@ -5,7 +5,9 @@ import 'package:raxii_desktop/app/core/services/auth_service.dart';
 import 'package:raxii_desktop/app/core/services/facility_service.dart';
 import 'package:raxii_desktop/app/core/services/member_service.dart';
 import 'package:raxii_desktop/app/core/services/partner_service.dart';
+import 'package:raxii_desktop/app/core/services/plan_service.dart';
 import 'package:raxii_desktop/app/data/models/partner.dart';
+import 'package:raxii_desktop/app/data/models/plan.dart';
 import 'package:raxii_desktop/app/data/models/service.dart';
 import 'package:raxii_desktop/app/data/providers/auth_providers.dart';
 import 'package:raxii_desktop/app/shared/enum.dart';
@@ -145,12 +147,20 @@ class HomeController extends GetxController {
     }
   }
 
-  // Step 3: Plans
-  List<String> plans = []; // Populate based on previous selections
-  String? selectedPlan;
-
-  // Step 4: Payment
-  String? paymentMethod;
+  final plans = <Plan>[].obs;
+  final isGettingPlans = false.obs;
+  void getFilteredPlans() async {
+    isGettingPlans.value = true;
+    final res = await PlanService.to.getPlans(
+        duration: selectedDuration.value,
+        partner: selectedPartner.value,
+        service: selectedServices);
+    isGettingPlans.value = false;
+    if (res.isRight) {
+      plans.value = res.right;
+      currentStep.value += 1;
+    }
+  }
 
   void onStepContinue(BuildContext context) {
     if (currentStep.value < 3) {
@@ -161,6 +171,9 @@ class HomeController extends GetxController {
           } else {
             currentStep.value += 1;
           }
+          break;
+        case 1:
+          getFilteredPlans();
           break;
         default:
           currentStep.value += 1;
