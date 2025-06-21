@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:raxii_desktop/app/modules/home/controllers/home_controller.dart';
 import 'package:raxii_desktop/app/modules/home/views/member_information.dart';
+import 'package:raxii_desktop/app/modules/home/views/payment_summary.dart';
 import 'package:raxii_desktop/app/modules/home/views/plan_selection.dart';
 import 'package:raxii_desktop/app/modules/home/views/subscription_filter.dart';
-import 'package:raxii_desktop/app/modules/login/widgets/app_form_field.dart';
 import 'package:raxii_desktop/app/shared/size.dart';
 import 'package:raxii_desktop/app/theme/app_colors.dart';
 
@@ -168,19 +168,9 @@ class SubscriptionView extends GetView<HomeController> {
       case 2:
         return const PlanSelection();
       case 3:
-        return _buildSummaryStep();
+        return const PaymentSummary();
       default:
         return const MemberInformation();
     }
-  }
-
-  Widget _buildSummaryStep() {
-    // TODO: Show summary and payment method selection
-    return Column(
-      children: [
-        // Summary of selections
-        // Payment method dropdown/radio
-      ],
-    );
   }
 }

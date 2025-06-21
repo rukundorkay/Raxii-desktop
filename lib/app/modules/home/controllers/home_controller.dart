@@ -158,7 +158,24 @@ class HomeController extends GetxController {
     }
   }
 
+  List<PaymentMethods> paymentMethods = [
+    PaymentMethods.CASH,
+    PaymentMethods.MOBILE,
+    PaymentMethods.CARD,
+    PaymentMethods.BANK,
+    PaymentMethods.PARTNER,
+  ];
+  final selectedPaymentMethod = Rx<PaymentMethods?>(null);
+  void selectPaymentMethod(PaymentMethods mode) {
+    if (selectedPaymentMethod.value == mode) {
+      selectedPaymentMethod.value = null;
+    } else {
+      selectedPaymentMethod.value = mode;
+    }
+  }
+
   void getFilteredPlans() async {
+    selectedPlans.clear();
     isGettingPlans.value = true;
     final res = await PlanService.to.getPlans(
         duration: selectedDuration.value,
