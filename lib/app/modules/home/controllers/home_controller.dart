@@ -4,7 +4,11 @@ import 'package:raxii_desktop/app/core/services/attandance_service.dart';
 import 'package:raxii_desktop/app/core/services/auth_service.dart';
 import 'package:raxii_desktop/app/core/services/facility_service.dart';
 import 'package:raxii_desktop/app/core/services/member_service.dart';
+import 'package:raxii_desktop/app/core/services/partner_service.dart';
+import 'package:raxii_desktop/app/data/models/partner.dart';
+import 'package:raxii_desktop/app/data/models/service.dart';
 import 'package:raxii_desktop/app/data/providers/auth_providers.dart';
+import 'package:raxii_desktop/app/shared/enum.dart';
 import 'package:raxii_desktop/app/shared/toaster.dart';
 import 'package:toastification/toastification.dart';
 
@@ -16,7 +20,7 @@ class HomeController extends GetxController {
   final TextEditingController lnameController = TextEditingController();
   final TextEditingController cardController = TextEditingController();
   final TextEditingController otpController = TextEditingController();
-  final isExistingMember = false.obs;
+  final isExistingMember = Rx<bool?>(null);
   final isSearchingMemebr = false.obs;
   final isCreatingMember = false.obs;
   void createMember(BuildContext context) async {
@@ -104,12 +108,42 @@ class HomeController extends GetxController {
   }
 
   // Step 2: Subscription selection
-  List<String> services = []; // Populate from API
-  List<String> selectedServices = [];
-  String? selectedDuration;
-  List<String> durations = ['Day', 'Week', 'Month', 'Six Month', 'Year'];
-  List<String> partners = []; // Populate from API
-  String? selectedPartner;
+  final services = <Service>[].obs;
+  final selectedServices = <Service>[].obs;
+  void toggleServiceSelection(Service service) {
+    if (selectedServices.contains(service)) {
+      selectedServices.remove(service);
+    } else {
+      selectedServices.add(service);
+    }
+  }
+
+  final selectedDuration = Rx<SubscriptionDuration?>(null);
+  List<SubscriptionDuration> durations = [
+    SubscriptionDuration.DAY,
+    SubscriptionDuration.WEEK,
+    SubscriptionDuration.MONTH,
+    SubscriptionDuration.THREE_MONTHS,
+    SubscriptionDuration.SIX_MONTHS,
+    SubscriptionDuration.YEAR,
+  ];
+  void toggleDurationSelection(SubscriptionDuration duration) {
+    if (selectedDuration.value == duration) {
+      selectedDuration.value = null;
+    } else {
+      selectedDuration.value = duration;
+    }
+  }
+
+  final partners = <Partner>[].obs;
+  final selectedPartner = Rx<Partner?>(null);
+  void togglePartner(Partner partner) {
+    if (selectedPartner.value == partner) {
+      selectedPartner.value = null;
+    } else {
+      selectedPartner.value = partner;
+    }
+  }
 
   // Step 3: Plans
   List<String> plans = []; // Populate based on previous selections
@@ -193,6 +227,11 @@ class HomeController extends GetxController {
   void changeTab(int index) {
     selectedTabIndex.value = index;
   }
-}
 
-enum SettingsMenu { account, station, printer }
+  @override
+  void onInit() {
+    super.onInit();
+    services.value = FacilityService.to.facilityServices;
+    partners.value = PartnerService.to.partners;
+  }
+}

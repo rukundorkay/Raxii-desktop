@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:raxii_desktop/app/modules/home/controllers/home_controller.dart';
+import 'package:raxii_desktop/app/modules/home/views/member_information.dart';
+import 'package:raxii_desktop/app/modules/home/views/subscription_filter.dart';
 import 'package:raxii_desktop/app/modules/login/widgets/app_form_field.dart';
 import 'package:raxii_desktop/app/shared/size.dart';
 import 'package:raxii_desktop/app/theme/app_colors.dart';
@@ -158,161 +160,16 @@ class SubscriptionView extends GetView<HomeController> {
   Widget _buildStepContent(BuildContext context) {
     switch (controller.currentStep.value) {
       case 0:
-        return _buildMemberInfoStep(context);
+        return const MemberInformation();
       case 1:
-        return _buildSubscriptionStep();
+        return const SubscriptionFilter();
       case 2:
         return _buildPlansStep();
       case 3:
         return _buildSummaryStep();
       default:
-        return _buildMemberInfoStep(context);
+        return const MemberInformation();
     }
-  }
-
-  Widget _buildMemberInfoStep(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-        margin: EdgeInsets.symmetric(
-          horizontal: AppSpaceSize.huge,
-          vertical: AppSpaceSize.defaultS,
-        ),
-        padding: EdgeInsets.all(AppSpaceSize.defaultS),
-        color: AppColors.white,
-        child: Column(
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Expanded(
-                  flex: 7,
-                  child: AppTextField(
-                    controller: controller.phoneController,
-                    label: "Phone Number",
-                    hintText: "Search Member Phone number",
-                  ),
-                ),
-                SizedBox(width: AppSpaceSize.defaultS),
-                Expanded(
-                  flex: 3,
-                  child: ElevatedButton(
-                    onPressed: () => controller.searchMember(context),
-                    style: ElevatedButton.styleFrom(
-                      padding: EdgeInsets.symmetric(
-                        vertical: AppSpaceSize.defaultS + 6,
-                      ),
-                    ),
-                    child: controller.isSearchingMemebr.value
-                        ? SizedBox(
-                            height: 20,
-                            width: 20,
-                            child: CircularProgressIndicator(
-                              color: AppColors.white,
-                            ),
-                          )
-                        : const Text("Verify"),
-                  ),
-                ),
-              ],
-            ),
-            if (controller.isExistingMember.value)
-              Container(
-                margin: EdgeInsets.only(top: AppSpaceSize.enormous),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: AppSpaceSize.defaultS,
-                    ),
-                    Text(
-                      "Member Information",
-                      style: TextStyle(
-                        fontSize: AppFontSize.medium,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    AppTextField(
-                      readOnly: true,
-                      controller: controller.fnameController,
-                      label: "First Name",
-                      hintText: "Enter your first name",
-                    ),
-                    SizedBox(
-                      height: AppSpaceSize.defaultS,
-                    ),
-                    AppTextField(
-                      readOnly: true,
-                      controller: controller.lnameController,
-                      label: "LastName",
-                      hintText: "Enter your last name",
-                    ),
-                    SizedBox(
-                      height: AppSpaceSize.defaultS,
-                    ),
-                    AppTextField(
-                      controller: controller.cardController,
-                      label: "Card",
-                      hintText: "enter card number",
-                    ),
-                  ],
-                ),
-              )
-            else
-              Column(
-                children: [
-                  SizedBox(
-                    height: AppSpaceSize.defaultS,
-                  ),
-                  Text(
-                    "Member Information",
-                    style: TextStyle(
-                      fontSize: AppFontSize.medium,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  AppTextField(
-                    controller: controller.fnameController,
-                    label: "First Name",
-                    hintText: "Enter your first name",
-                  ),
-                  SizedBox(
-                    height: AppSpaceSize.defaultS,
-                  ),
-                  AppTextField(
-                    controller: controller.lnameController,
-                    label: "LastName",
-                    hintText: "Enter your last name",
-                  ),
-                  SizedBox(
-                    height: AppSpaceSize.defaultS,
-                  ),
-                  AppTextField(
-                    controller: controller.cardController,
-                    label: "Card",
-                    hintText: "enter card number",
-                  ),
-                  AppTextField(
-                    controller: controller.otpController,
-                    label: "otp",
-                    hintText:
-                        "enter otp sent on ${controller.phoneController.text}",
-                  ),
-                ],
-              ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildSubscriptionStep() {
-    // TODO: Implement service, duration, partner selection
-    return Column(
-      children: [
-        // Multi-select for services
-        // Single-select for duration
-        // Single-select for partner
-      ],
-    );
   }
 
   Widget _buildPlansStep() {
