@@ -58,7 +58,8 @@ class HomeController extends GetxController {
     if (res.isRight) {
       fnameController.text = res.right.firstName ?? "N/A";
       lnameController.text = res.right.lastName ?? "N/A";
-      cardController.text = res.right.card ?? "";
+      cardController.text =
+          res.right.card != null ? res.right.card!.identifier : '';
       isExistingMember.value = true;
     } else {
       fnameController.clear();

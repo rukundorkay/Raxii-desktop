@@ -1,3 +1,7 @@
+import 'package:flutter/material.dart';
+import 'package:raxii_desktop/app/data/models/card.dart';
+
+
 class Member {
   final String? id;
   final int? memberNumber;
@@ -12,7 +16,7 @@ class Member {
   final DateTime? dateOfBirth;
   final String? picture;
   final bool? isPhoneNumberVerified;
-  final String? card;
+  final CheckinCard? card;
 
   Member({
     this.id,
@@ -46,7 +50,7 @@ class Member {
         dateOfBirth: json['dateOfBirth'],
         picture: json['picture'],
         isPhoneNumberVerified: json['isPhoneNumberVerified'],
-        card: json['card']);
+        card:json['card']!=null? CheckinCard.fromJson(json['card']):null);
   }
 
   Map<String, dynamic> toJson() {
