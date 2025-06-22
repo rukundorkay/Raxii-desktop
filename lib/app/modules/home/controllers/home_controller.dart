@@ -6,6 +6,7 @@ import 'package:raxii_desktop/app/core/services/facility_service.dart';
 import 'package:raxii_desktop/app/core/services/member_service.dart';
 import 'package:raxii_desktop/app/core/services/partner_service.dart';
 import 'package:raxii_desktop/app/core/services/plan_service.dart';
+import 'package:raxii_desktop/app/data/models/member.dart';
 import 'package:raxii_desktop/app/data/models/partner.dart';
 import 'package:raxii_desktop/app/data/models/plan.dart';
 import 'package:raxii_desktop/app/data/models/service.dart';
@@ -17,6 +18,7 @@ import 'package:toastification/toastification.dart';
 class HomeController extends GetxController {
   final currentStep = Rx<int>(0);
   // Step 1: Member info
+  final currentMember = Rx<Member?>(null);
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController fnameController = TextEditingController();
   final TextEditingController lnameController = TextEditingController();
@@ -62,6 +64,7 @@ class HomeController extends GetxController {
     final res =
         await MemberService.to.searchMember(identifier: phoneController.text);
     if (res.isRight) {
+      currentMember.value = res.right;
       fnameController.text = res.right.firstName ?? "N/A";
       lnameController.text = res.right.lastName ?? "N/A";
       cardController.text =
@@ -109,7 +112,6 @@ class HomeController extends GetxController {
     isSearchingMemebr.value = false;
   }
 
-  // Step 2: Subscription selection
   final services = <Service>[].obs;
   final selectedServices = <Service>[].obs;
   void toggleServiceSelection(Service service) {
@@ -174,6 +176,28 @@ class HomeController extends GetxController {
     }
   }
 
+  final isSubmittingSubscription = false.obs;
+  void submitMemberSubscription() async {
+    if (currentMember.value != null &&
+        selectedPaymentMethod.value != null &&
+        selectedPlans.isNotEmpty) {
+      isSubmittingSubscription.value = true;
+      final res = await PlanService.to.confirmSubscriptions(
+        plan: selectedPlans,
+        member: currentMember.value!,
+        paymentMode: selectedPaymentMethod.value!,
+      );
+      isSubmittingSubscription.value = false;
+      if (res.isRight) {
+        print("regisrered");
+      } else {
+        print(res.left);
+      }
+    } else {
+      print("no payment method, selected plans ,or member");
+    }
+  }
+
   void getFilteredPlans() async {
     selectedPlans.clear();
     isGettingPlans.value = true;
@@ -201,11 +225,12 @@ class HomeController extends GetxController {
         case 1:
           getFilteredPlans();
           break;
+
         default:
           currentStep.value += 1;
       }
     } else {
-      // Submit form
+      submitMemberSubscription();
     }
   }
 

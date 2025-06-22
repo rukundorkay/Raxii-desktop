@@ -82,10 +82,11 @@ class SubscriptionView extends GetView<HomeController> {
                       ),
                     ),
                     child: controller.isCreatingMember.value ||
-                            controller.isGettingPlans.value
+                            controller.isGettingPlans.value ||
+                            controller.isSubmittingSubscription.value
                         ? SizedBox(
-                            height: 20,
-                            width: 20,
+                            height: 30,
+                            width: 30,
                             child: CircularProgressIndicator(
                               color: AppColors.white,
                             ),
