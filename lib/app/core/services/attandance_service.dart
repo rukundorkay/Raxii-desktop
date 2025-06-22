@@ -12,8 +12,7 @@ class AttendanceService extends GetxService {
   final currentAttendance = Rx<Attendance?>(null);
   final currentErrorMessage = Rx<String?>(null);
   final currentsubScriptionMember = Rx<SubscriptionMember?>(null);
-  final checkinMethod =
-      Rx<CheckinMethod>(CheckinMethod.BUSINESS_USER_CHECKS_IN);
+
   final todaysCheckin = Rx<int?>(null);
   final isTodaysChekinLoading = false.obs;
 
@@ -31,12 +30,13 @@ class AttendanceService extends GetxService {
     required String identifier,
     required String service,
     int? lockerRoom,
+   required CheckinMethod checkinMethod,
   }) async {
     isCheckinsLoading.value = true;
     final res = await AttendanceProvider.to.checkin(
       identifier: identifier,
       selectedService: service,
-      method: checkinMethod.value,
+      method: checkinMethod,
       accessToken: AuthService.to.user.value!.accessToken!,
     );
     isCheckinsLoading.value = false;

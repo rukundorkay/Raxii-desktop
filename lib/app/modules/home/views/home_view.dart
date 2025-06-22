@@ -158,12 +158,13 @@ class HomeView extends GetView<HomeController> {
                       padding: EdgeInsets.all(AppSpaceSize.defaultS),
                       child: const CheckinView(),
                     ),
-                    Container(
-                        margin: EdgeInsets.symmetric(
-                          horizontal: AppSpaceSize.large,
-                          vertical: AppSpaceSize.enormous,
-                        ),
-                        child: const SubscriptionView()),
+                   const  SubscriptionView(),
+                    // Container(
+                    //     margin: EdgeInsets.symmetric(
+                    //       horizontal: AppSpaceSize.large,
+                    //       vertical: AppSpaceSize.enormous,
+                    //     ),
+                    //     child: const ),
                   ],
                 )),
           ),

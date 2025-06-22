@@ -43,7 +43,7 @@ class LoginController extends GetxController {
         );
       }
     } catch (e) {
-      print("Login error: $e");
+    
       Get.snackbar(
         'Error',
         'Network error occurred. Please check your internet connection and try again.',

@@ -194,10 +194,20 @@ class HomeController extends GetxController {
         subscriptionDetails.value = res.right;
         currentStep.value++;
       } else {
-        print(res.left);
+        Get.snackbar(
+          'Error',
+          res.left,
+          snackPosition: SnackPosition.BOTTOM,
+          duration: const Duration(seconds: 5),
+        );
       }
     } else {
-      print("no payment method, selected plans ,or member");
+      Get.snackbar(
+        'Error',
+        'select payment method first',
+        snackPosition: SnackPosition.BOTTOM,
+        duration: const Duration(seconds: 5),
+      );
     }
   }
 
@@ -276,11 +286,22 @@ class HomeController extends GetxController {
   // Handle search
   void handleSearch(String query) {
     if (isBarcodeSearch.value) {
+      print(query.length);
+      if (query.length == 13) {
+        AttendanceService.to.checkIn(
+          identifier: query,
+          service: FacilityService.to.selectedService.value!.id,
+          checkinMethod: CheckinMethod.CARD_TAP,
+        );
+      } else {
+        AttendanceService.to.currentAttendance.value = null;
+      }
     } else if (!isBarcodeSearch.value) {
       if (query.length == 10) {
         AttendanceService.to.checkIn(
           identifier: query,
           service: FacilityService.to.selectedService.value!.id,
+          checkinMethod: CheckinMethod.BUSINESS_USER_CHECKS_IN,
         );
       } else {
         AttendanceService.to.currentAttendance.value = null;
