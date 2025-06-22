@@ -76,7 +76,7 @@ class PaymentSummary extends GetView<HomeController> {
                             width: AppSpaceSize.large,
                           ),
                           Text(
-                            "${controller.fnameController.text} ${controller.lnameController.text}",
+                            "${controller.currentMember.value!.firstName!} ${controller.currentMember.value!.lastName}",
                             style: TextStyle(
                               color: AppColors.deepForestGreen,
                               fontSize: AppFontSize.medium,
@@ -103,7 +103,8 @@ class PaymentSummary extends GetView<HomeController> {
                             width: AppSpaceSize.large,
                           ),
                           Text(
-                            controller.phoneController.text,
+                            controller.currentMember.value!.phoneNumber
+                                .toString(),
                             style: TextStyle(
                               color: AppColors.deepForestGreen,
                               fontSize: AppFontSize.medium,
@@ -113,21 +114,35 @@ class PaymentSummary extends GetView<HomeController> {
                         ],
                       ),
                       SizedBox(
-                        height: AppSpaceSize.defaultS,
+                        height: AppSpaceSize.tiny,
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            "Registration Code".toUpperCase(),
+                            style: TextStyle(
+                              color: AppColors.steelGray,
+                              fontSize: AppFontSize.medium,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          SizedBox(
+                            width: AppSpaceSize.large,
+                          ),
+                          Text(
+                            controller.currentMember.value!.registrationCode!,
+                            style: TextStyle(
+                              color: AppColors.deepForestGreen,
+                              fontSize: AppFontSize.medium,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
                       ),
                       const Divider(),
-                      // Row(
-                      //   children: [
-                      //     Text("Registration Code"),
-                      //     SizedBox(
-                      //       width: AppSpaceSize.large,
-                      //     ),
-                      //     Text("TEN_9897"),
-                      //   ],
-                      // ),
-                      // SizedBox(
-                      //   height: AppSpaceSize.tiny,
-                      // ),
+                      SizedBox(
+                        height: AppSpaceSize.tiny,
+                      ),
                       Row(
                         children: [
                           Text(

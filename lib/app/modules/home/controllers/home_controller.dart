@@ -10,6 +10,7 @@ import 'package:raxii_desktop/app/data/models/member.dart';
 import 'package:raxii_desktop/app/data/models/partner.dart';
 import 'package:raxii_desktop/app/data/models/plan.dart';
 import 'package:raxii_desktop/app/data/models/service.dart';
+import 'package:raxii_desktop/app/data/models/subscriptions.dart';
 import 'package:raxii_desktop/app/data/providers/auth_providers.dart';
 import 'package:raxii_desktop/app/shared/enum.dart';
 import 'package:raxii_desktop/app/shared/toaster.dart';
@@ -176,6 +177,7 @@ class HomeController extends GetxController {
     }
   }
 
+  final subscriptionDetails = Rx<Subscription?>(null);
   final isSubmittingSubscription = false.obs;
   void submitMemberSubscription() async {
     if (currentMember.value != null &&
@@ -189,13 +191,27 @@ class HomeController extends GetxController {
       );
       isSubmittingSubscription.value = false;
       if (res.isRight) {
-        print("regisrered");
+        subscriptionDetails.value = res.right;
+        currentStep.value++;
       } else {
         print(res.left);
       }
     } else {
       print("no payment method, selected plans ,or member");
     }
+  }
+
+  void cleanSubscription() {
+    fnameController.clear();
+    lnameController.clear();
+    cardController.clear();
+    otpController.clear();
+    phoneController.clear();
+    currentStep.value = 0;
+    currentMember.value = null;
+    selectedDuration.value = null;
+    selectedPaymentMethod.value = null;
+    selectedServices.clear();
   }
 
   void getFilteredPlans() async {
@@ -289,6 +305,9 @@ class HomeController extends GetxController {
 
   // Handle tab change
   void changeTab(int index) {
+    if (index == 1) {
+      cleanSubscription();
+    }
     selectedTabIndex.value = index;
   }
 

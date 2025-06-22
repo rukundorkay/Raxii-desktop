@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:raxii_desktop/app/core/services/auth_service.dart';
 import 'package:raxii_desktop/app/core/services/facility_service.dart';
 import 'package:raxii_desktop/app/modules/home/views/chekin_view.dart';
 import 'package:raxii_desktop/app/modules/home/views/setting_view.dart';
 import 'package:raxii_desktop/app/modules/home/views/subscription_view.dart';
-import 'package:raxii_desktop/app/modules/login/widgets/app_form_field.dart';
 import 'package:raxii_desktop/app/shared/app_path.dart';
 import 'package:raxii_desktop/app/theme/app_colors.dart';
 import 'package:raxii_desktop/app/shared/size.dart';
@@ -98,7 +96,7 @@ class HomeView extends GetView<HomeController> {
                       PopupMenuItem(
                         value: 0,
                         child: Row(
-                          children: const [
+                          children: [
                             Icon(Icons.settings, size: 20),
                             SizedBox(width: 8),
                             Text('Settings'),

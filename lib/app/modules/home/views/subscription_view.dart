@@ -4,6 +4,7 @@ import 'package:raxii_desktop/app/modules/home/controllers/home_controller.dart'
 import 'package:raxii_desktop/app/modules/home/views/member_information.dart';
 import 'package:raxii_desktop/app/modules/home/views/payment_summary.dart';
 import 'package:raxii_desktop/app/modules/home/views/plan_selection.dart';
+import 'package:raxii_desktop/app/modules/home/views/receipt.dart';
 import 'package:raxii_desktop/app/modules/home/views/subscription_filter.dart';
 import 'package:raxii_desktop/app/shared/size.dart';
 import 'package:raxii_desktop/app/theme/app_colors.dart';
@@ -14,96 +15,99 @@ class SubscriptionView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () => Container(
-        padding: EdgeInsets.only(top: AppSpaceSize.defaultS),
-        color: AppColors.white,
-        child: Column(
-          children: [
-            // Custom Stepper Header
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: AppSpaceSize.huge),
-              child: Row(
+      () => controller.currentStep.value == 4
+          ? const Receipt()
+          : Container(
+              padding: EdgeInsets.only(top: AppSpaceSize.defaultS),
+              color: AppColors.white,
+              child: Column(
                 children: [
-                  _buildStepIndicator(0, 'Member Information'),
-                  _buildStepConnector(),
-                  _buildStepIndicator(1, 'Subscription'),
-                  _buildStepConnector(),
-                  _buildStepIndicator(2, 'Plans'),
-                  _buildStepConnector(),
-                  _buildStepIndicator(3, 'Summary & Payment'),
-                ],
-              ),
-            ),
+                  // Custom Stepper Header
+                  Container(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: AppSpaceSize.huge),
+                    child: Row(
+                      children: [
+                        _buildStepIndicator(0, 'Member Information'),
+                        _buildStepConnector(),
+                        _buildStepIndicator(1, 'Subscription'),
+                        _buildStepConnector(),
+                        _buildStepIndicator(2, 'Plans'),
+                        _buildStepConnector(),
+                        _buildStepIndicator(3, 'Summary & Payment'),
+                      ],
+                    ),
+                  ),
 
-            // Step Content
-            Expanded(
-              child: Container(
-                margin: EdgeInsets.symmetric(
-                  horizontal: AppSpaceSize.huge,
-                  vertical: AppSpaceSize.defaultS,
-                ),
-                child: _buildStepContent(context),
-              ),
-            ),
-
-            // Custom Navigation Buttons
-            Container(
-              padding: EdgeInsets.all(AppSpaceSize.huge),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  // Back Button
-                  if (controller.currentStep.value > 0)
-                    ElevatedButton(
-                      onPressed: controller.onStepCancel,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.primary,
-                        padding: EdgeInsets.symmetric(
-                          horizontal: AppSpaceSize.large,
-                          vertical: AppSpaceSize.defaultS,
-                        ),
-                      ),
-                      child: Text(
-                        'Back',
-                        style: TextStyle(color: AppColors.white),
-                      ),
-                    )
-                  else
-                    const SizedBox.shrink(),
-
-                  // Continue/Cancel Button
-                  ElevatedButton(
-                    onPressed: () => controller.onStepContinue(context),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.deepForestGreen,
-                      padding: EdgeInsets.symmetric(
-                        horizontal: AppSpaceSize.large,
+                  // Step Content
+                  Expanded(
+                    child: Container(
+                      margin: EdgeInsets.symmetric(
+                        horizontal: AppSpaceSize.huge,
                         vertical: AppSpaceSize.defaultS,
                       ),
+                      child: _buildStepContent(context),
                     ),
-                    child: controller.isCreatingMember.value ||
-                            controller.isGettingPlans.value ||
-                            controller.isSubmittingSubscription.value
-                        ? SizedBox(
-                            height: 30,
-                            width: 30,
-                            child: CircularProgressIndicator(
-                              color: AppColors.white,
+                  ),
+
+                  // Custom Navigation Buttons
+                  Container(
+                    padding: EdgeInsets.all(AppSpaceSize.huge),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        // Back Button
+                        if (controller.currentStep.value > 0)
+                          ElevatedButton(
+                            onPressed: controller.onStepCancel,
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppColors.primary,
+                              padding: EdgeInsets.symmetric(
+                                horizontal: AppSpaceSize.large,
+                                vertical: AppSpaceSize.defaultS,
+                              ),
+                            ),
+                            child: Text(
+                              'Back',
+                              style: TextStyle(color: AppColors.white),
                             ),
                           )
-                        : Text(
-                            controller.currentStep.value == 3
-                                ? 'Submit'
-                                : 'Next',
-                            style: TextStyle(color: AppColors.white),
+                        else
+                          const SizedBox.shrink(),
+
+                        // Continue/Cancel Button
+                        ElevatedButton(
+                          onPressed: () => controller.onStepContinue(context),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColors.deepForestGreen,
+                            padding: EdgeInsets.symmetric(
+                              horizontal: AppSpaceSize.large,
+                              vertical: AppSpaceSize.defaultS,
+                            ),
                           ),
+                          child: controller.isCreatingMember.value ||
+                                  controller.isGettingPlans.value ||
+                                  controller.isSubmittingSubscription.value
+                              ? SizedBox(
+                                  height: 30,
+                                  width: 30,
+                                  child: CircularProgressIndicator(
+                                    color: AppColors.white,
+                                  ),
+                                )
+                              : Text(
+                                  controller.currentStep.value == 3
+                                      ? 'Submit'
+                                      : 'Next',
+                                  style: TextStyle(color: AppColors.white),
+                                ),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
             ),
-          ],
-        ),
-      ),
     );
   }
 
