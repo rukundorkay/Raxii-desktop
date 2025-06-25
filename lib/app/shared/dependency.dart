@@ -5,6 +5,7 @@ import 'package:raxii_desktop/app/core/services/facility_service.dart';
 import 'package:raxii_desktop/app/core/services/member_service.dart';
 import 'package:raxii_desktop/app/core/services/partner_service.dart';
 import 'package:raxii_desktop/app/core/services/plan_service.dart';
+import 'package:raxii_desktop/app/core/services/setting_service.dart';
 import 'package:raxii_desktop/app/data/providers/attendance_providers%20.dart';
 import 'package:raxii_desktop/app/data/providers/auth_providers.dart';
 import 'package:raxii_desktop/app/data/providers/facility_services_provider.dart';
@@ -27,5 +28,6 @@ class InitialBinding implements Bindings {
     Get.lazyPut(() => PartnerProvider(), fenix: true);
     Get.lazyPut(() => PlanService(), fenix: true);
     Get.lazyPut(() => PlanProvider(), fenix: true);
+    Get.lazyPut(() => SettingService(), fenix: true);
   }
 }

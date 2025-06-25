@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:raxii_desktop/app/core/services/auth_service.dart';
 import 'package:raxii_desktop/app/modules/home/controllers/home_controller.dart';
 import 'package:raxii_desktop/app/shared/extension/string.dart';
+import 'package:raxii_desktop/app/shared/printer/printer_service.dart';
 import 'package:raxii_desktop/app/shared/size.dart';
 import 'package:raxii_desktop/app/theme/app_colors.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -157,30 +158,26 @@ class Receipt extends GetView<HomeController> {
                   ),
                 ),
 
-                // Action Buttons
-                // Container(
-                //   padding: const EdgeInsets.all(24.0),
-                //   decoration: const BoxDecoration(
-                //     color: Color(0xFFF9FAFB), // bg-gray-50
-                //     borderRadius: BorderRadius.only(
-                //       bottomLeft: Radius.circular(12.0),
-                //       bottomRight: Radius.circular(12.0),
-                //     ),
-                //   ),
-                //   child: isSmallScreen
-                //       ? Column(
-                //           mainAxisSize: MainAxisSize.min,
-                //           children: [
-                //             _buildShareButton(context),
-                //           ],
-                //         )
-                //       : Row(
-                //           mainAxisAlignment: MainAxisAlignment.center,
-                //           children: [
-                //             _buildShareButton(context),
-                //           ],
-                //         ),
-                // ),
+                //Action Buttons
+                Container(
+                  padding: const EdgeInsets.all(24.0),
+                  decoration: const BoxDecoration(
+                    color: Color(0xFFF9FAFB), // bg-gray-50
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(12.0),
+                      bottomRight: Radius.circular(12.0),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      _buildShareButton(context, () {
+                        PrinterService().printReceipt(
+                            controller.subscriptionDetails.value!);
+                      }),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
@@ -246,40 +243,27 @@ class Receipt extends GetView<HomeController> {
   }
 
   // Helper widget for the Share button
-  // Widget _buildShareButton(BuildContext context) {
-  //   return ElevatedButton.icon(
-  //     onPressed: () {},
-  //     style: ElevatedButton.styleFrom(
-  //       backgroundColor: const Color(0xFF6366F1), // bg-indigo-500
-  //       foregroundColor: Colors.white,
-  //       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
-  //       shape: RoundedRectangleBorder(
-  //         borderRadius: BorderRadius.circular(9999.0), // Pill-shaped
-  //       ),
-  //       elevation: 0, // No default elevation
-  //       shadowColor:
-  //           const Color(0xFF6366F1).withOpacity(0.3), // For hover effect
-  //       animationDuration: const Duration(milliseconds: 200),
-  //       // transitionDuration: const Duration(milliseconds: 200),
-  //     ).copyWith(
-  //       // Custom hover effects not directly supported by ElevatedButton.styleFrom
-  //       // Requires custom button or InkWell for full control.
-  //       overlayColor: MaterialStateProperty.resolveWith<Color?>(
-  //         (Set<MaterialState> states) {
-  //           if (states.contains(MaterialState.hovered)) {
-  //             return const Color(0xFF4F46E5)
-  //                 .withOpacity(0.1); // Darker indigo on hover
-  //           }
-  //           return null; // Defer to the widget's default.
-  //         },
-  //       ),
-  //     ),
-  //     icon:
-  //         const Icon(Icons.share, size: 20), // Replaced SVG with Material Icon
-  //     label: const Text(
-  //       'Share Receipt',
-  //       style: TextStyle(fontWeight: FontWeight.w600), // font-semibold
-  //     ),
-  //   );
-  // }
+  Widget _buildShareButton(BuildContext context, void Function()? onPressed) {
+    return ElevatedButton.icon(
+      onPressed: onPressed,
+      style: ElevatedButton.styleFrom(
+        backgroundColor: AppColors.primary,
+        foregroundColor: AppColors.white,
+        padding: EdgeInsets.symmetric(
+          horizontal: AppSpaceSize.defaultS,
+          vertical: AppSpaceSize.defaultS,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        elevation: 0,
+        animationDuration: const Duration(milliseconds: 200),
+      ),
+      icon: const Icon(Icons.print, size: 20),
+      label: const Text(
+        'Print Receipt ',
+        style: TextStyle(fontWeight: FontWeight.w600),
+      ),
+    );
+  }
 }

@@ -4,8 +4,8 @@ import 'package:raxii_desktop/app/core/services/facility_service.dart';
 import 'package:raxii_desktop/app/shared/size.dart';
 import 'package:raxii_desktop/app/theme/app_colors.dart';
 
-class ServiceSetting extends StatelessWidget {
-  const ServiceSetting({
+class StationSetting extends StatelessWidget {
+  const StationSetting({
     super.key,
   });
 

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:raxii_desktop/app/modules/home/controllers/home_controller.dart';
 import 'package:raxii_desktop/app/modules/home/views/account_setting_view.dart';
-import 'package:raxii_desktop/app/modules/home/views/facility_service_view%20.dart';
+import 'package:raxii_desktop/app/modules/home/views/printers_view.dart';
+import 'package:raxii_desktop/app/modules/home/views/station_view.dart';
 import 'package:raxii_desktop/app/shared/enum.dart';
 import 'package:raxii_desktop/app/shared/size.dart';
 import 'package:raxii_desktop/app/theme/app_colors.dart';
@@ -74,7 +75,10 @@ void showSettingsDialog(BuildContext context, HomeController controller) {
                   const AccountSetting(),
                 ] else if (controller.selectedMenuSettings.value ==
                     SettingsMenu.station) ...[
-                  const ServiceSetting(),
+                  const StationSetting(),
+                ] else if (controller.selectedMenuSettings.value ==
+                    SettingsMenu.printer) ...[
+                  const PrinterSetting(),
                 ]
               ],
             ),

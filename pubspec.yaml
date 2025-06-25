@@ -20,6 +20,8 @@ dependencies:
   either_dart: ^1.0.0
   toastification: ^2.0.0
   qr_flutter: ^4.1.0
+  pdf: ^3.11.3
+  printing: ^5.14.2
 
 dev_dependencies:
   flutter_test:
