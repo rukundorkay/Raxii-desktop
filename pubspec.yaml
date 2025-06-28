@@ -22,6 +22,8 @@ dependencies:
   qr_flutter: ^4.1.0
   pdf: ^3.11.3
   printing: ^5.14.2
+  flutter_esc_pos_network: ^1.0.3
+  flutter_esc_pos_utils: ^1.0.1
 
 dev_dependencies:
   flutter_test:

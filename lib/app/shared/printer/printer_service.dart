@@ -19,54 +19,88 @@ class PrinterService {
             crossAxisAlignment: pw.CrossAxisAlignment.start,
             children: [
               pw.Column(
-                crossAxisAlignment: pw.CrossAxisAlignment.center,
+                mainAxisAlignment: pw.MainAxisAlignment.center,
+                children: [
+                  pw.Row(
+                      mainAxisAlignment: pw.MainAxisAlignment.center,
+                      children: [
+                        pw.Text(
+                          AuthService.to.user.value!.businessFacility.name,
+                          style: pw.TextStyle(
+                            fontSize: AppFontSize.tiny - 2,
+                            fontWeight: pw.FontWeight.bold,
+                          ),
+                        ),
+                      ]),
+                  pw.Row(
+                      mainAxisAlignment: pw.MainAxisAlignment.center,
+                      children: [
+                        pw.Text(
+                          "Address: ${AuthService.to.user.value!.businessFacility.address}",
+                          style: pw.TextStyle(
+                            fontSize: AppFontSize.tiny - 2,
+                          ),
+                        ),
+                      ]),
+                  pw.Row(
+                      mainAxisAlignment: pw.MainAxisAlignment.center,
+                      children: [
+                        pw.Text(
+                          "Tin: ${AuthService.to.user.value!.businessFacility.tin!}",
+                          style: pw.TextStyle(
+                            fontSize: AppFontSize.tiny - 2,
+                          ),
+                        ),
+                      ]),
+                ],
+              ),
+              separator(pageFormat: PdfPageFormat.roll80),
+              pw.Row(
+                  mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                  children: [
+                    pw.Text(
+                      'Member Name',
+                      style: pw.TextStyle(
+                        fontSize: AppFontSize.tiny - 2,
+                      ),
+                    ),
+                    pw.Text(
+                      '${data.memberNames}',
+                      style: pw.TextStyle(
+                        fontSize: AppFontSize.tiny - 2,
+                      ),
+                    ),
+                  ]),
+              pw.Row(
+                  mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                  children: [
+                    pw.Text(
+                      'Member Phone',
+                      style: pw.TextStyle(
+                        fontSize: AppFontSize.tiny - 2,
+                      ),
+                    ),
+                    pw.Text(
+                      '${data.memberPhoneNumber}',
+                      style: pw.TextStyle(
+                        fontSize: AppFontSize.tiny - 2,
+                      ),
+                    ),
+                  ]),
+              separator(pageFormat: PdfPageFormat.roll80),
+              pw.Row(
+                mainAxisAlignment: pw.MainAxisAlignment.center,
                 children: [
                   pw.Text(
-                    AuthService.to.user.value!.businessFacility.name,
+                    'Receipt',
                     style: pw.TextStyle(
                       fontSize: AppFontSize.tiny - 2,
                       fontWeight: pw.FontWeight.bold,
                     ),
                   ),
-                  pw.Text(
-                    "Address: ${AuthService.to.user.value!.businessFacility.address}",
-                    style: pw.TextStyle(
-                      fontSize: AppFontSize.tiny - 2,
-                    ),
-                  ),
-                  pw.Text(
-                    "Tin: ${AuthService.to.user.value!.businessFacility.tin!}",
-                    style: pw.TextStyle(
-                      fontSize: AppFontSize.tiny - 2,
-                    ),
-                  ),
                 ],
               ),
-              pw.SizedBox(height: AppSpaceSize.defaultS),
-              pw.Text(
-                'Member Name: ${data.memberNames}',
-                style: pw.TextStyle(
-                  fontSize: AppFontSize.tiny - 2,
-                ),
-              ),
-              pw.Text(
-                'Member Phone: ${data.memberPhoneNumber}',
-                style: pw.TextStyle(
-                  fontSize: AppFontSize.tiny - 2,
-                ),
-              ),
-              pw.SizedBox(height: AppSpaceSize.defaultS),
-              pw.Row(
-                  // crossAxisAlignment: pw.CrossAxisAlignment.center,
-                  children: [
-                    pw.Text(
-                      'Receipt',
-                      style: pw.TextStyle(
-                          fontSize: AppFontSize.tiny - 2,
-                          fontWeight: pw.FontWeight.bold),
-                    ),
-                  ]),
-              pw.SizedBox(height: AppSpaceSize.defaultS),
+              separator(pageFormat: PdfPageFormat.roll80),
               pw.Column(
                 children: [
                   pw.Row(
@@ -74,44 +108,100 @@ class PrinterService {
                       pw.Text(
                         'Plans',
                         style: pw.TextStyle(
-                          fontWeight: pw.FontWeight.bold,
                           fontSize: AppFontSize.tiny - 2,
                         ),
                       ),
                     ],
                   ),
                   ...data.plans.map((plan) => pw.Row(
+                        mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                         children: [
                           pw.Padding(
                             padding: const pw.EdgeInsets.all(4),
-                            child: pw.Text(plan.name!),
+                            child: pw.Text(
+                              plan.name!,
+                              style: pw.TextStyle(
+                                fontSize: AppFontSize.tiny - 2,
+                              ),
+                            ),
                           ),
                           pw.Padding(
                             padding: const pw.EdgeInsets.all(4),
-                            child:
-                                pw.Text(plan.price.toString().formatAmount()),
+                            child: pw.Text(
+                              plan.price.toString().formatAmount(),
+                              style: pw.TextStyle(
+                                fontSize: AppFontSize.tiny - 2,
+                              ),
+                            ),
                           ),
                         ],
                       )),
                 ],
               ),
-              pw.SizedBox(height: 12),
+              separator(pageFormat: PdfPageFormat.roll80),
               pw.Row(
-                mainAxisAlignment: pw.MainAxisAlignment.end,
+                mainAxisAlignment: pw.MainAxisAlignment.center,
                 children: [
-                  pw.Text('Total: ',
-                      style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
-                  pw.Text(data.plans
-                      .fold(0.0, (total, plan) => total + plan.price!)
-                      .toString()
-                      .formatAmount()),
+                  // Replace with QR code generation for PDF
+                  pw.Container(
+                    height: 60,
+                    width: 60,
+                    child: pw.Center(
+                      child: pw.BarcodeWidget(
+                          barcode: pw.Barcode.qrCode(),
+                          data: data.memberRegistrationCode!),
+                    ),
+                  ),
                 ],
               ),
-              pw.SizedBox(height: 8),
-              pw.Text('Payment Method: ${data.paymentMethod}'),
-              pw.SizedBox(height: 16),
-              pw.Text('Thank you for your business!',
-                  style: pw.TextStyle(fontStyle: pw.FontStyle.italic)),
+              separator(pageFormat: PdfPageFormat.roll80),
+              pw.Row(
+                mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                children: [
+                  pw.Text(
+                    'Payment Method',
+                    style: pw.TextStyle(fontSize: AppFontSize.tiny - 2),
+                  ),
+                  pw.Text(
+                    "${data.paymentMethod}",
+                    style: pw.TextStyle(fontSize: AppFontSize.tiny - 2),
+                  ),
+                ],
+              ),
+              pw.Row(
+                mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                children: [
+                  pw.Text(
+                    'Total',
+                    style: pw.TextStyle(
+                      fontSize: AppFontSize.tiny - 2,
+                      fontWeight: pw.FontWeight.bold,
+                    ),
+                  ),
+                  pw.Text(
+                    data.plans
+                        .fold(0.0, (total, plan) => total + plan.price!)
+                        .toString()
+                        .formatAmount(),
+                    style: pw.TextStyle(
+                      fontSize: AppFontSize.tiny - 2,
+                      fontWeight: pw.FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+              separator(pageFormat: PdfPageFormat.roll80),
+              pw.Row(
+                mainAxisAlignment: pw.MainAxisAlignment.center,
+                children: [
+                  pw.Text(
+                    'Thank you !!',
+                    style: pw.TextStyle(
+                      fontSize: AppFontSize.tiny - 2,
+                    ),
+                  ),
+                ],
+              ),
             ],
           );
         },
@@ -128,4 +218,32 @@ class PrinterService {
       onLayout: (PdfPageFormat format) async => pdfBytes,
     );
   }
+}
+
+pw.Widget separator({
+  pw.EdgeInsets margin = const pw.EdgeInsets.symmetric(vertical: 8),
+  required PdfPageFormat pageFormat,
+  bool isFooter = false,
+}) {
+  int count = (pageFormat.availableWidth ~/ 8) + 1;
+  return pw.Row(
+    children: List.generate(
+      count,
+      (index) {
+        return pw.Row(children: [
+          pw.Container(
+            margin:
+                isFooter ? const pw.EdgeInsets.only(top: 8, bottom: 0) : margin,
+            height: 1,
+            width: 5,
+            color: PdfColor.fromHex("#484848"),
+          ),
+          if (index < count - 1)
+            pw.SizedBox(
+              width: 3,
+            ),
+        ]);
+      },
+    ),
+  );
 }
