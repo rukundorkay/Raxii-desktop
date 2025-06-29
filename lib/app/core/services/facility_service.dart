@@ -15,16 +15,7 @@ class FacilityService extends GetxService {
   @override
   void onInit() {
     getService();
-    // Restore selected service from storage
-    final stored = _storage.read('selected_service');
-    if (stored != null) {
-      try {
-        final map = jsonDecode(stored);
-        selectedService.value = Service.fromJson(map);
-      } catch (e) {
-        selectedService.value = null;
-      }
-    }
+    readServiceFromStorage();
     super.onInit();
   }
 
@@ -51,6 +42,19 @@ class FacilityService extends GetxService {
     } else {
       selectedService.value = service;
       _storage.write('selected_service', jsonEncode(service.toJson()));
+    }
+  }
+
+  void readServiceFromStorage() {
+    // Restore selected service from storage
+    final stored = _storage.read('selected_service');
+    if (stored != null) {
+      try {
+        final map = jsonDecode(stored);
+        selectedService.value = Service.fromJson(map);
+      } catch (e) {
+        selectedService.value = null;
+      }
     }
   }
 }
