@@ -103,7 +103,7 @@ class AttendanceProvider extends GetConnect {
   @override
   onInit() {
     baseUrl = BASE_URL;
-    timeout = const Duration(minutes: 2);
+    timeout = const Duration(minutes: 5);
     super.onInit();
   }
 }
