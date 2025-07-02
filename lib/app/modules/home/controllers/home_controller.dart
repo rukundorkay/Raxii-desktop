@@ -279,6 +279,7 @@ class HomeController extends GetxController {
   final lockerRoomupdating = false.obs;
   final lockerRoom = TextEditingController();
   final selectedMenuSettings = SettingsMenu.account.obs;
+  final isEthernetConfigurationSelected = false.obs;
 
   void changeSetting(SettingsMenu menuSetting) {
     selectedMenuSettings.value = menuSetting;

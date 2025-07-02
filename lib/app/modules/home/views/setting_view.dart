@@ -67,7 +67,7 @@ void showSettingsDialog(BuildContext context, HomeController controller) {
                 // Vertical divider
                 Container(
                   width: 1,
-                  color: Colors.grey[300],
+                  color: AppColors.softGray,
                   margin: const EdgeInsets.symmetric(horizontal: 20),
                 ),
                 if (controller.selectedMenuSettings.value ==
