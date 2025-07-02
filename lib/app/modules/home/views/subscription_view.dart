@@ -16,7 +16,7 @@ class SubscriptionView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Obx(
       () => controller.currentStep.value == 4
-          ? Container(child: const Receipt())
+          ? const SizedBox(child: Receipt())
           : Container(
               margin: EdgeInsets.symmetric(
                 horizontal: AppSpaceSize.large,

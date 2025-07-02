@@ -39,6 +39,12 @@ class HomeController extends GetxController {
     );
     isCreatingMember.value = false;
     if (res.isRight) {
+      currentMember.value = res.right;
+      fnameController.text = res.right.firstName ?? "N/A";
+      lnameController.text = res.right.lastName ?? "N/A";
+      cardController.text =
+          res.right.card != null ? res.right.card!.identifier : '';
+      isExistingMember.value = true;
       currentStep.value += 1;
       toaster(
         // ignore: use_build_context_synchronously
@@ -286,7 +292,6 @@ class HomeController extends GetxController {
   // Handle search
   void handleSearch(String query) {
     if (isBarcodeSearch.value) {
-      print(query.length);
       if (query.length == 13) {
         AttendanceService.to.checkIn(
           identifier: query,

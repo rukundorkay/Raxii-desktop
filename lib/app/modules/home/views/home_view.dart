@@ -26,22 +26,29 @@ class HomeView extends GetView<HomeController> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                  margin: EdgeInsets.only(left: AppSpaceSize.large),
-                  width: 100,
-                  child: Image.asset(
-                    AppPath.logo,
-                    color: AppColors.primary,
-                    fit: BoxFit.contain,
+                Flexible(
+                  flex: 1,
+                  child: Container(
+                    margin: EdgeInsets.only(left: AppSpaceSize.large),
+                    width: 100,
+                    child: Image.asset(
+                      AppPath.logo,
+                      color: AppColors.primary,
+                      fit: BoxFit.contain,
+                    ),
                   ),
                 ),
-                SizedBox(
-                  width: 300,
+                Spacer(
+                  flex: 2,
+                ),
+                Flexible(
+                  flex: 3,
+                  // width: 600,
                   child: Builder(
                     builder: (BuildContext context) => TabBar(
                       dividerHeight: 0,
                       controller: TabController(
-                        length: 2,
+                        length: 4,
                         vsync: Scaffold.of(context),
                         initialIndex: 0,
                       ),
@@ -65,81 +72,100 @@ class HomeView extends GetView<HomeController> {
                             ),
                           ),
                         ),
+                        Tab(
+                          child: Text(
+                            "Attendance",
+                            style: TextStyle(
+                              fontSize: AppFontSize.defaultS,
+                            ),
+                          ),
+                        ),
+                        Tab(
+                          child: Text(
+                            "Insight",
+                            style: TextStyle(
+                              fontSize: AppFontSize.defaultS,
+                            ),
+                          ),
+                        ),
                       ],
                       onTap: controller.changeTab,
                     ),
                   ),
                 ),
-                Container(
-                  decoration: BoxDecoration(
-                    color: AppColors.softGray,
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(
-                        10,
+                Flexible(
+                  flex: 2,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: AppColors.softGray,
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(
+                          10,
+                        ),
                       ),
                     ),
-                  ),
-                  padding: EdgeInsets.symmetric(
-                    horizontal: AppSpaceSize.large,
-                    vertical: AppSpaceSize.defaultS,
-                  ),
-                  margin: EdgeInsets.symmetric(
-                    horizontal: AppSpaceSize.large,
-                  ),
-                  child: PopupMenuButton<int>(
-                    color: AppColors.softGray,
-                    offset: const Offset(0, 40),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: AppSpaceSize.large,
+                      vertical: AppSpaceSize.defaultS,
                     ),
-                    itemBuilder: (context) => const [
-                      PopupMenuItem(
-                        value: 0,
-                        child: Row(
-                          children: [
-                            Icon(Icons.settings, size: 20),
-                            SizedBox(width: 8),
-                            Text('Settings'),
-                          ],
-                        ),
+                    margin: EdgeInsets.symmetric(
+                      horizontal: AppSpaceSize.large,
+                    ),
+                    child: PopupMenuButton<int>(
+                      color: AppColors.softGray,
+                      offset: const Offset(0, 40),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                      PopupMenuItem(
-                        value: 1,
-                        child: Row(
-                          children: [
-                            Icon(Icons.logout,
-                                size: 20, color: AppColors.alertRed),
-                            SizedBox(width: 8),
-                            Text('Logout',
-                                style: TextStyle(color: AppColors.alertRed)),
-                          ],
+                      itemBuilder: (context) => const [
+                        PopupMenuItem(
+                          value: 0,
+                          child: Row(
+                            children: [
+                              Icon(Icons.settings, size: 20),
+                              SizedBox(width: 8),
+                              Text('Settings'),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
-                    onSelected: (value) {
-                      if (value == 0) {
-                        showSettingsDialog(context, controller);
-                      } else if (value == 1) {
-                        AuthService.to.logout();
-                      }
-                    },
-                    child: Row(
-                      children: [
-                        const Icon(Icons.person),
-                        SizedBox(
-                          width: AppSpaceSize.tiny,
-                        ),
-                        Obx(
-                          () => AuthService.to.user.value != null
-                              ? Text(
-                                  "${AuthService.to.user.value!.firstName} (${FacilityService.to.selectedService.value != null ? FacilityService.to.selectedService.value!.name : ''})",
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                )
-                              : const SizedBox(),
+                        PopupMenuItem(
+                          value: 1,
+                          child: Row(
+                            children: [
+                              Icon(Icons.logout,
+                                  size: 20, color: AppColors.alertRed),
+                              SizedBox(width: 8),
+                              Text('Logout',
+                                  style: TextStyle(color: AppColors.alertRed)),
+                            ],
+                          ),
                         ),
                       ],
+                      onSelected: (value) {
+                        if (value == 0) {
+                          showSettingsDialog(context, controller);
+                        } else if (value == 1) {
+                          AuthService.to.logout();
+                        }
+                      },
+                      child: Row(
+                        children: [
+                          const Icon(Icons.person),
+                          SizedBox(
+                            width: AppSpaceSize.tiny,
+                          ),
+                          Obx(
+                            () => AuthService.to.user.value != null
+                                ? Text(
+                                    "${AuthService.to.user.value!.firstName} (${FacilityService.to.selectedService.value != null ? FacilityService.to.selectedService.value!.name : ''})",
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  )
+                                : const SizedBox(),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -158,7 +184,7 @@ class HomeView extends GetView<HomeController> {
                       padding: EdgeInsets.all(AppSpaceSize.defaultS),
                       child: const CheckinView(),
                     ),
-                   const  SubscriptionView(),
+                    const SubscriptionView(),
                     // Container(
                     //     margin: EdgeInsets.symmetric(
                     //       horizontal: AppSpaceSize.large,

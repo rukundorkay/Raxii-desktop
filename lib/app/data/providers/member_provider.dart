@@ -15,7 +15,6 @@ class MemberProvider extends GetConnect {
         'Authorization': 'Bearer $accessToken',
       },
     );
-    print(response.body);
     if (response.statusCode == 200) {
       return Right(Member.fromJson(response.body));
     } else {
@@ -48,7 +47,7 @@ class MemberProvider extends GetConnect {
         'Authorization': 'Bearer $accessToken',
       },
     );
-    print(response.body);
+
     if (response.statusCode == 201) {
       return Right(Member.fromJson(response.body));
     } else {
