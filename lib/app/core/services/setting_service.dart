@@ -8,6 +8,7 @@ class SettingService extends GetxService {
   final _storage = GetStorage();
   final selectedEthernetPrinterIpAddress = Rx<String?>(null);
   final selectedEthernetPrinterPort = Rx<String?>(null);
+  // final isConnectingEthernetPrinterLoading = Rx<bool>(false);
   @override
   void onInit() {
     readPrinterFromStorage();

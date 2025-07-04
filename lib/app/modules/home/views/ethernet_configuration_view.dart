@@ -76,33 +76,33 @@ class EthernetConfigurationView extends GetView<HomeController> {
                 width: AppSpaceSize.defaultS,
               ),
               Expanded(
-                child: ElevatedButton(
-                  onPressed: () => controller.setEthernetPrinter(),
-                  style: ElevatedButton.styleFrom(
-                    padding:
-                        EdgeInsets.symmetric(vertical: AppSpaceSize.defaultS),
-                    backgroundColor: AppColors.primary,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(AppSpaceSize.tiny),
+                child: Obx(
+                  () => ElevatedButton(
+                    onPressed: () => controller.setEthernetPrinter(context),
+                    style: ElevatedButton.styleFrom(
+                      padding:
+                          EdgeInsets.symmetric(vertical: AppSpaceSize.defaultS),
+                      backgroundColor: AppColors.primary,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(AppSpaceSize.tiny),
+                      ),
                     ),
-                  ),
-                  child:
-                      // controller.isLoading.value
-                      //     ? SizedBox(
-                      //         height: 20,
-                      //         width: 20,
-                      //         child: CircularProgressIndicator(
-                      //           color: AppColors.black,
-                      //         ),
-                      //       )
-                      //     :
-                      Text(
-                    'Test and Save',
-                    style: TextStyle(
-                      color: AppColors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    child: controller.isConnectingEthernetPrinterLoading.value
+                        ? SizedBox(
+                            height: 20,
+                            width: 20,
+                            child: CircularProgressIndicator(
+                              color: AppColors.black,
+                            ),
+                          )
+                        : Text(
+                            'Test and Save',
+                            style: TextStyle(
+                              color: AppColors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                   ),
                 ),
               ),

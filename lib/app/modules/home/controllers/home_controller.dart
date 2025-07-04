@@ -1,5 +1,7 @@
+import 'package:either_dart/either.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:printing/printing.dart';
 import 'package:raxii_desktop/app/core/services/attandance_service.dart';
 import 'package:raxii_desktop/app/core/services/auth_service.dart';
 import 'package:raxii_desktop/app/core/services/facility_service.dart';
@@ -14,6 +16,7 @@ import 'package:raxii_desktop/app/data/models/service.dart';
 import 'package:raxii_desktop/app/data/models/subscriptions.dart';
 import 'package:raxii_desktop/app/data/providers/auth_providers.dart';
 import 'package:raxii_desktop/app/shared/enum.dart';
+import 'package:raxii_desktop/app/shared/printer/printer_service.dart';
 import 'package:raxii_desktop/app/shared/toaster.dart';
 import 'package:toastification/toastification.dart';
 
@@ -31,15 +34,22 @@ class HomeController extends GetxController {
   final isExistingMember = Rx<bool?>(null);
   final isSearchingMemebr = false.obs;
   final isCreatingMember = false.obs;
+  final isConnectingEthernetPrinterLoading = false.obs;
 
-  void setEthernetPrinter() {
-    SettingService.to.setEthernetPrinter(
-      ipAddress: ipAddressController.text,
-      port: int.parse(portController.text),
-    );
-    isEthernetConfigurationSelected.value = false;
-    ipAddressController.clear();
-    portController.clear();
+  void setEthernetPrinter(BuildContext context) async {
+    isConnectingEthernetPrinterLoading.value = true;
+
+    final res = await PrinterService().testEthernetEscPos(context: context);
+    isConnectingEthernetPrinterLoading.value = false;
+    if (res.isRight) {
+      SettingService.to.setEthernetPrinter(
+        ipAddress: ipAddressController.text,
+        port: int.parse(portController.text),
+      );
+      isEthernetConfigurationSelected.value = false;
+      ipAddressController.clear();
+      portController.clear();
+    }
   }
 
   void createMember(BuildContext context) async {

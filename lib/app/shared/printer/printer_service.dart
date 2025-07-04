@@ -364,6 +364,59 @@ class PrinterService {
     );
   }
 
+  ///[testEthernetEscPos] this allow printer on Ethernet to print test version
+  Future<Either<String, String>> testEthernetEscPos({
+    String ipAddress = "192.168.1.100",
+    int port = 9100,
+    required BuildContext context,
+  }) async {
+    PaperSize papersize = PaperSize.mm80;
+    final profile = await CapabilityProfile.load();
+    final generator = Generator(papersize, profile);
+    List<int> bytes = [];
+    bytes += generator.text(
+      '********************************',
+      styles: const PosStyles(align: PosAlign.center, bold: true),
+    );
+    bytes += generator.text(
+      'Raxii',
+      styles: const PosStyles(
+        align: PosAlign.center,
+        bold: true,
+        height: PosTextSize.size1,
+        width: PosTextSize.size1,
+      ),
+    );
+    bytes += generator.feed(1);
+
+    bytes += generator.text(
+      'printer testing>>>>>>>>>printer connected successfully',
+      styles: const PosStyles(
+        align: PosAlign.left,
+        bold: true,
+        height: PosTextSize.size1,
+        width: PosTextSize.size1,
+      ),
+    );
+    bytes += generator.feed(1);
+    bytes += generator.text(
+      '********************************',
+      styles: const PosStyles(align: PosAlign.center, bold: true),
+    );
+    bytes += generator.feed(3);
+    bytes += generator.cut();
+
+    final res = await printEscPosReceipt(
+      receipt: bytes,
+      ipAddress: ipAddress,
+      port: port,
+      // ignore: use_build_context_synchronously
+      context: context,
+    );
+
+    return res;
+  }
+
   /// Prints the receipt PDF document.
   Future<void> printReceipt({
     required Subscription data,
