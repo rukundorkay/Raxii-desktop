@@ -74,9 +74,7 @@ class EthernetConfigurationView extends GetView<HomeController> {
               ),
               Expanded(
                 child: ElevatedButton(
-                  onPressed: () {
-                    // controller.isEthernetConfigurationSelected.value = false;
-                  },
+                  onPressed: () {},
                   style: ElevatedButton.styleFrom(
                     padding:
                         EdgeInsets.symmetric(vertical: AppSpaceSize.defaultS),

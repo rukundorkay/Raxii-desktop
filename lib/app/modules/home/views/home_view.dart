@@ -38,7 +38,7 @@ class HomeView extends GetView<HomeController> {
                     ),
                   ),
                 ),
-                Spacer(
+                const Spacer(
                   flex: 2,
                 ),
                 Flexible(

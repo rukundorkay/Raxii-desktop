@@ -6,10 +6,32 @@ class SettingService extends GetxService {
   static SettingService get to => Get.find();
   final selectedPrinterType = Rx<PrinterType?>(null);
   final _storage = GetStorage();
+  final selectedEthernetPrinterIpAddress = Rx<String?>(null);
+  final selectedEthernetPrinterPort = Rx<String?>(null);
   @override
   void onInit() {
     readPrinterFromStorage();
+    setEthernetPrinter(isRead: true);
     super.onInit();
+  }
+
+  void setEthernetPrinter({
+    String? ipAddress,
+    int? port,
+    bool isRead = false,
+  }) {
+    if (!isRead) {
+      _storage.write(
+        'selected_ethernet_printer',
+        {'ipAddress': ipAddress, 'port': port},
+      );
+    } else {
+      final stored = _storage.read('selected_ethernet_printer');
+      if (stored != null) {
+        selectedEthernetPrinterIpAddress.value = stored['ipAddress'];
+        selectedEthernetPrinterPort.value = stored['port'];
+      }
+    }
   }
 
   void selectPrinter(PrinterType printerType) {
