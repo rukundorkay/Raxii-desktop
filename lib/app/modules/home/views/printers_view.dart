@@ -91,8 +91,10 @@ class PrinterSetting extends GetView<HomeController> {
                             ),
                             ListTile(
                               onTap: () {
-                                controller.isEthernetConfigurationSelected
-                                    .value = true;
+                                controller
+                                        .isEthernetConfigurationSelected.value =
+                                    !controller
+                                        .isEthernetConfigurationSelected.value;
                                 SettingService.to
                                     .selectPrinter(PrinterType.ethernet);
                               },
