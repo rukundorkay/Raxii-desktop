@@ -23,13 +23,18 @@ class SettingService extends GetxService {
     if (!isRead) {
       _storage.write(
         'selected_ethernet_printer',
-        {'ipAddress': ipAddress, 'port': port},
+        {
+          'ipAddress': ipAddress,
+          'port': port,
+        },
       );
+      selectedEthernetPrinterIpAddress.value = ipAddress;
+      selectedEthernetPrinterPort.value = port.toString();
     } else {
       final stored = _storage.read('selected_ethernet_printer');
       if (stored != null) {
         selectedEthernetPrinterIpAddress.value = stored['ipAddress'];
-        selectedEthernetPrinterPort.value = stored['port'];
+        selectedEthernetPrinterPort.value = stored['port'].toString();
       }
     }
   }

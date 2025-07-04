@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:raxii_desktop/app/core/services/setting_service.dart';
 import 'package:raxii_desktop/app/modules/home/controllers/home_controller.dart';
 import 'package:raxii_desktop/app/modules/login/widgets/app_form_field.dart';
 import 'package:raxii_desktop/app/shared/size.dart';
@@ -34,14 +35,16 @@ class EthernetConfigurationView extends GetView<HomeController> {
             ],
           ),
           SizedBox(height: AppSpaceSize.large),
-          const AppTextField(
+          AppTextField(
             label: "Ip Address",
             hintText: "Ex:192.168.89.1",
+            controller: controller.ipAddressController,
           ),
           SizedBox(height: AppSpaceSize.defaultS),
-          const AppTextField(
+          AppTextField(
             label: "Port Number",
             hintText: "Ex:9090",
+            controller: controller.portController,
           ),
           SizedBox(height: AppSpaceSize.large),
           Row(
@@ -74,7 +77,7 @@ class EthernetConfigurationView extends GetView<HomeController> {
               ),
               Expanded(
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () => controller.setEthernetPrinter(),
                   style: ElevatedButton.styleFrom(
                     padding:
                         EdgeInsets.symmetric(vertical: AppSpaceSize.defaultS),

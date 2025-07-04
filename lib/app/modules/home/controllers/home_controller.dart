@@ -6,6 +6,7 @@ import 'package:raxii_desktop/app/core/services/facility_service.dart';
 import 'package:raxii_desktop/app/core/services/member_service.dart';
 import 'package:raxii_desktop/app/core/services/partner_service.dart';
 import 'package:raxii_desktop/app/core/services/plan_service.dart';
+import 'package:raxii_desktop/app/core/services/setting_service.dart';
 import 'package:raxii_desktop/app/data/models/member.dart';
 import 'package:raxii_desktop/app/data/models/partner.dart';
 import 'package:raxii_desktop/app/data/models/plan.dart';
@@ -25,9 +26,22 @@ class HomeController extends GetxController {
   final TextEditingController lnameController = TextEditingController();
   final TextEditingController cardController = TextEditingController();
   final TextEditingController otpController = TextEditingController();
+  final TextEditingController ipAddressController = TextEditingController();
+  final TextEditingController portController = TextEditingController();
   final isExistingMember = Rx<bool?>(null);
   final isSearchingMemebr = false.obs;
   final isCreatingMember = false.obs;
+
+  void setEthernetPrinter() {
+    SettingService.to.setEthernetPrinter(
+      ipAddress: ipAddressController.text,
+      port: int.parse(portController.text),
+    );
+    isEthernetConfigurationSelected.value = false;
+    ipAddressController.clear();
+    portController.clear();
+  }
+
   void createMember(BuildContext context) async {
     isCreatingMember.value = true;
     final res = await MemberService.to.createMember(

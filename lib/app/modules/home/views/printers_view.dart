@@ -112,13 +112,15 @@ class PrinterSetting extends GetView<HomeController> {
                                       : AppColors.deepForestGreen,
                                 ),
                               ),
+                        
                               subtitle: SettingService
                                           .to
                                           .selectedEthernetPrinterIpAddress
                                           .value !=
                                       null
-                                  ? Text(SettingService.to
-                                      .selectedEthernetPrinterIpAddress.value!)
+                                  ? Text(
+                                      "IP:${SettingService.to.selectedEthernetPrinterIpAddress.value!}, Port:${SettingService.to.selectedEthernetPrinterPort.value!}",
+                                    )
                                   : null,
                               trailing: Icon(
                                 (SettingService.to.selectedPrinterType.value !=
