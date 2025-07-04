@@ -4,6 +4,7 @@ import 'package:raxii_desktop/app/core/constants/api_constants.dart';
 import 'package:raxii_desktop/app/data/models/attendance.dart';
 import 'package:raxii_desktop/app/data/models/subscription_plan.dart';
 import 'package:raxii_desktop/app/shared/enum.dart';
+import 'package:raxii_desktop/app/shared/extension/dateTime.dart';
 import 'package:raxii_desktop/app/shared/extension/string.dart';
 
 class AttendanceProvider extends GetConnect {
@@ -95,6 +96,27 @@ class AttendanceProvider extends GetConnect {
 
     if (response.statusCode == 200) {
       return Right(response.body["totalCheckIns"]);
+    } else {
+      return Left(response.body["message"]);
+    }
+  }
+
+  Future<Either<String, List<Attendance>>> getAttendance(
+      {required DateTime endDate,
+      required String token,
+      required String userId}) async {
+    final response = await get(
+      "/attendances?endDate=${endDate.formatAttendanceDate()}&&startDate=${endDate.formatAttendanceDate()}",
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+        'userId': userId,
+      },
+    );
+
+    if (response.statusCode == 200) {
+      List attendances = response.body['items'];
+      return Right(attendances.map((e) => Attendance.fromJson(e)).toList());
     } else {
       return Left(response.body["message"]);
     }

@@ -12,9 +12,10 @@ class AttendanceService extends GetxService {
   final currentAttendance = Rx<Attendance?>(null);
   final currentErrorMessage = Rx<String?>(null);
   final currentsubScriptionMember = Rx<SubscriptionMember?>(null);
-
+  final allAttendance = <Attendance>[].obs;
   final todaysCheckin = Rx<int?>(null);
   final isTodaysChekinLoading = false.obs;
+  final isGetAttendanceLoading = false.obs;
 
   Future<void> attendanceAnalytics() async {
     isTodaysChekinLoading.value = true;
@@ -30,7 +31,7 @@ class AttendanceService extends GetxService {
     required String identifier,
     required String service,
     int? lockerRoom,
-   required CheckinMethod checkinMethod,
+    required CheckinMethod checkinMethod,
   }) async {
     isCheckinsLoading.value = true;
     final res = await AttendanceProvider.to.checkin(
@@ -61,6 +62,21 @@ class AttendanceService extends GetxService {
     );
     if (res.isRight) {
       currentAttendance.value = null;
+    }
+    return res;
+  }
+
+  Future<Either<String, List<Attendance>>> getAttendance() async {
+    isGetAttendanceLoading.value = true;
+    final res = await AttendanceProvider.to.getAttendance(
+      endDate: DateTime.now(),
+      token: AuthService.to.user.value!.accessToken!,
+      userId: AuthService.to.user.value!.id,
+    );
+    isGetAttendanceLoading.value = false;
+
+    if (res.isRight) {
+      allAttendance.value = res.right;
     }
     return res;
   }

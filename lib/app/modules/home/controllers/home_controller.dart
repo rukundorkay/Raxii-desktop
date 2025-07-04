@@ -38,7 +38,6 @@ class HomeController extends GetxController {
 
   void setEthernetPrinter(BuildContext context) async {
     isConnectingEthernetPrinterLoading.value = true;
-
     final res = await PrinterService().testEthernetEscPos(context: context);
     isConnectingEthernetPrinterLoading.value = false;
     if (res.isRight) {
@@ -358,6 +357,8 @@ class HomeController extends GetxController {
   void changeTab(int index) {
     if (index == 1) {
       cleanSubscription();
+    } else if (index == 2) {
+      AttendanceService.to.getAttendance();
     }
     selectedTabIndex.value = index;
   }
