@@ -270,6 +270,11 @@ class PrinterService {
         width: 4,
         styles: const PosStyles(align: PosAlign.left),
       ),
+      PosColumn(
+        text: DateTime.now().toString(),
+        width: 8,
+        styles: const PosStyles(align: PosAlign.right),
+      ),
     ]);
 
     bytes += generator.hr();
@@ -366,7 +371,7 @@ class PrinterService {
 
   ///[testEthernetEscPos] this allow printer on Ethernet to print test version
   Future<Either<String, String>> testEthernetEscPos({
-    String ipAddress = "192.168.1.100",
+    String ipAddress = "192.168.1.10",
     int port = 9100,
     required BuildContext context,
   }) async {
@@ -434,8 +439,9 @@ class PrinterService {
         PrinterType.ethernet) {
       generateEthernetReceipt(
           data: data,
-          ipAddress: ipAddress,
-          portNumber: portNumber!,
+          ipAddress: SettingService.to.selectedEthernetPrinterIpAddress.value!,
+          portNumber:
+              int.parse(SettingService.to.selectedEthernetPrinterPort.value!),
           context: context);
     }
   }

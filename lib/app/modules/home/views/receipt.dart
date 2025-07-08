@@ -173,6 +173,7 @@ class Receipt extends GetView<HomeController> {
                     children: [
                       _buildShareButton(context, () {
                         PrinterService().printReceipt(
+                          
                           context: context,
                           data: controller.subscriptionDetails.value!,
                         );
