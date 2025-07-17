@@ -7,6 +7,7 @@ import 'package:raxii_desktop/app/shared/enum.dart';
 import '../../data/providers/attendance_providers .dart';
 
 class AttendanceService extends GetxService {
+  final selectedDate = Rx<DateTime?>(null);
   static AttendanceService get to => Get.find();
   final isCheckinsLoading = false.obs;
   final currentAttendance = Rx<Attendance?>(null);
@@ -66,10 +67,12 @@ class AttendanceService extends GetxService {
     return res;
   }
 
-  Future<Either<String, List<Attendance>>> getAttendance() async {
+  Future<Either<String, List<Attendance>>> getAttendance(
+      {required DateTime endDate}) async {
+    selectedDate.value = endDate;
     isGetAttendanceLoading.value = true;
     final res = await AttendanceProvider.to.getAttendance(
-      endDate: DateTime.now(),
+      endDate: endDate,
       token: AuthService.to.user.value!.accessToken!,
       userId: AuthService.to.user.value!.id,
     );

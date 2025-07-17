@@ -24,8 +24,9 @@ dependencies:
   printing: ^5.14.2
   flutter_esc_pos_network: ^1.0.3
   flutter_esc_pos_utils: ^1.0.1
-  intl: ^0.20.2
+  # intl: ^0.20.2
   font_awesome_flutter: ^10.8.0
+  syncfusion_flutter_calendar: ^22.1.39
 
 dev_dependencies:
   flutter_test:
