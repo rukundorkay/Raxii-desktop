@@ -5,6 +5,7 @@ import 'package:raxii_desktop/app/core/services/auth_service.dart';
 import 'package:raxii_desktop/app/core/services/facility_service.dart';
 import 'package:raxii_desktop/app/modules/home/views/attendance_view.dart';
 import 'package:raxii_desktop/app/modules/home/views/chekin_view.dart';
+import 'package:raxii_desktop/app/modules/home/views/insight_view.dart';
 import 'package:raxii_desktop/app/modules/home/views/setting_view.dart';
 import 'package:raxii_desktop/app/modules/home/views/subscription_view.dart';
 import 'package:raxii_desktop/app/shared/app_path.dart';
@@ -186,7 +187,8 @@ class HomeView extends GetView<HomeController> {
                   children: const [
                     CheckinView(),
                     SubscriptionView(),
-                    AttendanceView()
+                    AttendanceView(),
+                    InsinghtView(),
                   ],
                 )),
           ),

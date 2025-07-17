@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:raxii_desktop/app/core/services/auth_service.dart';
 import 'package:raxii_desktop/app/shared/size.dart';
+import 'package:raxii_desktop/app/shared/widget/detail_tile.dart';
 import 'package:raxii_desktop/app/theme/app_colors.dart';
 
 class AccountSetting extends StatelessWidget {
@@ -30,13 +31,19 @@ class AccountSetting extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _buildDetail('Name',
-                      "${AuthService.to.user.value?.firstName} ${AuthService.to.user.value?.lastName}"),
-                  _buildDetail('Role', AuthService.to.user.value!.role.name),
-                  _buildDetail(
-                      'Phone Number', AuthService.to.user.value!.phoneNumber),
-                  _buildDetail('Business',
-                      AuthService.to.user.value!.businessFacility.name),
+                  DetailTile(
+                      label: 'Name',
+                      value:
+                          "${AuthService.to.user.value?.firstName} ${AuthService.to.user.value?.lastName}"),
+                  DetailTile(
+                      label: 'Role',
+                      value: AuthService.to.user.value!.role.name),
+                  DetailTile(
+                      label: 'Phone Number',
+                      value: AuthService.to.user.value!.phoneNumber),
+                  DetailTile(
+                      label: 'Business',
+                      value: AuthService.to.user.value!.businessFacility.name),
                 ],
               ),
             ],
@@ -79,41 +86,6 @@ Widget buildMenuItem({
           ),
         ],
       ),
-    ),
-  );
-}
-
-Widget _buildDetail(String label, String value) {
-  return Container(
-    decoration: BoxDecoration(
-        color: AppColors.softGray,
-        borderRadius: const BorderRadius.all(Radius.circular(10))),
-    padding: EdgeInsets.symmetric(
-      vertical: AppSpaceSize.tiny,
-      horizontal: AppSpaceSize.defaultS,
-    ),
-    margin: EdgeInsets.only(bottom: AppSpaceSize.large),
-    width: 400,
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          label,
-          style: const TextStyle(
-            fontSize: 14,
-            color: Colors.grey,
-          ),
-        ),
-        const SizedBox(height: 5),
-        Text(
-          value,
-          style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-      ],
     ),
   );
 }

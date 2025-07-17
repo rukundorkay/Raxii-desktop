@@ -9,6 +9,7 @@ import 'package:raxii_desktop/app/core/services/member_service.dart';
 import 'package:raxii_desktop/app/core/services/partner_service.dart';
 import 'package:raxii_desktop/app/core/services/plan_service.dart';
 import 'package:raxii_desktop/app/core/services/setting_service.dart';
+import 'package:raxii_desktop/app/core/services/subscription_service.dart';
 import 'package:raxii_desktop/app/data/models/member.dart';
 import 'package:raxii_desktop/app/data/models/partner.dart';
 import 'package:raxii_desktop/app/data/models/plan.dart';
@@ -359,6 +360,9 @@ class HomeController extends GetxController {
       cleanSubscription();
     } else if (index == 2) {
       AttendanceService.to.getAttendance();
+    } else if (index == 3) {
+      SubscriptionService.to.selectedSubscriptions.value = null;
+      SubscriptionService.to.getAllSubscriptions();
     }
     selectedTabIndex.value = index;
   }

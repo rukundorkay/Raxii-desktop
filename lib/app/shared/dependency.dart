@@ -6,12 +6,14 @@ import 'package:raxii_desktop/app/core/services/member_service.dart';
 import 'package:raxii_desktop/app/core/services/partner_service.dart';
 import 'package:raxii_desktop/app/core/services/plan_service.dart';
 import 'package:raxii_desktop/app/core/services/setting_service.dart';
+import 'package:raxii_desktop/app/core/services/subscription_service.dart';
 import 'package:raxii_desktop/app/data/providers/attendance_providers%20.dart';
 import 'package:raxii_desktop/app/data/providers/auth_providers.dart';
 import 'package:raxii_desktop/app/data/providers/facility_services_provider.dart';
 import 'package:raxii_desktop/app/data/providers/member_provider.dart';
 import 'package:raxii_desktop/app/data/providers/partner_provider.dart';
 import 'package:raxii_desktop/app/data/providers/plan_provider.dart';
+import 'package:raxii_desktop/app/data/providers/subscription_provider.dart';
 
 class InitialBinding implements Bindings {
   @override
@@ -28,6 +30,9 @@ class InitialBinding implements Bindings {
     Get.lazyPut(() => PartnerProvider(), fenix: true);
     Get.lazyPut(() => PlanService(), fenix: true);
     Get.lazyPut(() => PlanProvider(), fenix: true);
+    Get.lazyPut(() => SettingService(), fenix: true);
+    Get.lazyPut(() => SubscriptionProvider(), fenix: true);
+    Get.lazyPut(() => SubscriptionService(), fenix: true);
     Get.lazyPut(() => SettingService(), fenix: true);
   }
 }
