@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:raxii_desktop/app/data/models/subscription_insight.dart';
 import 'package:raxii_desktop/app/data/models/subscription_transaction.dart';
 import 'package:raxii_desktop/app/data/providers/subscription_provider.dart';
 import 'package:raxii_desktop/app/shared/extension/dateTime.dart';
@@ -9,7 +10,7 @@ class SubscriptionService extends GetxService {
   final isSubscriptionsLoading = false.obs;
   final allSubscriptions = <SubscriptionTransaction>[].obs;
   final searchedSubscriptions = <SubscriptionTransaction>[].obs;
-  // final subscriptionInsinght = Rx<SubscriptionInsight?>(null);
+  final subscriptionInsinght = Rx<SubscriptionInsight?>(null);
   final subscriptionInsightLoading = false.obs;
   final selectedSubscriptions = Rx<SubscriptionTransaction?>(null);
 
@@ -42,15 +43,16 @@ class SubscriptionService extends GetxService {
     if (res.isRight) {
       allSubscriptions.value = res.right;
     }
+    getSubscriptionsInsight();
   }
 
-  // getSubscriptionsInsight() async {
-  //   subscriptionInsightLoading.value = true;
-  //   final res = await SubscriptionProvider.to
-  //       .getSubscriptionsInsight(date: DateTime.now().formatAttendanceDate());
-  //   subscriptionInsightLoading.value = false;
-  //   if (res.isRight) {
-  //     subscriptionInsinght.value = res.right;
-  //   }
-  // }
+  getSubscriptionsInsight() async {
+    subscriptionInsightLoading.value = true;
+    final res = await SubscriptionProvider.to
+        .getSubscriptionsInsight(date: DateTime.now().formatAttendanceDate());
+    subscriptionInsightLoading.value = false;
+    if (res.isRight) {
+      subscriptionInsinght.value = res.right;
+    }
+  }
 }

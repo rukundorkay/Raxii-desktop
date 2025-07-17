@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:raxii_desktop/app/core/services/subscription_service.dart';
+import 'package:raxii_desktop/app/modules/home/views/payment_breakdown_widget.dart';
 import 'package:raxii_desktop/app/shared/extension/dateTime.dart';
 import 'package:raxii_desktop/app/shared/extension/string.dart';
 import 'package:raxii_desktop/app/shared/size.dart';
@@ -46,6 +46,28 @@ class InsinghtView extends StatelessWidget {
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
+                            ),
+                            Container(
+                              margin: EdgeInsets.symmetric(
+                                horizontal: AppSpaceSize.defaultS,
+                              ),
+                              decoration: BoxDecoration(
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(10)),
+                                color: AppColors.softGray,
+                              ),
+                              child: TextFormField(
+                                decoration: InputDecoration(
+                                    prefixIcon:
+                                        const Icon(Icons.search, size: 16),
+                                    hintText: "Search  by Client Name",
+                                    hintStyle: TextStyle(
+                                        color: AppColors.deepForestGreen,
+                                        fontSize: AppFontSize.defaultS)),
+                              ),
+                            ),
+                            SizedBox(
+                              height: AppSpaceSize.defaultS,
                             ),
                             SubscriptionService.to.isSubscriptionsLoading.value
                                 ? const Expanded(
@@ -135,41 +157,48 @@ class InsinghtView extends StatelessWidget {
                                                             FontWeight.w500,
                                                       ),
                                                     ),
-                                                    trailing: Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .end,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
+                                                    trailing: Wrap(
                                                       children: [
-                                                        Text(
-                                                          subscriptions.amount
-                                                              .toString()
-                                                              .formatAmount(),
-                                                          style: TextStyle(
-                                                            color:
-                                                                AppColors.black,
-                                                            fontSize:
-                                                                AppFontSize
-                                                                    .tiny,
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                          ),
-                                                        ),
-                                                        Text(
-                                                          subscriptions
-                                                              .createdAt!
-                                                              .toFormattedTime(),
-                                                          style: TextStyle(
-                                                            color:
-                                                                AppColors.black,
-                                                            fontSize:
-                                                                AppFontSize
-                                                                    .tiny,
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                          ),
+                                                        Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .end,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Text(
+                                                              subscriptions
+                                                                  .amount
+                                                                  .toString()
+                                                                  .formatAmount(),
+                                                              style: TextStyle(
+                                                                color: AppColors
+                                                                    .black,
+                                                                fontSize:
+                                                                    AppFontSize
+                                                                        .tiny,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                              ),
+                                                            ),
+                                                            Text(
+                                                              subscriptions
+                                                                  .createdAt!
+                                                                  .toFormattedTime(),
+                                                              style: TextStyle(
+                                                                color: AppColors
+                                                                    .black,
+                                                                fontSize:
+                                                                    AppFontSize
+                                                                        .tiny,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                              ),
+                                                            ),
+                                                          ],
                                                         ),
                                                       ],
                                                     ),
@@ -206,24 +235,30 @@ class InsinghtView extends StatelessWidget {
                       color: AppColors.white,
                       child: Column(
                         children: [
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.arrow_back_ios,
-                                size: 20,
-                                color: AppColors.black,
-                              ),
-                              SizedBox(
-                                width: AppSpaceSize.tiny,
-                              ),
-                              Text(
-                                "Details",
-                                style: TextStyle(
-                                  fontSize: AppFontSize.medium,
-                                  fontWeight: FontWeight.w500,
+                          InkWell(
+                            onTap: () {
+                              SubscriptionService
+                                  .to.selectedSubscriptions.value = null;
+                            },
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.arrow_back_ios,
+                                  size: 18,
+                                  color: AppColors.black,
                                 ),
-                              )
-                            ],
+                                SizedBox(
+                                  width: AppSpaceSize.tiny,
+                                ),
+                                Text(
+                                  "Details",
+                                  style: TextStyle(
+                                    fontSize: AppFontSize.medium,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                           SizedBox(
                             height: AppSpaceSize.large,
@@ -264,6 +299,30 @@ class InsinghtView extends StatelessWidget {
                               label: "Payment Mode",
                               value: SubscriptionService.to
                                   .selectedSubscriptions.value!.paymentMethod),
+                          SizedBox(
+                            height: AppSpaceSize.large,
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                              color: AppColors.primary,
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(10)),
+                            ),
+                            padding: EdgeInsets.symmetric(
+                              vertical: AppSpaceSize.tiny,
+                              horizontal: AppSpaceSize.defaultS,
+                            ),
+                            margin: EdgeInsets.only(bottom: AppSpaceSize.large),
+                            width: 400,
+                            child: Center(
+                                child: Text(
+                              "Receipt",
+                              style: TextStyle(
+                                color: AppColors.black,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            )),
+                          )
                         ],
                       ),
                     ))
@@ -272,33 +331,87 @@ class InsinghtView extends StatelessWidget {
                   flex: 4,
                   child: Container(
                     color: AppColors.white,
-                    child: Center(
-                      child: Container(
-                        width: 400,
-                        height: 200,
-                        decoration: const BoxDecoration(
-                            color: AppColors.deepForestGreen,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Column(
                           mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Text(
-                              "Todays Total Subscription",
-                              style: TextStyle(
-                                color: AppColors.white,
+                            Container(
+                              width: 400,
+                              height: 200,
+                              decoration: const BoxDecoration(
+                                  color: AppColors.deepForestGreen,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10))),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Today`s Total Subscription",
+                                    style: TextStyle(
+                                      color: AppColors.white,
+                                      fontSize: AppFontSize.defaultS,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: AppSpaceSize.small,
+                                  ),
+                                  SubscriptionService
+                                          .to.subscriptionInsightLoading.value
+                                      ? const SizedBox(
+                                          height: 30,
+                                          width: 30,
+                                          child: CircularProgressIndicator(),
+                                        )
+                                      : SubscriptionService.to
+                                                  .subscriptionInsinght.value !=
+                                              null
+                                          ? Text(
+                                              SubscriptionService
+                                                  .to
+                                                  .subscriptionInsinght
+                                                  .value!
+                                                  .totalSubscriptionsAmount
+                                                  .toString()
+                                                  .formatAmount(),
+                                              style: TextStyle(
+                                                color: AppColors.white,
+                                                fontSize: AppFontSize.medium,
+                                              ),
+                                            )
+                                          : const SizedBox(),
+                                ],
                               ),
                             ),
-                            Text(
-                              "RWF 55000",
-                              style: TextStyle(
-                                color: AppColors.white,
-                              ),
+                            SizedBox(
+                              height: AppSpaceSize.huge,
                             ),
+                            if (SubscriptionService
+                                    .to.subscriptionInsinght.value !=
+                                null)
+                              Row(
+                                children: [
+                                  for (var paymentMethod in SubscriptionService
+                                      .to
+                                      .subscriptionInsinght
+                                      .value!
+                                      .subscriptionsByPaymentMethod) ...[
+                                    PaymentBreakDown(
+                                      paymentMode: paymentMethod.paymentMethod,
+                                      value: paymentMethod.amount,
+                                    ),
+                                    SizedBox(
+                                      width: AppSpaceSize.defaultS,
+                                    )
+                                  ],
+                                ],
+                              )
                           ],
                         ),
-                      ),
+                      ],
                     ),
                   ),
                 )
