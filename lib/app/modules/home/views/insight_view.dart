@@ -58,6 +58,8 @@ class InsinghtView extends StatelessWidget {
                                 color: AppColors.softGray,
                               ),
                               child: TextFormField(
+                                onChanged: (value) => SubscriptionService.to
+                                    .searchSubscriptions(value),
                                 decoration: InputDecoration(
                                   prefixIcon:
                                       const Icon(Icons.search, size: 16),
@@ -98,8 +100,16 @@ class InsinghtView extends StatelessWidget {
                                         child: ListView.separated(
                                             itemBuilder: (context, index) {
                                               final subscriptions =
-                                                  SubscriptionService.to
-                                                      .allSubscriptions[index];
+                                                  SubscriptionService
+                                                          .to
+                                                          .searchedSubscriptions
+                                                          .isNotEmpty
+                                                      ? SubscriptionService.to
+                                                              .searchedSubscriptions[
+                                                          index]
+                                                      : SubscriptionService.to
+                                                              .allSubscriptions[
+                                                          index];
                                               return Obx(
                                                 () => Container(
                                                   color: SubscriptionService
@@ -214,7 +224,15 @@ class InsinghtView extends StatelessWidget {
                                                       height: 0,
                                                     ),
                                             itemCount: SubscriptionService
-                                                .to.allSubscriptions.length),
+                                                    .to
+                                                    .searchedSubscriptions
+                                                    .isNotEmpty
+                                                ? SubscriptionService
+                                                    .to
+                                                    .searchedSubscriptions
+                                                    .length
+                                                : SubscriptionService.to
+                                                    .allSubscriptions.length),
                                       ),
                           ],
                         ),
