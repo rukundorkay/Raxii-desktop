@@ -359,6 +359,7 @@ class HomeController extends GetxController {
     if (index == 1) {
       cleanSubscription();
     } else if (index == 2) {
+      AttendanceService.to.selectedAttendance.value = null;
       AttendanceService.to.getAttendance(endDate: DateTime.now());
     } else if (index == 3) {
       SubscriptionService.to.selectedSubscriptions.value = null;
