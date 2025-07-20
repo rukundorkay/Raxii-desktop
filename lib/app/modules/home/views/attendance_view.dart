@@ -99,7 +99,7 @@ class AttendanceView extends StatelessWidget {
                                             final attendance = AttendanceService
                                                     .to
                                                     .searchedAttendances
-                                                    .isEmpty
+                                                    .isNotEmpty
                                                 ? AttendanceService.to
                                                     .searchedAttendances[index]
                                                 : AttendanceService
@@ -234,8 +234,10 @@ class AttendanceView extends StatelessWidget {
                                             color: AppColors.softGray,
                                             height: 0,
                                           ),
-                                          itemCount: AttendanceService.to
-                                                  .searchedAttendances.isEmpty
+                                          itemCount: AttendanceService
+                                                  .to
+                                                  .searchedAttendances
+                                                  .isNotEmpty
                                               ? AttendanceService
                                                   .to.searchedAttendances.length
                                               : AttendanceService
@@ -361,6 +363,7 @@ class CustomCalendarview extends StatelessWidget {
                   maxDate: DateTime.now(),
                   view: CalendarView.month,
                   onTap: (value) {
+                    AttendanceService.to.searchedAttendances.clear();
                     AttendanceService.to.getAttendance(endDate: value.date!);
                   },
                   monthViewSettings: const MonthViewSettings(
