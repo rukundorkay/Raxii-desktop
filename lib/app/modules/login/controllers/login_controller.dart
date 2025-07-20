@@ -1,6 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:raxii_desktop/app/core/services/auth_service.dart';
 import 'package:raxii_desktop/app/routes/app_pages.dart';
+import 'package:raxii_desktop/app/shared/toaster.dart';
+import 'package:toastification/toastification.dart';
 
 class LoginController extends GetxController {
   final phoneNumber = ''.obs;
@@ -15,13 +18,17 @@ class LoginController extends GetxController {
     password.value = value;
   }
 
-  Future<void> login() async {
+  Future<void> login(BuildContext context) async {
     if (phoneNumber.value.isEmpty || password.value.isEmpty) {
-      Get.snackbar(
-        'Error',
-        'Please enter both phone number and password',
-        snackPosition: SnackPosition.BOTTOM,
+      toaster(
+        // ignore: use_build_context_synchronously
+        context: context,
+        title: "Error",
+        description: "Please enter both phone number and password",
+        type: ToastificationType.error,
+        style: ToastificationStyle.flatColored,
       );
+
       return;
     }
 
@@ -31,24 +38,30 @@ class LoginController extends GetxController {
         phone: phoneNumber.value,
         password: password.value,
       );
-      
+
       if (res.isRight) {
         Get.offAllNamed(Routes.HOME);
       } else {
-        Get.snackbar(
-          'Login Failed',
-          res.left,
-          snackPosition: SnackPosition.BOTTOM,
-          duration: const Duration(seconds: 5),
+        toaster(
+          // ignore: use_build_context_synchronously
+          context: context,
+          title: "Error",
+          description: res.left,
+          type: ToastificationType.error,
+          style: ToastificationStyle.flatColored,
         );
       }
     } catch (e) {
-    
-      Get.snackbar(
-        'Error',
-        'Network error occurred. Please check your internet connection and try again.',
-        snackPosition: SnackPosition.BOTTOM,
-        duration: const Duration(seconds: 5),
+      toaster(
+        
+        // ignore: use_build_context_synchronously
+        context: context,
+        title: "Error",
+        description:
+            "Network error occurred. Please check your internet connection and try again.",
+        type: ToastificationType.error,
+        style: ToastificationStyle.flatColored,
+        
       );
     } finally {
       isLoading.value = false;

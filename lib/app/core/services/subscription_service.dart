@@ -13,7 +13,7 @@ class SubscriptionService extends GetxService {
   final subscriptionInsinght = Rx<SubscriptionInsight?>(null);
   final subscriptionInsightLoading = false.obs;
   final selectedSubscriptions = Rx<SubscriptionTransaction?>(null);
-
+  final selectedSubscriptionsReceipt = false.obs;
   void selectSubscription(SubscriptionTransaction sub) {
     if (selectedSubscriptions.value != null &&
         sub.id == selectedSubscriptions.value!.id) {

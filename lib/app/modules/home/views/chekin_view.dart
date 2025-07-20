@@ -132,14 +132,15 @@ class CheckinView extends GetView<HomeController> {
                     bottom: AppSpaceSize.enormous,
                   ),
                   decoration: BoxDecoration(
-                      color: AttendanceService.to.currentErrorMessage.value !=
-                                  null &&
-                              AttendanceService.to.currentAttendance.value ==
-                                  null
-                          ? AppColors.alertRed.withOpacity(0.4)
-                          : AppColors.white,
-                      borderRadius:
-                          BorderRadius.all(Radius.circular(AppSpaceSize.tiny))),
+                    color: AttendanceService.to.currentErrorMessage.value !=
+                                null &&
+                            AttendanceService.to.currentAttendance.value == null
+                        ? AppColors.alertRed
+                        : AppColors.white,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(AppSpaceSize.tiny),
+                    ),
+                  ),
                   child: Column(
                     children: [
                       if (!AttendanceService.to.isCheckinsLoading.value) ...[

@@ -56,8 +56,9 @@ class AttendanceView extends StatelessWidget {
                                 color: AppColors.softGray,
                               ),
                               child: TextFormField(
-                                onChanged: (value) => AttendanceService.to
-                                    .searchAttendance(value),
+                                onChanged: (value) {
+                                  AttendanceService.to.searchAttendance(value);
+                                },
                                 decoration: InputDecoration(
                                     prefixIcon:
                                         const Icon(Icons.search, size: 16),
@@ -94,166 +95,152 @@ class AttendanceView extends StatelessWidget {
                                       )
                                     : Expanded(
                                         child: ListView.separated(
-                                            itemBuilder: (context, index) {
-                                              final attendance = AttendanceService
-                                                      .to
-                                                      .searchedAttendances
-                                                      .isNotEmpty
-                                                  ? AttendanceService.to
-                                                          .searchedAttendances[
-                                                      index]
-                                                  : AttendanceService
-                                                      .to.allAttendance[index];
-                                              return Container(
-                                                color: AttendanceService
-                                                                .to
-                                                                .selectedAttendance
-                                                                .value !=
-                                                            null &&
-                                                        attendance
-                                                                .attendanceId ==
-                                                            AttendanceService
-                                                                .to
-                                                                .selectedAttendance
-                                                                .value!
-                                                                .attendanceId
-                                                    ? AppColors.teaGreen
-                                                        .withOpacity(0.5)
-                                                    : null,
-                                                child: ListTile(
-                                                  contentPadding:
-                                                      EdgeInsets.symmetric(
-                                                    vertical: 0,
-                                                    horizontal:
-                                                        AppSpaceSize.defaultS,
-                                                  ),
-                                                  onTap: () => AttendanceService
-                                                      .to
-                                                      .selectAttendance(
-                                                          attendance),
-                                                  leading: CircleAvatar(
-                                                    backgroundColor:
-                                                        AppColors.teaGreen,
-                                                    child: Text(
-                                                      attendance
-                                                          .memberNames.avatar,
-                                                      style: TextStyle(
-                                                        color:
-                                                            AppColors.primary,
-                                                        fontSize: AppFontSize
-                                                            .defaultS,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  title: Text(
-                                                    attendance.memberNames,
-                                                    style: TextStyle(
-                                                      color: AppColors.black,
-                                                      fontSize:
-                                                          AppFontSize.tiny,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                    ),
-                                                  ),
-                                                  subtitle: Row(
-                                                    children: [
-                                                      Text(
-                                                        attendance
-                                                            .memberPhoneNumber
-                                                            .replaceAll(
-                                                                "25", ""),
-                                                        style: TextStyle(
-                                                          color:
-                                                              AppColors.black,
-                                                          fontSize:
-                                                              AppFontSize.tiny,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
-                                                      ),
-                                                      attendance.lockerRoom ==
-                                                              null
-                                                          ? const SizedBox()
-                                                          : Text(
-                                                              " Locker(${attendance.lockerRoom})",
-                                                              style: TextStyle(
-                                                                color: AppColors
-                                                                    .primary,
-                                                                fontSize:
-                                                                    AppFontSize
-                                                                        .defaultS,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                              ),
-                                                            ),
-                                                    ],
-                                                  ),
-                                                  trailing: Column(
-                                                    children: [
-                                                      Text(
-                                                        attendance
-                                                            .attendanceDate
-                                                            .toFormattedTime(),
-                                                        style: TextStyle(
-                                                          fontSize: AppFontSize
-                                                              .defaultS,
-                                                          color:
-                                                              AppColors.black,
-                                                        ),
-                                                      ),
-                                                      SizedBox(
-                                                        height:
-                                                            AppSpaceSize.tiny,
-                                                      ),
-                                                      Container(
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: AppColors
-                                                              .teaGreen,
-                                                          borderRadius:
-                                                              const BorderRadius
-                                                                  .all(Radius
-                                                                      .circular(
-                                                                          10)),
-                                                        ),
-                                                        padding: EdgeInsets
-                                                            .symmetric(
-                                                          horizontal:
-                                                              AppSpaceSize.tiny,
-                                                        ),
-                                                        child: Text(
-                                                          attendance
-                                                              .serviceName,
-                                                          style: TextStyle(
-                                                            fontSize:
-                                                                AppFontSize
-                                                                    .tiny,
-                                                            color: AppColors
-                                                                .deepForestGreen,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              );
-                                            },
-                                            separatorBuilder:
-                                                (context, index) => Divider(
-                                                      color: AppColors.softGray,
-                                                      height: 0,
-                                                    ),
-                                            itemCount: AttendanceService
+                                          itemBuilder: (context, index) {
+                                            final attendance = AttendanceService
                                                     .to
                                                     .searchedAttendances
-                                                    .isNotEmpty
+                                                    .isEmpty
                                                 ? AttendanceService.to
-                                                    .searchedAttendances.length
+                                                    .searchedAttendances[index]
                                                 : AttendanceService
-                                                    .to.allAttendance.length),
+                                                    .to.allAttendance[index];
+                                            return Container(
+                                              color: AttendanceService
+                                                              .to
+                                                              .selectedAttendance
+                                                              .value !=
+                                                          null &&
+                                                      attendance.attendanceId ==
+                                                          AttendanceService
+                                                              .to
+                                                              .selectedAttendance
+                                                              .value!
+                                                              .attendanceId
+                                                  ? AppColors.teaGreen
+                                                      .withOpacity(0.5)
+                                                  : null,
+                                              child: ListTile(
+                                                contentPadding:
+                                                    EdgeInsets.symmetric(
+                                                  vertical: 0,
+                                                  horizontal:
+                                                      AppSpaceSize.defaultS,
+                                                ),
+                                                onTap: () => AttendanceService
+                                                    .to
+                                                    .selectAttendance(
+                                                        attendance),
+                                                leading: CircleAvatar(
+                                                  backgroundColor:
+                                                      AppColors.teaGreen,
+                                                  child: Text(
+                                                    attendance
+                                                        .memberNames.avatar,
+                                                    style: TextStyle(
+                                                      color: AppColors.primary,
+                                                      fontSize:
+                                                          AppFontSize.defaultS,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                    ),
+                                                  ),
+                                                ),
+                                                title: Text(
+                                                  attendance.memberNames,
+                                                  style: TextStyle(
+                                                    color: AppColors.black,
+                                                    fontSize: AppFontSize.tiny,
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                                ),
+                                                subtitle: Row(
+                                                  children: [
+                                                    Text(
+                                                      attendance
+                                                          .memberPhoneNumber
+                                                          .replaceAll("25", ""),
+                                                      style: TextStyle(
+                                                        color: AppColors.black,
+                                                        fontSize:
+                                                            AppFontSize.tiny,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                                    ),
+                                                    attendance.lockerRoom ==
+                                                            null
+                                                        ? const SizedBox()
+                                                        : Text(
+                                                            " Locker(${attendance.lockerRoom})",
+                                                            style: TextStyle(
+                                                              color: AppColors
+                                                                  .primary,
+                                                              fontSize:
+                                                                  AppFontSize
+                                                                      .defaultS,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                            ),
+                                                          ),
+                                                  ],
+                                                ),
+                                                trailing: Column(
+                                                  children: [
+                                                    Text(
+                                                      attendance.attendanceDate
+                                                          .toFormattedTime(),
+                                                      style: TextStyle(
+                                                        fontSize: AppFontSize
+                                                            .defaultS,
+                                                        color: AppColors.black,
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      height: AppSpaceSize.tiny,
+                                                    ),
+                                                    Container(
+                                                      decoration: BoxDecoration(
+                                                        color:
+                                                            AppColors.teaGreen,
+                                                        borderRadius:
+                                                            const BorderRadius
+                                                                .all(
+                                                                Radius.circular(
+                                                                    10)),
+                                                      ),
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                        horizontal:
+                                                            AppSpaceSize.tiny,
+                                                      ),
+                                                      child: Text(
+                                                        attendance.serviceName,
+                                                        style: TextStyle(
+                                                          fontSize:
+                                                              AppFontSize.tiny,
+                                                          color: AppColors
+                                                              .deepForestGreen,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                          separatorBuilder: (context, index) =>
+                                              Divider(
+                                            color: AppColors.softGray,
+                                            height: 0,
+                                          ),
+                                          itemCount: AttendanceService.to
+                                                  .searchedAttendances.isEmpty
+                                              ? AttendanceService
+                                                  .to.searchedAttendances.length
+                                              : AttendanceService
+                                                  .to.allAttendance.length,
+                                        ),
                                       ),
                           ],
                         ),
@@ -269,112 +256,123 @@ class AttendanceView extends StatelessWidget {
               ),
               if (AttendanceService.to.selectedAttendance.value != null) ...[
                 Flexible(
-                    flex: 4,
-                    child: Container(
-                      padding: EdgeInsets.all(AppSpaceSize.defaultS),
-                      color: AppColors.white,
-                      child: Column(
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              AttendanceService.to.selectedAttendance.value =
-                                  null;
-                            },
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.arrow_back_ios,
-                                  size: 18,
-                                  color: AppColors.black,
-                                ),
-                                SizedBox(
-                                  width: AppSpaceSize.tiny,
-                                ),
-                                Text(
-                                  "Details",
-                                  style: TextStyle(
-                                    fontSize: AppFontSize.medium,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: AppSpaceSize.large,
-                          ),
-                          DetailTile(
-                              label: "Names",
-                              value: AttendanceService
-                                  .to.selectedAttendance.value!.memberNames),
-                          DetailTile(
-                            label: "Phone Number",
-                            value: AttendanceService
-                                .to.selectedAttendance.value!.memberPhoneNumber,
-                          ),
-                          DetailTile(
-                              label: "Registration Code",
-                              value: AttendanceService.to.selectedAttendance
-                                  .value!.memberRegistrationCode),
-                          DetailTile(
-                            label: "Date",
-                            value: AttendanceService
-                                .to.selectedAttendance.value!.attendanceDate
-                                .formatAttendanceDate(),
-                          ),
-                          DetailTile(
-                              label: "Service",
-                              value: AttendanceService
-                                  .to.selectedAttendance.value!.serviceName),
-                          DetailTile(
-                            label: "Locker Room",
-                            value: AttendanceService
-                                    .to.selectedAttendance.value!.lockerRoom ??
-                                "N/A".toString(),
-                          ),
-                          SizedBox(
-                            height: AppSpaceSize.large,
-                          ),
-                        ],
-                      ),
-                    ))
-              ] else ...[
-                Flexible(
                   flex: 4,
                   child: Container(
+                    padding: EdgeInsets.all(AppSpaceSize.defaultS),
                     color: AppColors.white,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    child: Column(
                       children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              width: 400,
-                              height: 400,
-                              color: AppColors.white,
-                              child: SfCalendar(
-                                maxDate: DateTime.now(),
-                                view: CalendarView.month,
-                                onTap: (value) {
-                                  AttendanceService.to
-                                      .getAttendance(endDate: value.date!);
-                                },
-                                monthViewSettings: const MonthViewSettings(
-                                  appointmentDisplayMode:
-                                      MonthAppointmentDisplayMode.appointment,
-                                ),
+                        InkWell(
+                          onTap: () {
+                            AttendanceService.to.selectedAttendance.value =
+                                null;
+                          },
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.arrow_back_ios,
+                                size: 18,
+                                color: AppColors.black,
                               ),
-                            ),
-                          ],
+                              SizedBox(
+                                width: AppSpaceSize.tiny,
+                              ),
+                              Text(
+                                "Details",
+                                style: TextStyle(
+                                  fontSize: AppFontSize.medium,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: AppSpaceSize.large,
+                        ),
+                        DetailTile(
+                            label: "Names",
+                            value: AttendanceService
+                                .to.selectedAttendance.value!.memberNames),
+                        DetailTile(
+                          label: "Phone Number",
+                          value: AttendanceService
+                              .to.selectedAttendance.value!.memberPhoneNumber,
+                        ),
+                        DetailTile(
+                            label: "Registration Code",
+                            value: AttendanceService.to.selectedAttendance
+                                .value!.memberRegistrationCode),
+                        DetailTile(
+                          label: "Date",
+                          value: AttendanceService
+                              .to.selectedAttendance.value!.attendanceDate
+                              .formatAttendanceDate(),
+                        ),
+                        DetailTile(
+                            label: "Service",
+                            value: AttendanceService
+                                .to.selectedAttendance.value!.serviceName),
+                        DetailTile(
+                          label: "Locker Room",
+                          value: AttendanceService
+                                  .to.selectedAttendance.value!.lockerRoom ??
+                              "N/A".toString(),
+                        ),
+                        SizedBox(
+                          height: AppSpaceSize.large,
                         ),
                       ],
                     ),
                   ),
                 )
+              ] else ...[
+                const Flexible(
+                  flex: 4,
+                  child: CustomCalendarview(),
+                )
               ]
             ],
           )),
+    );
+  }
+}
+
+class CustomCalendarview extends StatelessWidget {
+  const CustomCalendarview({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: AppColors.white,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: 400,
+                height: 400,
+                color: AppColors.white,
+                child: SfCalendar(
+                  maxDate: DateTime.now(),
+                  view: CalendarView.month,
+                  onTap: (value) {
+                    AttendanceService.to.getAttendance(endDate: value.date!);
+                  },
+                  monthViewSettings: const MonthViewSettings(
+                    appointmentDisplayMode:
+                        MonthAppointmentDisplayMode.appointment,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

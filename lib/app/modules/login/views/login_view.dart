@@ -85,9 +85,9 @@ class LoginView extends GetView<LoginController> {
                           () => SizedBox(
                             width: double.infinity,
                             child: ElevatedButton(
-                              onPressed: controller.isLoading.value
+                              onPressed: () => controller.isLoading.value
                                   ? null
-                                  : controller.login,
+                                  : controller.login(context),
                               style: ElevatedButton.styleFrom(
                                 padding: EdgeInsets.symmetric(
                                     vertical: AppSpaceSize.defaultS),

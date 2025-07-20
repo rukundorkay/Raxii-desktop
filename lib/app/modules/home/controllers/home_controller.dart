@@ -209,7 +209,7 @@ class HomeController extends GetxController {
 
   final subscriptionDetails = Rx<Subscription?>(null);
   final isSubmittingSubscription = false.obs;
-  void submitMemberSubscription() async {
+  void submitMemberSubscription(BuildContext context) async {
     if (currentMember.value != null &&
         selectedPaymentMethod.value != null &&
         selectedPlans.isNotEmpty) {
@@ -224,19 +224,23 @@ class HomeController extends GetxController {
         subscriptionDetails.value = res.right;
         currentStep.value++;
       } else {
-        Get.snackbar(
-          'Error',
-          res.left,
-          snackPosition: SnackPosition.BOTTOM,
-          duration: const Duration(seconds: 5),
+        toaster(
+          // ignore: use_build_context_synchronously
+          context: context,
+          title: "Error",
+          description: res.left,
+          type: ToastificationType.error,
+          style: ToastificationStyle.flatColored,
         );
       }
     } else {
-      Get.snackbar(
-        'Error',
-        'select payment method first',
-        snackPosition: SnackPosition.BOTTOM,
-        duration: const Duration(seconds: 5),
+      toaster(
+        // ignore: use_build_context_synchronously
+        context: context,
+        title: "Error",
+        description: "select payment method first",
+        type: ToastificationType.error,
+        style: ToastificationStyle.flatColored,
       );
     }
   }
@@ -286,7 +290,7 @@ class HomeController extends GetxController {
           currentStep.value += 1;
       }
     } else {
-      submitMemberSubscription();
+      submitMemberSubscription(context);
     }
   }
 
@@ -363,6 +367,7 @@ class HomeController extends GetxController {
       AttendanceService.to.getAttendance(endDate: DateTime.now());
     } else if (index == 3) {
       SubscriptionService.to.selectedSubscriptions.value = null;
+      SubscriptionService.to.selectedSubscriptionsReceipt.value = false;
       SubscriptionService.to.getAllSubscriptions();
     }
     selectedTabIndex.value = index;

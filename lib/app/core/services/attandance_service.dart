@@ -93,13 +93,13 @@ class AttendanceService extends GetxService {
       {required DateTime endDate}) async {
     selectedDate.value = endDate;
     isGetAttendanceLoading.value = true;
-   
+
     final res = await AttendanceProvider.to.getAttendance(
       endDate: endDate,
       token: AuthService.to.user.value!.accessToken!,
       userId: AuthService.to.user.value!.id,
     );
-    
+
     isGetAttendanceLoading.value = false;
 
     if (res.isRight) {
