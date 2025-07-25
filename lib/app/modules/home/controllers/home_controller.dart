@@ -37,9 +37,15 @@ class HomeController extends GetxController {
   final isCreatingMember = false.obs;
   final isConnectingEthernetPrinterLoading = false.obs;
 
-  void setEthernetPrinter(BuildContext context) async {
+  void setEthernetPrinter(
+    BuildContext context,
+  ) async {
     isConnectingEthernetPrinterLoading.value = true;
-    final res = await PrinterService().testEthernetEscPos(context: context);
+    final res = await PrinterService().testEthernetEscPos(
+      context: context,
+      ipAddress: ipAddressController.text,
+      port: int.parse(portController.text),
+    );
     isConnectingEthernetPrinterLoading.value = false;
     if (res.isRight) {
       SettingService.to.setEthernetPrinter(

@@ -323,9 +323,21 @@ class PrinterService {
 
     bytes += generator.row([
       PosColumn(
-        text: data.paymentMethod ?? "N/A",
+        text: "Payment Method ",
         width: 4,
-        styles: const PosStyles(align: PosAlign.left),
+        styles: const PosStyles(align: PosAlign.left, bold: true),
+      ),
+      PosColumn(
+        text: data.paymentMethod ?? "N/A",
+        width: 8,
+        styles: const PosStyles(align: PosAlign.right, bold: true),
+      ),
+    ]);
+    bytes += generator.row([
+      PosColumn(
+        text: "Total",
+        width: 4,
+        styles: const PosStyles(align: PosAlign.left, bold: true),
       ),
       PosColumn(
         text: data.plans
@@ -333,14 +345,15 @@ class PrinterService {
             .toString()
             .formatAmount(),
         width: 8,
-        styles: const PosStyles(align: PosAlign.right),
-      ),
+        styles: const PosStyles(align: PosAlign.right, bold: true),
+      )
     ]);
+
     bytes += generator.hr();
     // Add QR Code
     bytes += generator.qrcode(
       data.memberRegistrationCode!,
-      size: QRSize.size5,
+      size: QRSize.size8,
       align: PosAlign.center,
     );
     bytes += generator.hr();
