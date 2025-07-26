@@ -7,7 +7,7 @@ import 'package:raxii_desktop/app/modules/home/views/receipt.dart';
 import 'package:raxii_desktop/app/shared/extension/dateTime.dart';
 import 'package:raxii_desktop/app/shared/extension/string.dart';
 import 'package:raxii_desktop/app/shared/size.dart';
-import 'package:raxii_desktop/app/shared/widget/detail_tile.dart';
+
 import 'package:raxii_desktop/app/theme/app_colors.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 

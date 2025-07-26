@@ -69,32 +69,54 @@ class MemberInformation extends GetView<HomeController> {
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                    AppTextField(
-                      readOnly: isExisting,
-                      controller: controller.fnameController,
-                      label: "First Name",
-                      hintText: "Enter your first name",
+                    SizedBox(height: AppSpaceSize.defaultS),
+                    Row(
+                      children: [
+                        Expanded(
+                          flex: 6,
+                          child: AppTextField(
+                            readOnly: isExisting,
+                            controller: controller.fnameController,
+                            label: "First Name",
+                            hintText: "Enter your first name",
+                          ),
+                        ),
+                        SizedBox(width: AppSpaceSize.defaultS),
+                        Expanded(
+                          flex: 6,
+                          child: AppTextField(
+                            readOnly: isExisting,
+                            controller: controller.lnameController,
+                            label: "LastName",
+                            hintText: "Enter your last name",
+                          ),
+                        ),
+                      ],
                     ),
                     SizedBox(height: AppSpaceSize.defaultS),
-                    AppTextField(
-                      readOnly: isExisting,
-                      controller: controller.lnameController,
-                      label: "LastName",
-                      hintText: "Enter your last name",
+                    Row(
+                      children: [
+                        Expanded(
+                          flex: 6,
+                          child: AppTextField(
+                            controller: controller.cardController,
+                            label: "Card",
+                            hintText: "enter card number",
+                          ),
+                        ),
+                        SizedBox(width: AppSpaceSize.defaultS),
+                        if (!isExisting)
+                          Expanded(
+                            flex: 6,
+                            child: AppTextField(
+                              controller: controller.otpController,
+                              label: "OTP",
+                              hintText:
+                                  "enter otp sent on ${controller.phoneController.text}",
+                            ),
+                          ),
+                      ],
                     ),
-                    SizedBox(height: AppSpaceSize.defaultS),
-                    AppTextField(
-                      controller: controller.cardController,
-                      label: "Card",
-                      hintText: "enter card number",
-                    ),
-                    if (!isExisting)
-                      AppTextField(
-                        controller: controller.otpController,
-                        label: "OTP",
-                        hintText:
-                            "enter otp sent on ${controller.phoneController.text}",
-                      ),
                   ],
                 ),
               );
