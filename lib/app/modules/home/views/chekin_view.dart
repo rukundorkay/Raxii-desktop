@@ -106,7 +106,9 @@ class CheckinView extends GetView<HomeController> {
                                 filled: true,
                                 fillColor: AppColors.softGray.withOpacity(0.9),
                               ),
-                              onChanged: controller.handleSearch,
+                              onChanged: (query) =>
+                                  controller.handleSearch(query, context),
+                              focusNode: controller.searchFocusNode,
                               keyboardType: controller.isBarcodeSearch.value
                                   ? TextInputType.text
                                   : TextInputType.phone,

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:raxii_desktop/app/core/services/setting_service.dart';
 import 'package:raxii_desktop/app/modules/home/controllers/home_controller.dart';
 import 'package:raxii_desktop/app/modules/home/views/ethernet_configuration_view.dart';
+import 'package:raxii_desktop/app/modules/home/views/setting_title.dart';
 import 'package:raxii_desktop/app/shared/enum.dart';
 import 'package:raxii_desktop/app/shared/size.dart';
 import 'package:raxii_desktop/app/theme/app_colors.dart';
@@ -26,13 +27,8 @@ class PrinterSetting extends GetView<HomeController> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Printer',
-                    style: TextStyle(
-                      fontSize: AppFontSize.large,
-                      fontWeight: FontWeight.w500,
-                      color: AppColors.primary,
-                    ),
+                  const SettingTitle(
+                    title: "Printer",
                   ),
                   const SizedBox(height: 20),
                   SingleChildScrollView(
@@ -112,7 +108,6 @@ class PrinterSetting extends GetView<HomeController> {
                                       : AppColors.deepForestGreen,
                                 ),
                               ),
-                        
                               subtitle: SettingService
                                           .to
                                           .selectedEthernetPrinterIpAddress

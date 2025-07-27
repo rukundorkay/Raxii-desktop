@@ -1,7 +1,7 @@
-import 'package:either_dart/either.dart';
+import 'dart:async';
+
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:printing/printing.dart';
 import 'package:raxii_desktop/app/core/services/attandance_service.dart';
 import 'package:raxii_desktop/app/core/services/auth_service.dart';
 import 'package:raxii_desktop/app/core/services/facility_service.dart';
@@ -36,7 +36,7 @@ class HomeController extends GetxController {
   final isSearchingMemebr = false.obs;
   final isCreatingMember = false.obs;
   final isConnectingEthernetPrinterLoading = false.obs;
-
+  final FocusNode searchFocusNode = FocusNode();
   void setEthernetPrinter(
     BuildContext context,
   ) async {
@@ -324,30 +324,69 @@ class HomeController extends GetxController {
     searchQuery.value = '';
   }
 
-  // Handle search
-  void handleSearch(String query) {
-    if (isBarcodeSearch.value) {
-      if (query.length == 13) {
-        AttendanceService.to.checkIn(
-          identifier: query,
-          service: FacilityService.to.selectedService.value!.id,
-          checkinMethod: CheckinMethod.CARD_TAP,
-        );
+  Timer? _debounce;
+
+  void handleSearch(String query, BuildContext context) {
+    // Debounce to avoid multiple rapid executions
+    if (_debounce?.isActive ?? false) _debounce!.cancel();
+
+    _debounce = Timer(const Duration(milliseconds: 100), () {
+      if (isBarcodeSearch.value) {
+        if (query.length == 13) {
+          AttendanceService.to.checkIn(
+            identifier: query,
+            service: FacilityService.to.selectedService.value!.id,
+            checkinMethod: CheckinMethod.CARD_TAP,
+          );
+          searchController.clear();
+
+          // Ensure re-focusing happens after frame rebuild
+          Future.delayed(Duration(milliseconds: 50), () {
+            searchFocusNode.requestFocus();
+          });
+        } else {
+          AttendanceService.to.currentAttendance.value = null;
+        }
       } else {
-        AttendanceService.to.currentAttendance.value = null;
+        if (query.length == 10) {
+          AttendanceService.to.checkIn(
+            identifier: query,
+            service: FacilityService.to.selectedService.value!.id,
+            checkinMethod: CheckinMethod.BUSINESS_USER_CHECKS_IN,
+          );
+        } else {
+          AttendanceService.to.currentAttendance.value = null;
+        }
       }
-    } else if (!isBarcodeSearch.value) {
-      if (query.length == 10) {
-        AttendanceService.to.checkIn(
-          identifier: query,
-          service: FacilityService.to.selectedService.value!.id,
-          checkinMethod: CheckinMethod.BUSINESS_USER_CHECKS_IN,
-        );
-      } else {
-        AttendanceService.to.currentAttendance.value = null;
-      }
-    }
+    });
   }
+
+  // Handle search
+  // void handleSearch(String query,context) {
+  //   if (isBarcodeSearch.value) {
+  //     if (query.length == 13) {
+  //       AttendanceService.to.checkIn(
+  //         identifier: query,
+  //         service: FacilityService.to.selectedService.value!.id,
+  //         checkinMethod: CheckinMethod.CARD_TAP,
+  //       );
+  //       searchController.clear();
+  //       FocusScope.of(context).requestFocus(searchFocusNode);
+  //     } else {
+  //       AttendanceService.to.currentAttendance.value = null;
+  //     }
+  //   } else if (!isBarcodeSearch.value) {
+  //     if (query.length == 10) {
+  //       AttendanceService.to.checkIn(
+  //         identifier: query,
+  //         service: FacilityService.to.selectedService.value!.id,
+  //         checkinMethod: CheckinMethod.BUSINESS_USER_CHECKS_IN,
+  //       );
+  //     } else {
+  //       AttendanceService.to.currentAttendance.value = null;
+  //     }
+  //   }
+  // }
 
   //update Locker Room
   void updateLockerRoom(String checkinId, String lockerRoomValue) async {

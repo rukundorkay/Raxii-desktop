@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:raxii_desktop/app/core/services/facility_service.dart';
+import 'package:raxii_desktop/app/modules/home/views/setting_title.dart';
 import 'package:raxii_desktop/app/shared/size.dart';
 import 'package:raxii_desktop/app/theme/app_colors.dart';
 
@@ -16,13 +17,8 @@ class StationSetting extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Station',
-            style: TextStyle(
-              fontSize: AppFontSize.large,
-              fontWeight: FontWeight.w500,
-              color: AppColors.primary,
-            ),
+          const SettingTitle(
+            title: "Station",
           ),
           const SizedBox(height: 20),
           SingleChildScrollView(
