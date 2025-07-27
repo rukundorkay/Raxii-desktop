@@ -1,9 +1,9 @@
 import 'package:either_dart/either.dart';
 import 'package:get/get.dart';
-import 'package:raxii_desktop/app/core/services/auth_service.dart';
-import 'package:raxii_desktop/app/data/models/attendance.dart';
-import 'package:raxii_desktop/app/data/models/subscription_plan.dart';
-import 'package:raxii_desktop/app/shared/enum.dart';
+import 'package:raxii/app/core/services/auth_service.dart';
+import 'package:raxii/app/data/models/attendance.dart';
+import 'package:raxii/app/data/models/subscription_plan.dart';
+import 'package:raxii/app/shared/enum.dart';
 import '../../data/providers/attendance_providers .dart';
 
 class AttendanceService extends GetxService {

@@ -1,4 +1,4 @@
-import 'package:raxii_desktop/app/data/models/business_facility.dart';
+import 'package:raxii/app/data/models/business_facility.dart';
 
 class Service {
   final String id;

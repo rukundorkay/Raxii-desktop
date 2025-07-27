@@ -8,12 +8,12 @@ import 'package:flutter_esc_pos_utils/flutter_esc_pos_utils.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
-import 'package:raxii_desktop/app/core/services/auth_service.dart';
-import 'package:raxii_desktop/app/core/services/setting_service.dart';
-import 'package:raxii_desktop/app/data/models/subscriptions.dart';
-import 'package:raxii_desktop/app/shared/enum.dart';
-import 'package:raxii_desktop/app/shared/extension/string.dart';
-import 'package:raxii_desktop/app/shared/size.dart';
+import 'package:raxii/app/core/services/auth_service.dart';
+import 'package:raxii/app/core/services/setting_service.dart';
+import 'package:raxii/app/data/models/subscriptions.dart';
+import 'package:raxii/app/shared/enum.dart';
+import 'package:raxii/app/shared/extension/string.dart';
+import 'package:raxii/app/shared/size.dart';
 import 'package:toastification/toastification.dart';
 
 class PrinterService {

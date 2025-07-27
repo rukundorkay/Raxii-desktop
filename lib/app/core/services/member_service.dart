@@ -1,9 +1,9 @@
 import 'package:either_dart/either.dart';
 
 import 'package:get/get.dart';
-import 'package:raxii_desktop/app/core/services/auth_service.dart';
-import 'package:raxii_desktop/app/data/models/member.dart';
-import 'package:raxii_desktop/app/data/providers/member_provider.dart';
+import 'package:raxii/app/core/services/auth_service.dart';
+import 'package:raxii/app/data/models/member.dart';
+import 'package:raxii/app/data/providers/member_provider.dart';
 
 class MemberService extends GetxService {
   static MemberService get to => Get.find();

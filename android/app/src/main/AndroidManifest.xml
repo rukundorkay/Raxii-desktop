@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="raxii_desktop"
+        android:label="raxii"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

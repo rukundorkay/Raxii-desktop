@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:raxii_desktop/app/core/services/auth_service.dart';
-import 'package:raxii_desktop/app/modules/home/views/setting_title.dart';
-import 'package:raxii_desktop/app/shared/size.dart';
-import 'package:raxii_desktop/app/shared/widget/detail_tile.dart';
-import 'package:raxii_desktop/app/theme/app_colors.dart';
+import 'package:raxii/app/core/services/auth_service.dart';
+import 'package:raxii/app/modules/home/views/setting_title.dart';
+import 'package:raxii/app/shared/size.dart';
+import 'package:raxii/app/shared/widget/detail_tile.dart';
+import 'package:raxii/app/theme/app_colors.dart';
 
 class AccountSetting extends StatelessWidget {
   const AccountSetting({
@@ -49,8 +49,6 @@ class AccountSetting extends StatelessWidget {
     );
   }
 }
-
-
 
 Widget buildMenuItem({
   required IconData icon,

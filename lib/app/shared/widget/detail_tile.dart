@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:raxii_desktop/app/shared/size.dart';
-import 'package:raxii_desktop/app/theme/app_colors.dart';
+import 'package:raxii/app/shared/size.dart';
+import 'package:raxii/app/theme/app_colors.dart';
 
 class DetailTile extends StatelessWidget {
   final String label;

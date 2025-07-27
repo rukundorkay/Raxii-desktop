@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:raxii_desktop/app/core/services/attandance_service.dart';
-import 'package:raxii_desktop/app/core/services/auth_service.dart';
-import 'package:raxii_desktop/app/core/services/facility_service.dart';
-import 'package:raxii_desktop/app/modules/home/views/attendance_view.dart';
-import 'package:raxii_desktop/app/modules/home/views/chekin_view.dart';
-import 'package:raxii_desktop/app/modules/home/views/insight_view.dart';
-import 'package:raxii_desktop/app/modules/home/views/setting_view.dart';
-import 'package:raxii_desktop/app/modules/home/views/subscription_view.dart';
-import 'package:raxii_desktop/app/shared/app_path.dart';
-import 'package:raxii_desktop/app/shared/extension/dateTime.dart';
-import 'package:raxii_desktop/app/shared/extension/string.dart';
-import 'package:raxii_desktop/app/theme/app_colors.dart';
-import 'package:raxii_desktop/app/shared/size.dart';
+import 'package:raxii/app/core/services/attandance_service.dart';
+import 'package:raxii/app/core/services/auth_service.dart';
+import 'package:raxii/app/core/services/facility_service.dart';
+import 'package:raxii/app/modules/home/views/attendance_view.dart';
+import 'package:raxii/app/modules/home/views/chekin_view.dart';
+import 'package:raxii/app/modules/home/views/insight_view.dart';
+import 'package:raxii/app/modules/home/views/setting_view.dart';
+import 'package:raxii/app/modules/home/views/subscription_view.dart';
+import 'package:raxii/app/shared/app_path.dart';
+import 'package:raxii/app/shared/extension/dateTime.dart';
+import 'package:raxii/app/shared/extension/string.dart';
+import 'package:raxii/app/theme/app_colors.dart';
+import 'package:raxii/app/shared/size.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {

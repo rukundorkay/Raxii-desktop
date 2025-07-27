@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
-import 'package:raxii_desktop/app/core/services/auth_service.dart';
-import 'package:raxii_desktop/app/data/models/service.dart';
-import 'package:raxii_desktop/app/data/providers/facility_services_provider.dart';
+import 'package:raxii/app/core/services/auth_service.dart';
+import 'package:raxii/app/data/models/service.dart';
+import 'package:raxii/app/data/providers/facility_services_provider.dart';
 import 'package:get_storage/get_storage.dart';
 import 'dart:convert';
 

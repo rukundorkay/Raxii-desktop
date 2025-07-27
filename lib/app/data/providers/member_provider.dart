@@ -1,8 +1,8 @@
 import 'package:either_dart/either.dart';
 
 import 'package:get/get.dart';
-import 'package:raxii_desktop/app/core/constants/api_constants.dart';
-import 'package:raxii_desktop/app/data/models/member.dart';
+import 'package:raxii/app/core/constants/api_constants.dart';
+import 'package:raxii/app/data/models/member.dart';
 
 class MemberProvider extends GetConnect {
   static MemberProvider get to => Get.find();

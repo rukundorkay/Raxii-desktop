@@ -1,9 +1,9 @@
 import 'package:either_dart/either.dart';
 import 'package:get/get.dart';
-import 'package:raxii_desktop/app/core/constants/api_constants.dart';
-import 'package:raxii_desktop/app/core/services/auth_service.dart';
-import 'package:raxii_desktop/app/data/models/subscription_insight.dart';
-import 'package:raxii_desktop/app/data/models/subscription_transaction.dart';
+import 'package:raxii/app/core/constants/api_constants.dart';
+import 'package:raxii/app/core/services/auth_service.dart';
+import 'package:raxii/app/data/models/subscription_insight.dart';
+import 'package:raxii/app/data/models/subscription_transaction.dart';
 
 class SubscriptionProvider extends GetConnect {
   static SubscriptionProvider get to => Get.find();

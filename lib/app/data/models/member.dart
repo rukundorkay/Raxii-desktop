@@ -1,4 +1,4 @@
-import 'package:raxii_desktop/app/data/models/card.dart';
+import 'package:raxii/app/data/models/card.dart';
 
 class Member {
   final String? id;

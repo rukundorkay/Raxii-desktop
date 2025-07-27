@@ -1,24 +1,25 @@
 import 'dart:async';
 
+import 'package:either_dart/either.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:raxii_desktop/app/core/services/attandance_service.dart';
-import 'package:raxii_desktop/app/core/services/auth_service.dart';
-import 'package:raxii_desktop/app/core/services/facility_service.dart';
-import 'package:raxii_desktop/app/core/services/member_service.dart';
-import 'package:raxii_desktop/app/core/services/partner_service.dart';
-import 'package:raxii_desktop/app/core/services/plan_service.dart';
-import 'package:raxii_desktop/app/core/services/setting_service.dart';
-import 'package:raxii_desktop/app/core/services/subscription_service.dart';
-import 'package:raxii_desktop/app/data/models/member.dart';
-import 'package:raxii_desktop/app/data/models/partner.dart';
-import 'package:raxii_desktop/app/data/models/plan.dart';
-import 'package:raxii_desktop/app/data/models/service.dart';
-import 'package:raxii_desktop/app/data/models/subscriptions.dart';
-import 'package:raxii_desktop/app/data/providers/auth_providers.dart';
-import 'package:raxii_desktop/app/shared/enum.dart';
-import 'package:raxii_desktop/app/shared/printer/printer_service.dart';
-import 'package:raxii_desktop/app/shared/toaster.dart';
+import 'package:raxii/app/core/services/attandance_service.dart';
+import 'package:raxii/app/core/services/auth_service.dart';
+import 'package:raxii/app/core/services/facility_service.dart';
+import 'package:raxii/app/core/services/member_service.dart';
+import 'package:raxii/app/core/services/partner_service.dart';
+import 'package:raxii/app/core/services/plan_service.dart';
+import 'package:raxii/app/core/services/setting_service.dart';
+import 'package:raxii/app/core/services/subscription_service.dart';
+import 'package:raxii/app/data/models/member.dart';
+import 'package:raxii/app/data/models/partner.dart';
+import 'package:raxii/app/data/models/plan.dart';
+import 'package:raxii/app/data/models/service.dart';
+import 'package:raxii/app/data/models/subscriptions.dart';
+import 'package:raxii/app/data/providers/auth_providers.dart';
+import 'package:raxii/app/shared/enum.dart';
+import 'package:raxii/app/shared/printer/printer_service.dart';
+import 'package:raxii/app/shared/toaster.dart';
 import 'package:toastification/toastification.dart';
 
 class HomeController extends GetxController {
@@ -330,7 +331,7 @@ class HomeController extends GetxController {
     // Debounce to avoid multiple rapid executions
     if (_debounce?.isActive ?? false) _debounce!.cancel();
 
-    _debounce = Timer(const Duration(milliseconds: 100), () {
+    _debounce = Timer(const Duration(milliseconds: 100), () async {
       if (isBarcodeSearch.value) {
         if (query.length == 13) {
           AttendanceService.to.checkIn(
@@ -341,7 +342,7 @@ class HomeController extends GetxController {
           searchController.clear();
 
           // Ensure re-focusing happens after frame rebuild
-          Future.delayed(Duration(milliseconds: 50), () {
+          Future.delayed(const Duration(milliseconds: 50), () {
             searchFocusNode.requestFocus();
           });
         } else {
@@ -349,11 +350,14 @@ class HomeController extends GetxController {
         }
       } else {
         if (query.length == 10) {
-          AttendanceService.to.checkIn(
+          final res = await AttendanceService.to.checkIn(
             identifier: query,
             service: FacilityService.to.selectedService.value!.id,
             checkinMethod: CheckinMethod.BUSINESS_USER_CHECKS_IN,
           );
+          if (res.isRight) {
+            searchController.clear();
+          }
         } else {
           AttendanceService.to.currentAttendance.value = null;
         }

@@ -1,6 +1,4 @@
-
-
-import 'package:raxii_desktop/app/data/models/service.dart';
+import 'package:raxii/app/data/models/service.dart';
 
 class Plan {
   String? id;

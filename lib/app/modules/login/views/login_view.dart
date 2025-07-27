@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/login_controller.dart';
-import 'package:raxii_desktop/app/modules/login/widgets/background_painter.dart';
-import 'package:raxii_desktop/app/theme/app_colors.dart';
-import 'package:raxii_desktop/app/shared/app_path.dart';
-import 'package:raxii_desktop/app/shared/size.dart';
+import 'package:raxii/app/modules/login/widgets/background_painter.dart';
+import 'package:raxii/app/theme/app_colors.dart';
+import 'package:raxii/app/shared/app_path.dart';
+import 'package:raxii/app/shared/size.dart';
 import '../widgets/app_form_field.dart';
 
 class LoginView extends GetView<LoginController> {

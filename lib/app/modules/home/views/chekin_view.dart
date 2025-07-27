@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:raxii_desktop/app/core/services/attandance_service.dart';
-import 'package:raxii_desktop/app/modules/home/controllers/home_controller.dart';
-import 'package:raxii_desktop/app/modules/home/views/profile_row.dart';
-import 'package:raxii_desktop/app/shared/size.dart';
-import 'package:raxii_desktop/app/theme/app_colors.dart';
+import 'package:raxii/app/core/services/attandance_service.dart';
+import 'package:raxii/app/modules/home/controllers/home_controller.dart';
+import 'package:raxii/app/modules/home/views/profile_row.dart';
+import 'package:raxii/app/shared/size.dart';
+import 'package:raxii/app/theme/app_colors.dart';
 
 class CheckinView extends GetView<HomeController> {
   const CheckinView({

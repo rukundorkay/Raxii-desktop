@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
-import 'package:raxii_desktop/app/data/models/subscription_insight.dart';
-import 'package:raxii_desktop/app/data/models/subscription_transaction.dart';
-import 'package:raxii_desktop/app/data/providers/subscription_provider.dart';
-import 'package:raxii_desktop/app/shared/extension/dateTime.dart';
+import 'package:raxii/app/data/models/subscription_insight.dart';
+import 'package:raxii/app/data/models/subscription_transaction.dart';
+import 'package:raxii/app/data/providers/subscription_provider.dart';
+import 'package:raxii/app/shared/extension/dateTime.dart';
 
 class SubscriptionService extends GetxService {
   static SubscriptionService get to => Get.find();

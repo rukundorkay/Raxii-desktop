@@ -1,6 +1,6 @@
 {
-    "name": "raxii_desktop",
-    "short_name": "raxii_desktop",
+    "name": "raxii",
+    "short_name": "raxii",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

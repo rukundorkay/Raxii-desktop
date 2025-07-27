@@ -1,4 +1,4 @@
-package com.example.raxii_desktop
+package com.example.raxii
 
 import io.flutter.embedding.android.FlutterActivity
 

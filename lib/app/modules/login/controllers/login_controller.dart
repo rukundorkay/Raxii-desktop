@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:raxii_desktop/app/core/services/auth_service.dart';
-import 'package:raxii_desktop/app/routes/app_pages.dart';
-import 'package:raxii_desktop/app/shared/toaster.dart';
+import 'package:raxii/app/core/services/auth_service.dart';
+import 'package:raxii/app/routes/app_pages.dart';
+import 'package:raxii/app/shared/toaster.dart';
 import 'package:toastification/toastification.dart';
 
 class LoginController extends GetxController {
@@ -53,7 +53,6 @@ class LoginController extends GetxController {
       }
     } catch (e) {
       toaster(
-        
         // ignore: use_build_context_synchronously
         context: context,
         title: "Error",
@@ -61,7 +60,6 @@ class LoginController extends GetxController {
             "Network error occurred. Please check your internet connection and try again.",
         type: ToastificationType.error,
         style: ToastificationStyle.flatColored,
-        
       );
     } finally {
       isLoading.value = false;

@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:raxii_desktop/app/shared/enum.dart';
+import 'package:raxii/app/shared/enum.dart';
 
 class SettingService extends GetxService {
   static SettingService get to => Get.find();

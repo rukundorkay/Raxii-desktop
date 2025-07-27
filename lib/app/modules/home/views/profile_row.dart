@@ -1,6 +1,5 @@
-
 import 'package:flutter/material.dart';
-import 'package:raxii_desktop/app/shared/size.dart';
+import 'package:raxii/app/shared/size.dart';
 
 class ProfileRow extends StatelessWidget {
   final IconData icon;

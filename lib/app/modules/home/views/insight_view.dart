@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:raxii_desktop/app/core/services/subscription_service.dart';
-import 'package:raxii_desktop/app/modules/home/views/insight_card.dart';
-import 'package:raxii_desktop/app/modules/home/views/insight_details.dart';
-import 'package:raxii_desktop/app/modules/home/views/receipt.dart';
-import 'package:raxii_desktop/app/shared/extension/dateTime.dart';
-import 'package:raxii_desktop/app/shared/extension/string.dart';
-import 'package:raxii_desktop/app/shared/size.dart';
+import 'package:raxii/app/core/services/subscription_service.dart';
+import 'package:raxii/app/modules/home/views/insight_card.dart';
+import 'package:raxii/app/modules/home/views/insight_details.dart';
+import 'package:raxii/app/modules/home/views/receipt.dart';
+import 'package:raxii/app/shared/extension/dateTime.dart';
+import 'package:raxii/app/shared/extension/string.dart';
+import 'package:raxii/app/shared/size.dart';
 
-import 'package:raxii_desktop/app/theme/app_colors.dart';
+import 'package:raxii/app/theme/app_colors.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class InsinghtView extends StatelessWidget {

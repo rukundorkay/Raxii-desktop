@@ -1,15 +1,15 @@
 import 'package:either_dart/either.dart';
 
 import 'package:get/get.dart';
-import 'package:raxii_desktop/app/core/services/auth_service.dart';
-import 'package:raxii_desktop/app/data/models/member.dart';
-import 'package:raxii_desktop/app/data/models/partner.dart';
-import 'package:raxii_desktop/app/data/models/plan.dart';
-import 'package:raxii_desktop/app/data/models/service.dart';
-import 'package:raxii_desktop/app/data/models/subscriptions.dart';
-import 'package:raxii_desktop/app/data/providers/plan_provider.dart';
+import 'package:raxii/app/core/services/auth_service.dart';
+import 'package:raxii/app/data/models/member.dart';
+import 'package:raxii/app/data/models/partner.dart';
+import 'package:raxii/app/data/models/plan.dart';
+import 'package:raxii/app/data/models/service.dart';
+import 'package:raxii/app/data/models/subscriptions.dart';
+import 'package:raxii/app/data/providers/plan_provider.dart';
 
-import 'package:raxii_desktop/app/shared/enum.dart';
+import 'package:raxii/app/shared/enum.dart';
 
 class PlanService extends GetxService {
   static PlanService get to => Get.find();

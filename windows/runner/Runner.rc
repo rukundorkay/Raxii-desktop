@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "raxii_desktop" "\0"
+            VALUE "FileDescription", "raxii" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "raxii_desktop" "\0"
+            VALUE "InternalName", "raxii" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2025 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "raxii_desktop.exe" "\0"
-            VALUE "ProductName", "raxii_desktop" "\0"
+            VALUE "OriginalFilename", "raxii.exe" "\0"
+            VALUE "ProductName", "raxii" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

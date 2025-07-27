@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
-import 'package:raxii_desktop/app/core/services/auth_service.dart';
-import 'package:raxii_desktop/app/data/models/partner.dart';
-import 'package:raxii_desktop/app/data/providers/partner_provider.dart';
+import 'package:raxii/app/core/services/auth_service.dart';
+import 'package:raxii/app/data/models/partner.dart';
+import 'package:raxii/app/data/providers/partner_provider.dart';
 
 class PartnerService extends GetxService {
   static PartnerService get to => Get.find();

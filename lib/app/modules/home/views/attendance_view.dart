@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:raxii_desktop/app/core/services/attandance_service.dart';
-import 'package:raxii_desktop/app/shared/extension/dateTime.dart';
-import 'package:raxii_desktop/app/shared/extension/string.dart';
-import 'package:raxii_desktop/app/shared/size.dart';
-import 'package:raxii_desktop/app/shared/widget/detail_tile.dart';
-import 'package:raxii_desktop/app/theme/app_colors.dart';
+import 'package:raxii/app/core/services/attandance_service.dart';
+import 'package:raxii/app/shared/extension/dateTime.dart';
+import 'package:raxii/app/shared/extension/string.dart';
+import 'package:raxii/app/shared/size.dart';
+import 'package:raxii/app/shared/widget/detail_tile.dart';
+import 'package:raxii/app/theme/app_colors.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 class AttendanceView extends StatelessWidget {

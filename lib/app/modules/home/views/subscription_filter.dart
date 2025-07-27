@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:raxii_desktop/app/modules/home/views/susbcription_duration_criteria.dart';
-import 'package:raxii_desktop/app/modules/home/views/susbcription_partner_criteria.dart';
-import 'package:raxii_desktop/app/modules/home/views/susbcription_service_criteria.dart';
-import 'package:raxii_desktop/app/shared/size.dart';
-import 'package:raxii_desktop/app/theme/app_colors.dart';
+import 'package:raxii/app/modules/home/views/susbcription_duration_criteria.dart';
+import 'package:raxii/app/modules/home/views/susbcription_partner_criteria.dart';
+import 'package:raxii/app/modules/home/views/susbcription_service_criteria.dart';
+import 'package:raxii/app/shared/size.dart';
+import 'package:raxii/app/theme/app_colors.dart';
 
 class SubscriptionFilter extends GetView {
   const SubscriptionFilter({super.key});

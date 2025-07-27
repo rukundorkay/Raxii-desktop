@@ -1,4 +1,4 @@
-import 'package:raxii_desktop/app/data/models/plan.dart';
+import 'package:raxii/app/data/models/plan.dart';
 
 class Subscription {
   DateTime? subscriptionEndDate;

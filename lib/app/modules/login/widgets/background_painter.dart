@@ -1,7 +1,7 @@
 import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:raxii_desktop/app/theme/app_colors.dart';
+import 'package:raxii/app/theme/app_colors.dart';
 
 class BackgroundPainter extends StatefulWidget {
   const BackgroundPainter({Key? key}) : super(key: key);
@@ -33,15 +33,15 @@ class _BackgroundPainterState extends State<BackgroundPainter>
       _dataLines.add(DataLine.generate(_random));
     }
 
-    _controller =
-        AnimationController(vsync: this, duration: const Duration(seconds: 1000))
-          ..addListener(() {
-            for (var p in _particles) {
-              p.update();
-            }
-            setState(() {});
-          })
-          ..repeat();
+    _controller = AnimationController(
+        vsync: this, duration: const Duration(seconds: 1000))
+      ..addListener(() {
+        for (var p in _particles) {
+          p.update();
+        }
+        setState(() {});
+      })
+      ..repeat();
   }
 
   @override
@@ -72,10 +72,12 @@ class DataLine {
 
   factory DataLine.generate(Random random) {
     final points = <Offset>[];
-    Offset current = Offset(random.nextDouble() * 1920, random.nextDouble() * 1080);
+    Offset current =
+        Offset(random.nextDouble() * 1920, random.nextDouble() * 1080);
     points.add(current);
     for (int i = 0; i < 10; i++) {
-      current += Offset(random.nextDouble() * 300 - 150, random.nextDouble() * 300 - 150);
+      current += Offset(
+          random.nextDouble() * 300 - 150, random.nextDouble() * 300 - 150);
       points.add(current);
     }
     return DataLine(points, random.nextDouble() * 3 + 1);
@@ -92,7 +94,8 @@ class Particle {
 
   factory Particle.random(Random random) {
     final pos = Offset(random.nextDouble() * 1920, random.nextDouble() * 1080);
-    final vel = Offset((random.nextDouble() - 0.5) * 2, (random.nextDouble() - 0.5) * 2);
+    final vel = Offset(
+        (random.nextDouble() - 0.5) * 2, (random.nextDouble() - 0.5) * 2);
     final size = random.nextDouble() * 3 + 2;
     final color = Color.fromARGB(
       150,
@@ -105,8 +108,12 @@ class Particle {
 
   void update() {
     position += velocity;
-    if (position.dx < 0 || position.dx > 1920 || position.dy < 0 || position.dy > 1080) {
-      position = Offset(Random().nextDouble() * 1920, Random().nextDouble() * 1080);
+    if (position.dx < 0 ||
+        position.dx > 1920 ||
+        position.dy < 0 ||
+        position.dy > 1080) {
+      position =
+          Offset(Random().nextDouble() * 1920, Random().nextDouble() * 1080);
     }
   }
 }
@@ -147,4 +154,4 @@ class RaxiiPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
-} 
+}

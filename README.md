@@ -1,4 +1,4 @@
-# raxii_desktop
+# raxii
 
 A new Flutter project.
 

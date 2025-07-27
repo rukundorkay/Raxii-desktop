@@ -1,5 +1,5 @@
-name: raxii_desktop
-description: "A new Flutter project."
+name: raxii
+description: "raxii for desktop"
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:raxii_desktop/app/theme/app_colors.dart';
+import 'package:raxii/app/theme/app_colors.dart';
 
 class AppTheme {
   static ThemeData get lightTheme {
     final textTheme = ThemeData.light().textTheme;
-    
+
     return ThemeData(
       useMaterial3: true,
       textTheme: textTheme.apply(

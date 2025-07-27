@@ -1,4 +1,4 @@
-import 'package:raxii_desktop/app/data/models/business_facility.dart';
+import 'package:raxii/app/data/models/business_facility.dart';
 
 class User {
   final String id;
@@ -117,4 +117,4 @@ UserRole roleFromString(String roleString) {
   return UserRole.values.firstWhere(
     (role) => role.name == roleString,
   );
-} 
+}
